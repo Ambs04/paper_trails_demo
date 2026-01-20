@@ -1,3 +1,4 @@
+import { Routes, Route } from "react-dom";
 import Home from "./Pages/Home";
 //import SignUp from "./Pages/SignUp";
 //import Login from "./Pages/Login";
@@ -5,10 +6,12 @@ import Home from "./Pages/Home";
 function App() {
   return (
     <>
-      {/*} <Header />
-      <Hero />
-      <SignUp />*/}
+      {/**/}
       <Home />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/SignUp" element={<SignUp />} />
+      </Routes>
     </>
   );
 }
