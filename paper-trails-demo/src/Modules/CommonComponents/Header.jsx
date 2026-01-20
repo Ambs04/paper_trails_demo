@@ -1,5 +1,6 @@
 import logo from "../../assets/logo.png";
 import profileImg from "../../assets/user.png";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -33,9 +34,11 @@ export default function Header() {
             alignSelf: "center",
           }}
         >
-          <button style={{ background: "white" }}>
-            <img src={profileImg} style={{ width: "100%" }} />
-          </button>
+          <Link to="/login">
+            <button style={{ background: "white" }}>
+              <img src={profileImg} style={{ width: "100%" }} />
+            </button>
+          </Link>
         </div>
       </div>
     </>

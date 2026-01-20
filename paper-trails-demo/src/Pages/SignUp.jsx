@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function SignUp() {
   return (
     <>
@@ -5,7 +7,9 @@ export default function SignUp() {
       <div>
         {/*close btn div*/}
         <div>
-          <button>X</button>
+          <Link to="/">
+            <button>X</button>
+          </Link>
         </div>
         {/*Heading for header div*/}
         <div>

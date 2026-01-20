@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Login() {
   return (
     <>
@@ -5,7 +7,9 @@ export default function Login() {
       <div>
         {/*div for close btn*/}
         <div>
-          <button>X</button>
+          <Link to="/">
+            <button>X</button>
+          </Link>
         </div>
         {/*div for heading*/}
         <div>
