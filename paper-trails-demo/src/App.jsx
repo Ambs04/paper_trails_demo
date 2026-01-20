@@ -1,7 +1,6 @@
-//import Header from "./Modules/CommonComponents/Header";
-//import Hero from "./Modules/ModuleComponents/Hero";
+import Home from "./Pages/Home";
 //import SignUp from "./Pages/SignUp";
-import Login from "./Pages/Login";
+//import Login from "./Pages/Login";
 
 function App() {
   return (
@@ -9,7 +8,7 @@ function App() {
       {/*} <Header />
       <Hero />
       <SignUp />*/}
-      <Login />
+      <Home />
     </>
   );
 }
