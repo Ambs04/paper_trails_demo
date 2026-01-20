@@ -59,7 +59,9 @@ export default function SignUp() {
           <input type="text" />
         </div>
         <input type="checkbox" />
-        <p>Accept the T&C's</p>
+        <p>
+          Accept the <a href="www.google.com">T&C's</a>
+        </p>
       </div>
       {/*div for buttons: sign up and cancel*/}
       <div>
