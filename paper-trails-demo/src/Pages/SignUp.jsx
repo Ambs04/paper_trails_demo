@@ -1,77 +1,131 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function SignUp() {
+  const [isBusiness, setIsBusiness] = useState(true);
+  const navigate = useNavigate();
+  const [passwords, setPasswords] = useState({
+    password: "",
+    confirmPassword: "",
+  });
+
+  const verification = (e) => {
+    const { name, value } = e.target;
+    setPasswords((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    navigate("/");
+    if (passwords.password !== passwords.confirmPassword) {
+      alert("Passwords do not match!");
+      navigate("/signup");
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
     <>
-      {/*main div for header*/}
-      <div>
-        {/*close btn div*/}
+      <form onSubmit={handleSignUp}>
         <div>
-          <Link to="/">
-            <button>X</button>
-          </Link>
+          {/*main div for header*/}
+          <div>
+            {/*close btn div*/}
+            <div>
+              <Link to="/">
+                <button>X</button>
+              </Link>
+            </div>
+            {/*Heading for header div*/}
+            <div>
+              <h1>REGISTRATION</h1>
+            </div>
+          </div>
+          {/*main div for main section*/}
+          <div>
+            {/*first name div*/}
+            <div>
+              <p>First name*</p>
+              <input type="text" required />
+            </div>
+            {/*last name div*/}
+            <div>
+              <p>Last name*</p>
+              <input type="text" required />
+            </div>
+            {/*email div*/}
+            <div>
+              <p>Email address*</p>
+              <input type="email" required />
+            </div>
+            {/*contact div*/}
+            <div>
+              <p>Contact details*</p>
+              <input type="text" required />
+            </div>
+            {/*question div: freelance or business*/}
+            <div>
+              <p>Is this a freelance account or a business account?*</p>
+              <br />
+              <label>
+                <input
+                  type="radio"
+                  name="account"
+                  onChange={() => setIsBusiness(false)}
+                />
+                Freelance
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  onChange={() => setIsBusiness(true)}
+                  name="account"
+                />
+                Business
+              </label>
+            </div>
+            {/*company name: if business then required*/}
+            <div>
+              <p>If for a business, insert Company name</p>
+              <input type="text" required={isBusiness} />
+            </div>
+            {/*password div*/}
+            <div>
+              <p>Password*</p>
+              <input
+                type="text"
+                name="password"
+                value={passwords.password}
+                onChange={verification}
+              />
+            </div>
+            {/*confirm password div*/}
+            <div>
+              <p>Confirm password*</p>
+              <input
+                type="text"
+                required
+                name="confirmPassword"
+                value={passwords.confirmPassword}
+                onChange={verification}
+              />
+            </div>
+            <input type="checkbox" required />
+            <p>
+              Accept the <a href="www.google.com">T&C's</a>
+            </p>
+          </div>
+          {/*div for buttons: sign up and cancel*/}
+          <div>
+            <button type="submit">Sign Up</button>
+
+            <Link to="/">
+              <button>Cancel</button>
+            </Link>
+          </div>
         </div>
-        {/*Heading for header div*/}
-        <div>
-          <h1>REGISTRATION</h1>
-        </div>
-      </div>
-      {/*main div for main section*/}
-      <div>
-        {/*first name div*/}
-        <div>
-          <p>First name</p>
-          <input type="text" />
-        </div>
-        {/*last name div*/}
-        <div>
-          <p>Last name</p>
-          <input type="text" />
-        </div>
-        {/*email div*/}
-        <div>
-          <p>Email address</p>
-          <input type="text" />
-        </div>
-        {/*contact div*/}
-        <div>
-          <p>Contact details</p>
-          <input type="number" />
-        </div>
-        {/*question div: freelance or business*/}
-        <div>
-          <p>Is this a freelance account or a business account?</p>
-          <br />
-          <input type="checkbox" />
-          <p>Freelance</p>
-          <input type="checkbox" />
-          <p>Business</p>
-        </div>
-        {/*company name: if business then required*/}
-        <div>
-          <p>If for a business, insert Company name</p>
-          <input type="text" />
-        </div>
-        {/*password div*/}
-        <div>
-          <p>Password</p>
-          <input type="text" />
-        </div>
-        {/*confirm password div*/}
-        <div>
-          <p>Confirm password</p>
-          <input type="text" />
-        </div>
-        <input type="checkbox" />
-        <p>
-          Accept the <a href="www.google.com">T&C's</a>
-        </p>
-      </div>
-      {/*div for buttons: sign up and cancel*/}
-      <div>
-        <button>Sign Up</button>
-        <button>Cancel</button>
-      </div>
+      </form>
     </>
   );
 }

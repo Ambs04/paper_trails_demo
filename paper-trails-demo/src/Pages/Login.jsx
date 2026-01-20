@@ -22,7 +22,7 @@ export default function Login() {
         {/*div for email*/}
         <div>
           <p>Email</p>
-          <input type="text" />
+          <input type="text" required />
         </div>
         {/*div for password*/}
         <div>
@@ -35,7 +35,9 @@ export default function Login() {
         {/*div for btns: login and cancel*/}
         <div>
           <button>LOGIN</button>
-          <button>CANCEL</button>
+          <Link to="/">
+            <button>CANCEL</button>
+          </Link>
         </div>
       </div>
     </>
