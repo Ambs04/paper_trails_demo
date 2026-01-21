@@ -32,8 +32,6 @@ export default function SignUp() {
       };
       localStorage.setItem("loggedInUser", JSON.stringify(userLoginData));
       localStorage.setItem("userGreeting", nameSurname);
-
-      navigate("/dashboard");
     }
   };
 
