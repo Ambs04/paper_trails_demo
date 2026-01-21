@@ -1,5 +1,5 @@
 export default function Greeting() {
-  const userGreeting = JSON.parse(localStorage.getItem("userNameSurname"));
+  const userGreeting = localStorage.getItem("userGreeting");
 
   return (
     <>

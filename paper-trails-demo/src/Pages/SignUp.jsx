@@ -21,20 +21,19 @@ export default function SignUp() {
       alert("Passwords do not match!");
       navigate("/signup");
     } else {
+      const nameInput = document.getElementById("firstName").value;
+      const surnameInput = document.getElementById("lastName").value;
+      const nameSurname = `${nameInput} ${surnameInput}`;
+
       const userEmail = e.target.elements.email.value;
       const userLoginData = {
         email: userEmail,
         password: passwords.password,
       };
       localStorage.setItem("loggedInUser", JSON.stringify(userLoginData));
-      navigate("/");
-      const userName = e.target.elements.userName.value;
-      const userSurname = e.target.elements.userSurname.value;
-      const userNameSurname = {
-        name: userName,
-        surname: userSurname,
-      };
-      localStorage.setItem("userNames", JSON.stringify(userNameSurname));
+      localStorage.setItem("userGreeting", nameSurname);
+
+      navigate("/dashboard");
     }
   };
 
@@ -60,12 +59,12 @@ export default function SignUp() {
             {/*first name div*/}
             <div>
               <p>First name*</p>
-              <input type="text" required name="userName" />
+              <input type="text" required id="firstName" />
             </div>
             {/*last name div*/}
             <div>
               <p>Last name*</p>
-              <input type="text" required name="userSurname" />
+              <input type="text" required id="lastName" />
             </div>
             {/*email div*/}
             <div>
