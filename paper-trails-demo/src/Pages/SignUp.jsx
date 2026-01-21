@@ -28,6 +28,13 @@ export default function SignUp() {
       };
       localStorage.setItem("loggedInUser", JSON.stringify(userLoginData));
       navigate("/");
+      const userName = e.target.elements.userName.value;
+      const userSurname = e.target.elements.userSurname.value;
+      const userNameSurname = {
+        name: userName,
+        surname: userSurname,
+      };
+      localStorage.setItem("userNames", JSON.stringify(userNameSurname));
     }
   };
 
@@ -53,12 +60,12 @@ export default function SignUp() {
             {/*first name div*/}
             <div>
               <p>First name*</p>
-              <input type="text" required />
+              <input type="text" required name="userName" />
             </div>
             {/*last name div*/}
             <div>
               <p>Last name*</p>
-              <input type="text" required />
+              <input type="text" required name="userSurname" />
             </div>
             {/*email div*/}
             <div>

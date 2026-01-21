@@ -13,7 +13,7 @@ export default function Login() {
       userLogin.password === user.password
     ) {
       alert("Login Successful");
-      navigate("/");
+      navigate("/Dashboard");
     } else {
       alert("No user date found. Please sign up and try again.");
       return;
