@@ -21,6 +21,12 @@ export default function SignUp() {
       alert("Passwords do not match!");
       navigate("/signup");
     } else {
+      const userEmail = e.target.elements.email.value;
+      const userLoginData = {
+        email: userEmail,
+        password: passwords.password,
+      };
+      localStorage.setItem("loggedInUser", JSON.stringify(userLoginData));
       navigate("/");
     }
   };
@@ -57,7 +63,7 @@ export default function SignUp() {
             {/*email div*/}
             <div>
               <p>Email address*</p>
-              <input type="email" required />
+              <input type="email" required name="email" />
             </div>
             {/*contact div*/}
             <div>
