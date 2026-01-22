@@ -1,18 +1,26 @@
 export default function DashFooter() {
-  <>
-    <div>
-      <div>
-        <p>DASH</p>
+  return (
+    <>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+        }}
+      >
+        <div style={{ display: "flex" }}>
+          <button>DASH</button>
+        </div>
+        <div style={{ display: "flex" }}>
+          <button>CUSTOMERS</button>
+        </div>
+        <div style={{ display: "flex" }}>
+          <button>SERVICES</button>
+        </div>
+        <div style={{ display: "flex" }}>
+          <button>USERS</button>
+        </div>
       </div>
-      <div>
-        <p>CUSTOMERS</p>
-      </div>
-      <div>
-        <p>SERVICES</p>
-      </div>
-      <div>
-        <p>USERS</p>
-      </div>
-    </div>
-  </>;
+    </>
+  );
 }
