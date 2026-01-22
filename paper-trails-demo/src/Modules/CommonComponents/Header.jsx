@@ -1,14 +1,13 @@
 import logo from "../../assets/logo.png";
 import profileImg from "../../assets/user.png";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Header() {
   const location = useLocation();
-  const nav = useNavigate();
+
   const currentHeading = location.pathname;
 
-  const currentPath =
-    location.pathname === "/Dashboard" ? "/profile" : "/login";
+  const currentPath = location.pathname === "/" ? "/login" : "/profile";
 
   const profilePage = location.pathname === "/profile";
 
@@ -26,7 +25,7 @@ export default function Header() {
       >
         {profilePage ? (
           <div>
-            <button onClick={() => nav("/Dashboard")}>X</button>
+            <button onClick={() => window.history.back()}>X</button>
           </div>
         ) : (
           <div
@@ -42,7 +41,7 @@ export default function Header() {
           </div>
         )}
         <div>
-          <h2>{currentHeading}</h2>
+          <h2>{currentHeading.replace("/", "")}</h2>
         </div>
         {!profilePage ? (
           <div
