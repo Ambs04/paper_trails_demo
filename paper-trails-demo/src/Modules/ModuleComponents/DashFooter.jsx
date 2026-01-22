@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function DashFooter() {
   return (
     <>
@@ -9,16 +11,24 @@ export default function DashFooter() {
         }}
       >
         <div style={{ display: "flex" }}>
-          <button>DASH</button>
+          <Link to="/dashboard">
+            <button>DASH</button>
+          </Link>
         </div>
         <div style={{ display: "flex" }}>
-          <button>CUSTOMERS</button>
+          <Link to="/customers">
+            <button>CUSTOMERS</button>
+          </Link>
         </div>
         <div style={{ display: "flex" }}>
-          <button>SERVICES</button>
+          <Link to="/products">
+            <button>PRODUCTS</button>
+          </Link>
         </div>
         <div style={{ display: "flex" }}>
-          <button>USERS</button>
+          <Link to="/users">
+            <button>USERS</button>
+          </Link>
         </div>
       </div>
     </>
