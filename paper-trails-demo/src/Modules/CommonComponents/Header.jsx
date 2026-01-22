@@ -1,8 +1,13 @@
 import logo from "../../assets/logo.png";
 import profileImg from "../../assets/user.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Header() {
+  const location = useLocation();
+
+  const currentPath =
+    location.pathname === "/Dashboard" ? "/profile" : "/login";
+
   return (
     <>
       <div
@@ -34,7 +39,7 @@ export default function Header() {
             alignSelf: "center",
           }}
         >
-          <Link to="/login">
+          <Link to={currentPath}>
             <button style={{ background: "white" }}>
               <img src={profileImg} style={{ width: "100%" }} />
             </button>

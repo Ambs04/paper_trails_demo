@@ -13,74 +13,102 @@ export default function Dashboard() {
       </h3>
       <h4>ACCOUNT TYPE</h4>
       <p></p>
-      <div>
+      <div style={{ display: "block" }}>
         <h4>INVOICES</h4>
-        <div>
-          <div>
+        <div
+          style={{
+            border: "1px solid black",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+          }}
+        >
+          <div style={{ display: "flex", border: "1px solid black" }}>
             <p></p>
             <br />
             <p>INVOICES SENT</p>
           </div>
-          <div>
+          <div style={{ display: "flex", border: "1px solid black" }}>
             <p></p>
             <br />
             <p>PAID</p>
           </div>
-          <div>
+          <div style={{ display: "flex", border: "1px solid black" }}>
             <p></p>
             <br />
             <p>UNPAID</p>
           </div>
         </div>
         <h4>CUSTOMERS</h4>
-        <div>
-          <div>
+        <div
+          style={{
+            border: "1px solid black",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+          }}
+        >
+          <div style={{ display: "flex", border: "1px solid black" }}>
             <p></p>
             <br />
             <p>COUNT</p>
           </div>
-          <div>
+          <div style={{ display: "flex", border: "1px solid black" }}>
             <p></p>
             <br />
             <p>ACTIVE</p>
           </div>
-          <div>
+          <div style={{ display: "flex", border: "1px solid black" }}>
             <p></p>
             <br />
             <p>INACTIVE</p>
           </div>
         </div>
         <h4>SERVICES & PRODUCTS</h4>
-        <div>
-          <div>
+        <div
+          style={{
+            border: "1px solid black",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+          }}
+        >
+          <div style={{ display: "flex", border: "1px solid black" }}>
             <p></p>
             <br />
             <p>COUNT</p>
           </div>
-          <div>
+          <div style={{ display: "flex", border: "1px solid black" }}>
             <p></p>
             <br />
             <p>AVAILABLE</p>
           </div>
-          <div>
+          <div style={{ display: "flex", border: "1px solid black" }}>
             <p></p>
             <br />
             <p>UNAVAILABLE</p>
           </div>
         </div>
         <h4>USERS</h4>
-        <div>
-          <div>
+        <div
+          style={{
+            border: "1px solid black",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+          }}
+        >
+          <div style={{ display: "flex", border: "1px solid black" }}>
             <p></p>
             <br />
             <p>COUNT</p>
           </div>
-          <div>
+          <div style={{ display: "flex", border: "1px solid black" }}>
             <p></p>
             <br />
             <p>ACTIVE</p>
           </div>
-          <div>
+          <div style={{ display: "flex", border: "1px solid black" }}>
             <p></p>
             <br />
             <p>INACTIVE</p>
