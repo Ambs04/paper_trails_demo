@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 export default function Header() {
   const location = useLocation();
   const nav = useNavigate();
+  const currentHeading = location.pathname;
 
   const currentPath =
     location.pathname === "/Dashboard" ? "/profile" : "/login";
@@ -41,7 +42,7 @@ export default function Header() {
           </div>
         )}
         <div>
-          <h2></h2>
+          <h2>{currentHeading}</h2>
         </div>
         {!profilePage ? (
           <div
