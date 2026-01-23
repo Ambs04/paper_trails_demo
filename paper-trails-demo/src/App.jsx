@@ -7,6 +7,9 @@ import Profile from "./Pages/Profile";
 import Customers from "./Pages/Customers";
 import Products from "./Pages/Products";
 import Users from "./Pages/Users";
+import NewCustomer from "./Pages/NewCustomer";
+import AddNewProd from "./Pages/AddNewProd";
+import AddUser from "./Pages/AddUser";
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
         <Route path="/customers" element={<Customers />} />
         <Route path="/products" element={<Products />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/add-customer" element={<NewCustomer />} />
+        <Route path="/add-product" element={<AddNewProd />} />
+        <Route path="/add-user" element={<AddUser />} />
       </Routes>
     </>
   );
