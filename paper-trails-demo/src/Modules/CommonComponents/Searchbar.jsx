@@ -3,7 +3,10 @@ export default function Searchbar() {
     <>
       <div>
         <div>
-          <input type="text" style={{ border: "1px solid black" }} />
+          <input
+            type="text"
+            style={{ border: "1px solid black", borderRadius: "20px" }}
+          />
         </div>
       </div>
     </>

@@ -1,5 +1,6 @@
 import Header from "../Modules/CommonComponents/Header";
 import DashFooter from "../Modules/ModuleComponents/DashFooter";
+import Searchbar from "../Modules/CommonComponents/Searchbar";
 
 export default function Products() {
   return (
@@ -7,7 +8,12 @@ export default function Products() {
       <div>
         <Header />
       </div>
-      <h1>hello</h1>
+      <div>
+        <Searchbar />
+        <div>
+          <button>+</button>
+        </div>
+      </div>
       <div>
         <DashFooter />
       </div>

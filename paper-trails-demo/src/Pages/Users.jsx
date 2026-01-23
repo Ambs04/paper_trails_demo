@@ -1,4 +1,5 @@
 import Header from "../Modules/CommonComponents/Header";
+import Searchbar from "../Modules/CommonComponents/Searchbar";
 import DashFooter from "../Modules/ModuleComponents/DashFooter";
 
 export default function Users() {
@@ -7,7 +8,12 @@ export default function Users() {
       <div>
         <Header />
       </div>
-      <h1>hello</h1>
+      <div>
+        <Searchbar />
+        <div>
+          <button>+</button>
+        </div>
+      </div>
       <div>
         <DashFooter />
       </div>
