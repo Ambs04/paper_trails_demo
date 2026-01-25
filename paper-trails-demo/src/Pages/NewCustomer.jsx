@@ -18,72 +18,98 @@ export default function NewCustomer() {
       <div>
         {/*company/person name */}
         <div>
-          <p></p>
-          <input />
+          <p>Company Name / Person Name:</p>
+          <input name="customerName" />
         </div>
         {/*contact name */}
         <div>
-          <p></p>
-          <input />
+          <p>Contact person name:</p>
+          <input name="managerName" />
         </div>
         {/*email */}
         <div>
-          <p></p>
-          <input />
+          <p>Email:</p>
+          <input
+            name="customerEmail"
+            type="email"
+            placeholder="james@email.com"
+          />
         </div>
         {/* phone number*/}
         <div>
-          <p></p>
-          <input />
+          <p>Phone:</p>
+          <input name="customerPhone" placeholder="078 888 8888" />
         </div>
         {/*address */}
         <div>
-          <p></p>
-          <input />
+          <p>Address:</p>
+          <input type="text" />
         </div>
         {/*code */}
         <div>
-          <p></p>
-          <input />
+          <p>Code:</p>
+          <input name="customerCode" placeholder="12346789" />
         </div>
         {/*payment terms */}
         <div>
+          <p>PAYMENT TETMS</p>
           {/* 30 days*/}
           <div>
-            <p></p>
-            <input />
+            <label>
+              30 days
+              <input type="radio" />
+            </label>
           </div>
           {/*14 days */}
 
           <div>
-            <p></p>
-            <input />
+            <label>
+              14 days
+              <input type="radio" />
+            </label>
           </div>
           {/* 7 days*/}
 
           <div>
-            <p></p>
-            <input />
+            <label>
+              7 days
+              <input type="radio" />
+            </label>
           </div>
           {/* Cash on delivery*/}
 
           <div>
-            <p></p>
-            <input />
+            <label>
+              cash on delivery
+              <input type="radio" />
+            </label>
           </div>
         </div>
         {/*account status */}
         <div>
+          <p>ACCOUNT STATUS</p>
           {/*active */}
           <div>
-            <p></p>
-            <input />
+            <label>
+              active
+              <input type="radio" />
+            </label>
           </div>
           {/*inactive */}
           <div>
-            <p></p>
-            <input />
+            <label>
+              inactive
+              <input type="radio" />
+            </label>
           </div>
+        </div>
+        <div>
+          <div>
+            <button>SUBMIT</button>
+          </div>
+        </div>
+        <div>
+          <button>CANCEL</button>
         </div>
       </div>
     </>

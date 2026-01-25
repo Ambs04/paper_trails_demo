@@ -3,13 +3,12 @@ import { useState } from "react";
 import { baseUrl } from "../api";
 
 export default function AddNewProd() {
-  const [prodStatus, setProdStatus] = useState(true);
   const nav = useNavigate();
   const [prodData, setProdData] = useState({
     prodName: "",
     prodDesc: "",
     prodPrice: "",
-    status: prodStatus === true ? "Active" : "Inactive",
+    status: "active",
   });
 
   const handleAddProd = (e) => {
@@ -26,6 +25,10 @@ export default function AddNewProd() {
     try {
       const res = await fetch(`${baseUrl}/productServices`, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(prodData),
       });
       if (res.ok) {
         alert("Successfully added product!");
@@ -86,13 +89,9 @@ export default function AddNewProd() {
             value={prodData.status}
             onChange={handleAddProd}
           >
-            <option value="active" onChange={() => setProdStatus(true)}>
-              Active
-            </option>
+            <option value="active">Active</option>
 
-            <option value="inactive" onChange={() => setProdStatus(false)}>
-              Inactive
-            </option>
+            <option value="inactive">Inactive</option>
           </select>
           <div>
             <button type="submit">SUBMIT</button>
