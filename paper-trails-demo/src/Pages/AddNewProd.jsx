@@ -29,6 +29,9 @@ export default function AddNewProd() {
       description: prodData.prodDesc,
       price: prodData.prodPrice,
       status: prodData.status,
+      companyName: localStorage.getItem("companyName"),
+      companyId: localStorage.getItem("companyId"),
+      dateCreated: new Date().toDateString(),
     };
 
     try {
