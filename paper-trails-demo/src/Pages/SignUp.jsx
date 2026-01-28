@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { baseUrl } from "../api";
 
 export default function SignUp() {
   const [isBusiness, setIsBusiness] = useState(true);
@@ -14,13 +15,18 @@ export default function SignUp() {
     setPasswords((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    navigate("/");
+
+    {
+      /* navigate("/");*/
+    }
     if (passwords.password !== passwords.confirmPassword) {
       alert("Passwords do not match!");
       navigate("/signup");
-    } else {
+    }
+    {
+      /*else {
       const nameInput = document.getElementById("firstName").value;
       const surnameInput = document.getElementById("lastName").value;
       const nameSurname = `${nameInput} ${surnameInput}`;
@@ -32,6 +38,60 @@ export default function SignUp() {
       };
       localStorage.setItem("loggedInUser", JSON.stringify(userLoginData));
       localStorage.setItem("userGreeting", nameSurname);
+    }*/
+    }
+
+    const nameInput = document.getElementById("firstName").value;
+    const surnameInput = document.getElementById("lastName").value;
+
+    const userEmail = document.getElementById("emailInput").value;
+    const cellNum = document.getElementById("cellInput").value;
+    const companyName =
+      document.getElementById("companyName").value || "Freelance";
+
+    const signInInfo = {
+      firstName: nameInput,
+      lastName: surnameInput,
+      cellNumber: cellNum,
+      email: userEmail,
+      password: passwords.password,
+      companyName: companyName,
+      businessType: isBusiness ? "business" : "retail",
+      acceptedTandC: true,
+      dateCreated: new Date().toDateString(),
+    };
+
+    console.log(signInInfo);
+
+    try {
+      const res = await fetch(`${baseUrl}/user/reg`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(signInInfo),
+      });
+      if (res.ok) {
+        {
+          /* localStorage.setItem("companyId", data.companyId);*/
+        }
+
+        {
+          /*if (data.companyId) {
+          localStorage.setItem("companyId", data.companyId);
+        }*/
+        }
+
+        alert(`Sign Up successful! You can now login.`);
+
+        navigate("/login");
+      } else {
+        const data = await res.json();
+        console.log(data);
+
+        navigate("/signup");
+      }
+    } catch (error) {
+      (console.error("Error:", error),
+        alert("Server is currently unavailable."));
     }
   };
 
@@ -67,12 +127,12 @@ export default function SignUp() {
             {/*email div*/}
             <div>
               <p>Email address*</p>
-              <input type="email" required name="email" />
+              <input type="email" required id="emailInput" />
             </div>
             {/*contact div*/}
             <div>
               <p>Contact details*</p>
-              <input type="text" required />
+              <input type="text" required id="cellInput" />
             </div>
             {/*question div: freelance or business*/}
             <div>
@@ -98,13 +158,18 @@ export default function SignUp() {
             {/*company name: if business then required*/}
             <div>
               <p>If for a business, insert Company name</p>
-              <input type="text" required={isBusiness} />
+              <input
+                type="text"
+                required={isBusiness}
+                id="companyName"
+                name="companyName"
+              />
             </div>
             {/*password div*/}
             <div>
-              <p>Password*</p>
+              <p>Password* (min 8 characters)</p>
               <input
-                type="text"
+                type="password"
                 name="password"
                 value={passwords.password}
                 onChange={verification}
@@ -114,7 +179,7 @@ export default function SignUp() {
             <div>
               <p>Confirm password*</p>
               <input
-                type="text"
+                type="password"
                 required
                 name="confirmPassword"
                 value={passwords.confirmPassword}

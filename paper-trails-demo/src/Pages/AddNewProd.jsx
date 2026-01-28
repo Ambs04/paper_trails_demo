@@ -1,17 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+
 import { baseUrl } from "../api";
 
 export default function AddNewProd() {
   const nav = useNavigate();
+
   const [prodData, setProdData] = useState({
     prodName: "",
     prodDesc: "",
-    prodPrice: "",
+    prodPrice: " ",
     status: "active",
   });
 
-  const handleAddProd = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setProdData((prev) => ({
       ...prev,
@@ -22,19 +24,32 @@ export default function AddNewProd() {
   const handleProdSubmit = async (e) => {
     e.preventDefault();
 
+    const fetchInfo = {
+      productOrServiceName: prodData.prodName,
+      description: prodData.prodDesc,
+      price: prodData.prodPrice,
+      status: prodData.status,
+    };
+
     try {
-      const res = await fetch(`${baseUrl}/productServices`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `${baseUrl}/productServices/createProductService`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(fetchInfo),
         },
-        body: JSON.stringify(prodData),
-      });
+      );
+
       if (res.ok) {
         alert("Successfully added product!");
         nav("/products");
       } else {
-        alert("Failed to add product.");
+        const err = await res.json();
+
+        alert(`Failed to add product, error: ${err.message}`);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -57,9 +72,10 @@ export default function AddNewProd() {
           <p>Service/Product Name</p>
           <input
             name="prodName"
+            value={prodData.prodName}
             placeholder="e.g clean"
             type="text"
-            onChange={handleAddProd}
+            onChange={handleChange}
             required
           />
         </div>
@@ -67,28 +83,26 @@ export default function AddNewProd() {
           <p>Description</p>
           <input
             name="prodDesc"
+            value={prodData.prodDesc}
             placeholder="e.g cleaning workplace"
             type="text"
-            onChange={handleAddProd}
+            onChange={handleChange}
           />
         </div>
         <div>
           <p>Price: R</p>
           <input
             name="prodPrice"
+            value={prodData.prodPrice}
             placeholder="150"
             type="text"
-            onChange={handleAddProd}
+            onChange={handleChange}
             required
           />
         </div>
         <div>
           <h2>STATUS</h2>
-          <select
-            name="status"
-            value={prodData.status}
-            onChange={handleAddProd}
-          >
+          <select name="status" value={prodData.status} onChange={handleChange}>
             <option value="active">Active</option>
 
             <option value="inactive">Inactive</option>
