@@ -5,9 +5,18 @@ import DashFooter from "../Modules/ModuleComponents/DashFooter";
 import { baseUrl } from "../api";
 
 export default function Users() {
-  fetch(`${baseUrl}/user`)
-    .then((res) => res.json())
-    .then((data) => console.log(data));
+  useEffect(()=> {
+    const fetchUsers = async () => {
+      try{
+        const res = fetch(`${baseUrl}/users/getAllUsers`, {
+          method: 'POST',
+          headers:{
+            'Con'
+          }
+        })
+      }
+}})
+   
   return (
     <>
       <div>
@@ -21,7 +30,30 @@ export default function Users() {
           </Link>
         </div>
       </div>
-      <div></div>
+
+      <div>
+        {/*first name */}
+        <div>
+          <p>Name:</p>
+          <input name="userName" />
+        </div>
+
+        {/*email */}
+        <div>
+          <p>Email:</p>
+          <input name="userEmail" type="email" placeholder="james@email.com" />
+        </div>
+        {/* phone number*/}
+        <div>
+          <p>Phone:</p>
+          <input name="userPhone" placeholder="078 888 8888" />
+        </div>
+        {/*status*/}
+        <div>
+          <p>Status</p>
+          <input name="status" />
+        </div>
+      </div>
       <div>
         <DashFooter />
       </div>
