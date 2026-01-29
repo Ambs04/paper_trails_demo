@@ -36,7 +36,7 @@ export default function Products() {
       }
     };
     fetchProds();
-  }, []);
+  });
 
   const handleChange = (e) => {
     setProdInfo({ ...prodInfo, [e.target.name]: e.target.value });
@@ -93,6 +93,41 @@ export default function Products() {
     }
   };
 
+  {
+    /*const handleDelete = async () => {
+    const confirmDeletion = window.confirm(
+      "Are you sure you want to delete this item?",
+    );
+
+    if (confirmDeletion) {
+      try {
+        const res = await fetch(
+          `${baseUrl}/productServices/updateProductService`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              productId: selectedProd.id || selectedProd._id,
+              companyId: localStorage.getItem("companyId"),
+              status: "deleted",
+            }),
+          }
+        );
+
+        if (res.ok) {
+          alert("Product/Service removed successfully.");
+          setIsModalActive(false);
+          setSelectedProd(null);
+        }
+      } catch (error) {
+        alert("Deletion failed", error);
+      }
+    }
+  };*/
+  }
+
   return (
     <>
       <div>
@@ -141,6 +176,9 @@ export default function Products() {
         <div>
           <form onSubmit={handleUpdate}>
             <div>
+              <button onClick={() => setIsModalActive(false)}>X</button>
+            </div>
+            <div>
               <h1>UPDATE PRODUCT / SERVICE</h1>
             </div>
             <div>
@@ -183,9 +221,14 @@ export default function Products() {
             </div>
             <div>
               <button type="submit">{selectedProd ? "Update" : "Save"}</button>
-              <button type="button" onClick={() => setIsModalActive(false)}>
-                Cancel
-              </button>
+              {/* <button
+                type="button"
+                onClick={() => {
+                  handleDelete();
+                }}
+              >
+                Delete
+              </button>*/}
             </div>
           </form>
         </div>
