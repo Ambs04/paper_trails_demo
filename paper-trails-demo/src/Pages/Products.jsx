@@ -7,6 +7,15 @@ import { useState, useEffect } from "react";
 
 export default function Products() {
   const [prods, setProds] = useState([]);
+  const [isModalActive, setIsModalActive] = useState(false);
+  const [selectedProd, setSelectedProd] = useState(null);
+
+  const [prodInfo, setProdInfo] = useState({
+    prodName: "",
+    prodDesc: "",
+    prodPrice: " ",
+    status: "active",
+  });
 
   useEffect(() => {
     const fetchProds = async () => {
@@ -28,6 +37,61 @@ export default function Products() {
     };
     fetchProds();
   }, []);
+
+  const handleChange = (e) => {
+    setProdInfo({ ...prodInfo, [e.target.name]: e.target.value });
+  };
+
+  const handleEditModalOpen = (product) => {
+    setSelectedProd(product);
+    setProdInfo({
+      prodName: product.productOrServiceName,
+      prodDesc: product.description,
+      prodPrice: product.price,
+      status: product.status,
+    });
+    setIsModalActive(true);
+  };
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    const editing = selectedProd !== null;
+
+    const updatedInfo = {
+      productOrServiceName: prodInfo.prodName,
+      description: prodInfo.prodDesc,
+      price: prodInfo.prodPrice,
+      status: prodInfo.status,
+      companyId: localStorage.getItem("companyId"),
+      ...(editing && {
+        productId: selectedProd.id || selectedProd._id,
+        edited: true,
+        edistedBy: localStorage.getItem("userId"),
+      }),
+    };
+
+    const path = editing ? "updateProductService" : "createProductService";
+
+    try {
+      const res = await fetch(`${baseUrl}/productServices/${path}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedInfo),
+      });
+
+      if (res.ok) {
+        alert(
+          path === "updateProductService" ? "Product updated" : "Product Added",
+        );
+        setIsModalActive(false);
+        setSelectedProd(null);
+      }
+    } catch (error) {
+      alert("Update failed", error);
+    }
+  };
 
   return (
     <>
@@ -51,6 +115,9 @@ export default function Products() {
             <div
               key={product.id || product._id}
               style={{ border: "1px solid black" }}
+              onClick={() => {
+                handleEditModalOpen(product);
+              }}
             >
               <div>
                 <h3>Product / Service</h3>
@@ -67,6 +134,60 @@ export default function Products() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {isModalActive && (
+        <div>
+          <form onSubmit={handleUpdate}>
+            <div>
+              <h1>UPDATE PRODUCT / SERVICE</h1>
+            </div>
+            <div>
+              <p>Service/Product Name</p>
+              <input
+                required
+                name="prodName"
+                value={prodInfo.prodName}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <p>Description</p>
+              <input
+                name="prodDesc"
+                value={prodInfo.prodDesc}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <p>Price: R</p>
+              <input
+                required
+                name="prodPrice"
+                value={prodInfo.prodPrice}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <h2>STATUS</h2>
+              <select
+                name="status"
+                value={prodInfo.status}
+                onChange={handleChange}
+              >
+                <option value="active">Active</option>
+
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
+            <div>
+              <button type="submit">{selectedProd ? "Update" : "Save"}</button>
+              <button type="button" onClick={() => setIsModalActive(false)}>
+                Cancel
+              </button>
+            </div>
+          </form>
         </div>
       )}
 

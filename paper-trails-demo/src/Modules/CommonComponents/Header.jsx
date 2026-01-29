@@ -41,7 +41,7 @@ export default function Header() {
           </div>
         )}
         <div>
-          <h2>{currentHeading.replace("/", "")}</h2>
+          <h3 id="header-heading">{currentHeading.replace("/", "")}</h3>
         </div>
         {!profilePage ? (
           <div

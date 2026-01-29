@@ -68,7 +68,7 @@ export default function AddNewProd() {
             <button>X</button>
           </Link>
         </div>
-        <h1>add new product/service</h1>
+        <h1> add new product/service</h1>
       </div>
       <form onSubmit={handleProdSubmit}>
         <div>
