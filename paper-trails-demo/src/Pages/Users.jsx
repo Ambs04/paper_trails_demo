@@ -15,22 +15,26 @@ export default function Users() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = fetch(`${baseUrl}/users/getAllUsers`, {
+        const res = await fetch(`${baseUrl}/users/getComapnyAllCustomers`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({
+            companyId: localStorage.getItem("companyId"),
+          }),
         });
         const data = await res.json();
+        console.log(data);
         if (res.ok) {
-          setNewUser(data.newUser);
+          setNewUser(data.users);
         }
       } catch (error) {
         console.error("Error:", error);
       }
     };
     fetchUsers();
-  });
+  }, []);
 
   return (
     <>
@@ -56,7 +60,7 @@ export default function Users() {
                 <p>Name:</p>
                 <br />
                 <p>
-                  {newUser.firstName} {newUser.lastName}
+                  {user.firstName} {user.lastName}
                 </p>
               </div>
 
@@ -64,19 +68,19 @@ export default function Users() {
               <div>
                 <p>Email:</p>
                 <br />
-                <p>{newUser.email}</p>
+                <p>{user.email}</p>
               </div>
               {/* phone number*/}
               <div>
                 <p>Phone:</p>
                 <br />
-                <p>{newUser.cellNumber}</p>
+                <p>{user.cellNumber}</p>
               </div>
               {/*status*/}
               <div>
                 <p>Status</p>
                 <br />
-                <p>{newUser.status}</p>
+                <p>{user.status}</p>
               </div>
             </div>
           ))}

@@ -25,9 +25,10 @@ export default function AddUser() {
       lastName: userInfo.lastName,
       cellNumber: userInfo.cell,
       email: userInfo.email,
+      address: userInfo.address || "N/A",
       password: userInfo.password,
       companyId: localStorage.getItem("companyId"),
-      createdDate: new Date().toDateString(),
+      dateCreated: new Date().toDateString(),
     };
     try {
       const res = await fetch(`${baseUrl}/user/uploadUser`, {
@@ -36,10 +37,10 @@ export default function AddUser() {
         body: JSON.stringify(userFetchInfo),
       });
 
-      console.log(res);
+      console.log(userFetchInfo);
       if (res.ok) {
         alert("User successfully added!");
-        navigate("/add-user");
+        navigate("/users");
       } else {
         alert("Failed to add user. Please try again later.");
       }
@@ -62,20 +63,15 @@ export default function AddUser() {
         <h3>BASIC ACCOUNT INFORMATION</h3>
       </div>
       {/*form section*/}
-      <form
-        onSubmit={() => {
-          handleAddUser;
-        }}
-      >
+      <form onSubmit={handleAddUser}>
         {/*first name */}
         <div>
           <p>First Name:</p>
           <input
             name="firstName"
             value={userInfo.firstName}
-            onChange={() => {
-              handleChange;
-            }}
+            onChange={handleChange}
+            required
           />
         </div>
         {/*last name */}
@@ -84,9 +80,8 @@ export default function AddUser() {
           <input
             name="lastName"
             value={userInfo.lastName}
-            onChange={() => {
-              handleChange;
-            }}
+            onChange={handleChange}
+            required
           />
         </div>
         {/*email */}
@@ -97,9 +92,8 @@ export default function AddUser() {
             type="email"
             placeholder="james@email.com"
             value={userInfo.email}
-            onChange={() => {
-              handleChange;
-            }}
+            onChange={handleChange}
+            required
           />
         </div>
         {/* phone number*/}
@@ -109,33 +103,31 @@ export default function AddUser() {
             name="cell"
             placeholder="078 888 8888"
             value={userInfo.cell}
-            onChange={() => {
-              handleChange;
-            }}
+            onChange={handleChange}
+            required
           />
         </div>
         <div>
           <p>Password: (min 8 characters)</p>
           <input
-            type="text"
+            type="password"
             name="password"
             placeholder="124578"
             value={userInfo.password}
-            onChange={() => {
-              handleChange;
-            }}
+            onChange={handleChange}
+            required
           />
         </div>
         <div>
           <p>Confirm Password:</p>
-          <input type="text" placeholder="124578" />
+          <input type="password" placeholder="124578" required />
         </div>
         <div>
           <div>
             <button>SUBMIT</button>
           </div>
           <div>
-            <button>CANCEL</button>
+            <button onClick={() => navigate("/users")}>CANCEL</button>
           </div>
         </div>
       </form>
