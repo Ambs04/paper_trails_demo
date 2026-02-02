@@ -8,9 +8,9 @@ export default function Profile() {
         <Header />
       </div>
       <div>
-        <h3>
+        <h1>
           <Greeting />
-        </h3>
+        </h1>
       </div>
       <div>
         <p>Subscription plan</p>

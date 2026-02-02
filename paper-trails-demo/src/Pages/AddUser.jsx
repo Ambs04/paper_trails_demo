@@ -11,6 +11,7 @@ export default function AddUser() {
     email: "",
     password: "",
     status: "active",
+    address: "",
   });
 
   const handleChange = (e) => {
@@ -27,8 +28,10 @@ export default function AddUser() {
       email: userInfo.email,
       address: userInfo.address || "N/A",
       password: userInfo.password,
+      accountStatus: userInfo.status,
       companyId: localStorage.getItem("companyId"),
       dateCreated: new Date().toDateString(),
+      companyName: localStorage.getItem("companyName") || "Default",
     };
     try {
       const res = await fetch(`${baseUrl}/user/uploadUser`, {
@@ -37,12 +40,16 @@ export default function AddUser() {
         body: JSON.stringify(userFetchInfo),
       });
 
+      const dataErr = await res.json();
+
       console.log(userFetchInfo);
       if (res.ok) {
         alert("User successfully added!");
         navigate("/users");
       } else {
-        alert("Failed to add user. Please try again later.");
+        console.log(dataErr.message);
+
+        alert(`Failed to add user. Please try again later. ${dataErr}`);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -96,6 +103,14 @@ export default function AddUser() {
             required
           />
         </div>
+        <div>
+          <p>Physical Address</p>
+          <input
+            name="address"
+            value={userInfo.address}
+            onChange={handleChange}
+          />
+        </div>
         {/* phone number*/}
         <div>
           <p>Phone:</p>
@@ -115,6 +130,7 @@ export default function AddUser() {
             placeholder="124578"
             value={userInfo.password}
             onChange={handleChange}
+            minLength="8"
             required
           />
         </div>

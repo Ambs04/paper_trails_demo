@@ -179,7 +179,7 @@ export default function Products() {
               <button onClick={() => setIsModalActive(false)}>X</button>
             </div>
             <div>
-              <h1>UPDATE PRODUCT / SERVICE</h1>
+              <h3>UPDATE PRODUCT / SERVICE</h3>
             </div>
             <div>
               <p>Service/Product Name</p>

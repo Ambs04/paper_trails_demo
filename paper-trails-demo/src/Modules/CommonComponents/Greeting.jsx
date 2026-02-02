@@ -1,9 +1,12 @@
 export default function Greeting() {
-  const userGreeting = localStorage.getItem("userGreeting");
+  const userGreeting = localStorage.getItem("userGreeting").toUpperCase();
 
   return (
     <>
-      <h1>Welcome {userGreeting}</h1>
+      <p>
+        Welcome <br />
+        {userGreeting}
+      </p>
     </>
   );
 }

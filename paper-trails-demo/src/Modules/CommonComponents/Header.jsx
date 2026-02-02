@@ -16,8 +16,8 @@ export default function Header() {
       <div
         style={{
           borderBottom: "2px solid black",
-          width: "100%",
-          height: "30%",
+          width: "375px",
+          height: "150pxv",
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
@@ -31,30 +31,50 @@ export default function Header() {
           <div
             style={{
               display: "flex",
-              width: "250px",
+              width: "170px",
               marginLeft: "0px",
               marginBottom: "0px",
               marginTop: "0px,",
+              justifyContent: "space-between",
+              objectFit: "cover",
             }}
           >
             <img src={logo} style={{ width: "100%" }} />
           </div>
         )}
-        <div>
-          <h3 id="header-heading">{currentHeading.replace("/", "")}</h3>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignSelf: "center",
+            justifySelf: "flex-start",
+          }}
+        >
+          <h3 id="header-heading">
+            {currentHeading.replace("/", "").toUpperCase()}
+          </h3>
         </div>
         {!profilePage ? (
           <div
             style={{
               display: "flex",
-              width: "100px",
+              flexDirection: "row",
+              width: "50px",
               height: "100px",
-              alignSelf: "center",
+              alignItems: "center",
+
+              padding: "30px",
             }}
           >
             <Link to={currentPath}>
               <button style={{ background: "white" }}>
-                <img src={profileImg} style={{ width: "100%" }} />
+                <img
+                  src={profileImg}
+                  style={{
+                    width: "100%",
+                    marginTop: "0px",
+                  }}
+                />
               </button>
             </Link>
           </div>
@@ -65,6 +85,7 @@ export default function Header() {
               width: "150px",
               height: "150px",
               alignSelf: "center",
+              marginLeft: "50px",
             }}
           >
             <img src={logo} style={{ width: "100%" }} />
