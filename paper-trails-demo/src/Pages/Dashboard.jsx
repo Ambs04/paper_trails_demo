@@ -3,6 +3,7 @@ import Header from "../Modules/CommonComponents/Header";
 import DashFooter from "../Modules/ModuleComponents/DashFooter";
 
 export default function Dashboard() {
+  const currentPlan = localStorage.getItem("subscriptionType") || "FREE";
   return (
     <>
       <div>
@@ -12,7 +13,7 @@ export default function Dashboard() {
         <Greeting />
       </h3>
       <h4>ACCOUNT TYPE</h4>
-      <p></p>
+      <p>{currentPlan}</p>
       <div style={{ display: "block" }}>
         <h4>INVOICES</h4>
         <div

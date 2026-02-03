@@ -22,8 +22,6 @@ export default function Profile() {
     accountName: "",
   });
 
-  console.log(profileInfo);
-
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
     setProfileInfo((prev) => ({ ...prev, [name]: value }));
@@ -47,6 +45,7 @@ export default function Profile() {
 
     const data = await res.json();
     if (res.ok) {
+      localStorage.setItem("subscriptionType", profileInfo.subscriptionType);
       alert("Profile successfully updated!");
       console.log(data);
       console.log(profileInfo);
@@ -55,21 +54,42 @@ export default function Profile() {
 
   return (
     <>
+      <div>
+        <Header />
+      </div>
+      <div>
+        <h1>
+          <Greeting />
+        </h1>
+      </div>
       <form onSubmit={handleProfileUpdate}>
-        <div>
-          <Header />
-        </div>
-        <div>
-          <h1>
-            <Greeting />
-          </h1>
-        </div>
         <div>
           <p>Subscription plan</p>
           <div>
-            <button>FREE PLAN</button>
-            <button>SMALL PLAN</button>
-            <button>BIG PLAN</button>
+            <button
+              type="button"
+              onClick={() =>
+                setProfileInfo({ ...profileInfo, subscriptionType: "free" })
+              }
+            >
+              FREE PLAN
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                setProfileInfo({ ...profileInfo, subscriptionType: "small" })
+              }
+            >
+              SMALL PLAN
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                setProfileInfo({ ...profileInfo, subscriptionType: "big" })
+              }
+            >
+              BIG PLAN
+            </button>
           </div>
         </div>
         <div>
@@ -245,7 +265,7 @@ export default function Profile() {
         </div>
         <div>
           <button type="submit">UPDATE</button>
-          <button>REQUEST SUPPORT</button>
+          <button type="button">REQUEST SUPPORT</button>
         </div>
       </form>
     </>
