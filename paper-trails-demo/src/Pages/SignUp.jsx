@@ -69,16 +69,15 @@ export default function SignUp() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(signInInfo),
       });
-      if (res.ok) {
-        {
-          /* localStorage.setItem("companyId", data.companyId);*/
-        }
 
-        {
-          /*if (data.companyId) {
-          localStorage.setItem("companyId", data.companyId);
-        }*/
-        }
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem("firstName", signInInfo.firstName);
+        localStorage.setItem("lastName", signInInfo.lastName);
+        localStorage.setItem("cellNumber", signInInfo.cellNumber);
+        localStorage.setItem("email", signInInfo.email);
+        localStorage.setItem("userId", data.userId);
+        localStorage.setItem("companyId", data.companyId);
 
         alert(`Sign Up successful! You can now login.`);
 
