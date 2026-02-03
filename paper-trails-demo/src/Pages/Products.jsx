@@ -102,7 +102,7 @@ export default function Products() {
     if (confirmDeletion) {
       try {
         const res = await fetch(
-          `${baseUrl}/productServices/updateProductService`,
+          `${baseUrl}/productServices/ `,
           {
             method: "POST",
             headers: {

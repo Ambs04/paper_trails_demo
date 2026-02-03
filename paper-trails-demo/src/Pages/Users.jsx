@@ -142,6 +142,12 @@ export default function Users() {
       {isuserEditActive && selectedUser && (
         <div>
           <form onSubmit={handleUserUpdate}>
+            <div>
+              <button onClick={() => setIsUserEditActive(false)}>X</button>
+            </div>
+            <div>
+              <h3>MANAGE USER INFORMATION</h3>
+            </div>
             {/*first name */}
             <div>
               <p>First Name:</p>
@@ -201,11 +207,10 @@ export default function Users() {
               <div>
                 <button type="submit">UPDATE</button>
               </div>
-              <div>
-                <button onClick={() => setIsUserEditActive(false)}>
-                  CANCEL
-                </button>
-              </div>
+
+              {/*<button onClick={() => setIsUserEditActive(false)}>
+                  Delete
+                </button>*/}
             </div>
           </form>
         </div>
