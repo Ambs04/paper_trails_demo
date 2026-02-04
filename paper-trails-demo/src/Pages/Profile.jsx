@@ -47,6 +47,7 @@ export default function Profile() {
     if (res.ok) {
       localStorage.setItem("subscriptionType", profileInfo.subscriptionType);
       alert("Profile successfully updated!");
+      window.history.back();
       console.log(data);
       console.log(profileInfo);
     }

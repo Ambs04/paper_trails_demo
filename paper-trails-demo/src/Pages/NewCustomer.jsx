@@ -1,6 +1,56 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { baseUrl } from "../api";
+import { useState } from "react";
 
 export default function NewCustomer() {
+  const navigate = useNavigate();
+  const [newCustomerInfo, setNewCustomerInfo] = useState({
+    companyName: "",
+    contactPerson: "",
+    cellNumber: "",
+    email: "",
+    address: "",
+    code: "",
+    paymentTerms: "",
+    status: "active",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewCustomerInfo((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleAddCustomer = async (e) => {
+    e.preventDefault();
+
+    const fetchNewCustomerInfo = {
+      ...newCustomerInfo,
+      linkedPaperTrailsCompanyId: localStorage.getItem("companyId"),
+      dateCreated: new Date().toDateString(),
+    };
+
+    try {
+      const res = await fetch(`${baseUrl}/customer/createCustomer`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fetchNewCustomerInfo),
+      });
+
+      {
+        /*const data = await res.json();*/
+      }
+      if (res.ok) {
+        alert("Customer successfully added!");
+        navigate("/customers");
+      } else {
+        alert("Failed to add customer");
+        console.log(fetchNewCustomerInfo);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div>
@@ -15,103 +65,103 @@ export default function NewCustomer() {
         <h3>BASIC ACCOUNT INFORMATION</h3>
       </div>
       {/*form section*/}
-      <div>
+      <form onSubmit={handleAddCustomer}>
         {/*company/person name */}
         <div>
           <p>Company Name / Person Name:</p>
-          <input name="customerName" />
+          <input
+            name="companyName"
+            value={newCustomerInfo.companyName}
+            onChange={handleChange}
+          />
         </div>
         {/*contact name */}
         <div>
           <p>Contact person name:</p>
-          <input name="managerName" />
+          <input
+            name="contactPerson"
+            value={newCustomerInfo.contactPerson}
+            onChange={handleChange}
+          />
         </div>
         {/*email */}
         <div>
           <p>Email:</p>
           <input
-            name="customerEmail"
             type="email"
             placeholder="james@email.com"
+            name="email"
+            value={newCustomerInfo.email}
+            onChange={handleChange}
           />
         </div>
         {/* phone number*/}
         <div>
           <p>Phone:</p>
-          <input name="customerPhone" placeholder="078 888 8888" />
+          <input
+            name="cellNumber"
+            placeholder="078 888 8888"
+            value={newCustomerInfo.cellNumber}
+            onChange={handleChange}
+          />
         </div>
         {/*address */}
         <div>
           <p>Address:</p>
-          <input type="text" />
+          <input
+            type="text"
+            name="address"
+            value={newCustomerInfo.address}
+            onChange={handleChange}
+          />
         </div>
         {/*code */}
         <div>
           <p>Code:</p>
-          <input name="customerCode" placeholder="12346789" />
+          <input
+            name="code"
+            placeholder="12346789"
+            value={newCustomerInfo.code}
+            onChange={handleChange}
+          />
         </div>
         {/*payment terms */}
         <div>
           <p>PAYMENT TETMS</p>
           {/* 30 days*/}
-          <div>
-            <label>
-              30 days
-              <input type="radio" />
-            </label>
-          </div>
-          {/*14 days */}
-
-          <div>
-            <label>
-              14 days
-              <input type="radio" />
-            </label>
-          </div>
-          {/* 7 days*/}
-
-          <div>
-            <label>
-              7 days
-              <input type="radio" />
-            </label>
-          </div>
-          {/* Cash on delivery*/}
-
-          <div>
-            <label>
-              cash on delivery
-              <input type="radio" />
-            </label>
-          </div>
+          <select
+            name="paymentTerms"
+            value={newCustomerInfo.paymentTerms}
+            onChange={handleChange}
+          >
+            Select payment term
+            <option value="30 days">30 days</option>
+            <option value="14 days">14 days</option>
+            <option value="7 days">7 days</option>
+            <option value="cash on delivery">cash on delivery</option>
+          </select>
         </div>
         {/*account status */}
         <div>
           <p>ACCOUNT STATUS</p>
-          {/*active */}
-          <div>
-            <label>
-              active
-              <input type="radio" />
-            </label>
-          </div>
-          {/*inactive */}
-          <div>
-            <label>
-              inactive
-              <input type="radio" />
-            </label>
-          </div>
+          <select
+            name="status"
+            value={newCustomerInfo.status}
+            onChange={handleChange}
+          >
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
         </div>
         <div>
           <div>
-            <button>SUBMIT</button>
+            <button type="submit">SUBMIT</button>
           </div>
         </div>
         <div>
-          <button>CANCEL</button>
+          <button type="button">CANCEL</button>
         </div>
-      </div>
+      </form>
     </>
   );
 }
