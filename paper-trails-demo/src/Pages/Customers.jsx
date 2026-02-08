@@ -4,9 +4,11 @@ import Searchbar from "../Modules/CommonComponents/Searchbar";
 import { Link } from "react-router-dom";
 import { baseUrl } from "../api";
 import { useState, useEffect } from "react";
+import ManageCustomerModal from "../Modules/ModuleComponents/ManageCustomerModal";
 
 export default function Customers() {
-  const [customer, setCustomer] = useState();
+  const [customer, setCustomer] = useState([]);
+  const [selectedCustomer, setSelectedCustomer] = useState();
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -31,6 +33,13 @@ export default function Customers() {
     fetchCustomers();
   }, []);
 
+  const handleCustomerDetailsUpdate = (updatedCustomerInfo) => {
+    const updatedDetails = customer.map((client) =>
+      client._id === updatedCustomerInfo._id ? updatedCustomerInfo : client,
+    );
+    setCustomer(updatedDetails);
+  };
+
   return (
     <>
       <div>
@@ -49,7 +58,11 @@ export default function Customers() {
           <p>No customers found.</p>
         ) : (
           customer?.map((item) => (
-            <div key={item._id} style={{ border: "1px solid black" }}>
+            <div
+              key={item._id}
+              onClick={() => setSelectedCustomer(item)}
+              style={{ border: "1px solid black" }}
+            >
               <div>
                 <p>Company Name</p>
                 <p>{item.companyName}</p>
@@ -80,6 +93,13 @@ export default function Customers() {
               </div>
             </div>
           ))
+        )}
+        {selectedCustomer && (
+          <ManageCustomerModal
+            onUpdate={handleCustomerDetailsUpdate}
+            customer={selectedCustomer}
+            onClose={() => setSelectedCustomer(null)}
+          />
         )}
       </div>
       <div>

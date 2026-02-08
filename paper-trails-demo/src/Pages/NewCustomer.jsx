@@ -128,7 +128,7 @@ export default function NewCustomer() {
         {/*payment terms */}
         <div>
           <p>PAYMENT TETMS</p>
-          {/* 30 days*/}
+
           <select
             name="paymentTerms"
             value={newCustomerInfo.paymentTerms}
