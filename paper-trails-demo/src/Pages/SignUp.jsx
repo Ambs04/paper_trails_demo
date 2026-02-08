@@ -69,7 +69,6 @@ export default function SignUp() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(signInInfo),
       });
-
       const data = await res.json();
       if (res.ok) {
         localStorage.setItem("firstName", signInInfo.firstName);
@@ -83,9 +82,6 @@ export default function SignUp() {
 
         navigate("/login");
       } else {
-        const data = await res.json();
-        console.log(data);
-
         navigate("/signup");
       }
     } catch (error) {

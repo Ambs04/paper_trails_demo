@@ -43,16 +43,23 @@ export default function Profile() {
       body: JSON.stringify(fetchProfileInfo),
     });
 
-    const data = await res.json();
+    //const data = await res.json();
     if (res.ok) {
       localStorage.setItem(
         "subscriptionType",
         fetchProfileInfo.subscriptionType,
       );
+
+      localStorage.setItem("firstName", fetchProfileInfo.firstName);
+      localStorage.setItem("lastName", fetchProfileInfo.lastName);
+      localStorage.setItem("companyName", fetchProfileInfo.companyName);
+      localStorage.setItem("cellNumber", fetchProfileInfo.cellNumber);
+      localStorage.setItem("email", fetchProfileInfo.email);
+
       alert("Profile successfully updated!");
       window.history.back();
-      console.log(data);
-      console.log(profileInfo);
+      //  console.log(data);
+      //console.log(profileInfo);
     }
   };
 
