@@ -33,7 +33,7 @@ export default function Profile() {
       ...profileInfo,
       userId: localStorage.getItem("userId"),
       companyId: localStorage.getItem("companyId"),
-      subscriptionType: "free",
+      subscriptionType: profileInfo.subscriptionType || "free",
       invoiceType: "standard",
     };
 
@@ -45,7 +45,10 @@ export default function Profile() {
 
     const data = await res.json();
     if (res.ok) {
-      localStorage.setItem("subscriptionType", profileInfo.subscriptionType);
+      localStorage.setItem(
+        "subscriptionType",
+        fetchProfileInfo.subscriptionType,
+      );
       alert("Profile successfully updated!");
       window.history.back();
       console.log(data);
