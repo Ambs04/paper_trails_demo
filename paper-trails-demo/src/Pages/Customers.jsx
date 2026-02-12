@@ -21,7 +21,7 @@ export default function Customers() {
           }),
         });
         const data = await res.json();
-        console.log(data);
+
         if (res.ok) {
           const dataArray = data.users || [];
           setCustomer(dataArray);
