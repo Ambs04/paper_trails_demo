@@ -7,6 +7,8 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
   const [history, setHistory] = useState([]);
   //const [invoiceStatus, setInvoiceStatus] = useState("unpaid");
   const [availableProdService, setAvailableProdService] = useState([]);
+  const [selectedInvoice, setSelectedInvoice] = useState(null);
+  const [showSortedInvoices, setShowSortedInvoices] = useState(false);
 
   const currentDate = new Date().toLocaleDateString();
 
@@ -34,6 +36,8 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
       status: editCustomer.status,
       contactPerson: editCustomer.contactPerson,
     };
+
+    //localStorage.setItem("paymentTerms", updatedCustomerInfo.paymentTerms);
 
     try {
       const res = await fetch(`${baseUrl}/customer/updateCustomer`, {
@@ -74,9 +78,14 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
   }, [viewOptions, customer._id]);
 
   const handleInvoiceSave = async () => {
+    const grandTotal = invoiceItems.reduce((t, item) => {
+      return t + item.price * item.qty;
+    }, 0);
+
     const invoiceData = {
       companyId: localStorage.getItem("companyId"),
       customerId: customer._id,
+      invoiceId: `INV-${Date.now()}`,
       customerInfo: {
         name: customer.companyName,
         email: customer.email,
@@ -89,27 +98,44 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
           accountType: localStorage.getItem("accountType"),
           accountNumber: localStorage.getItem("accountNumber"),
           accountName: localStorage.getItem("accountName"),
-          paymentTerms: localStorage.getItem("paymentTerms"),
+          paymentTerms:
+            localStorage.getItem("paymentTerms") || editCustomer.paymentTerms,
         },
       },
-      status: "",
+      status: "unpaid",
+      total: grandTotal,
+      vat: 0,
+      discount: 0,
+      payemntPlan: "full",
+      paidSoFar: 0,
+      paymentHistory: [],
       dateCreated: new Date().toDateString(),
       invoicedItems: invoiceItems.map((item) => ({
         description: item.name,
-        qty: item.quantity,
+        qty: item.qty,
         price: item.price,
       })),
     };
+    console.log(invoiceData);
     try {
       const res = await fetch(`${baseUrl}/invoice/createInvoice`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(invoiceData),
       });
+
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      }
+
       if (res.ok) {
         alert("Invoice created successfully");
         setInvoiceItems([]);
         //fetchInvoiceHistory()
+        const savedInvoice = data.invoice || data;
+        setSelectedInvoice(savedInvoice);
+        setShowSortedInvoices(true);
         setViewOptions("history");
       }
     } catch (error) {
@@ -169,7 +195,7 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
   };
 
   return (
-    <>
+    <div>
       <span>
         <button onClick={onClose}>X</button>
         <h3>Manage Customer</h3>
@@ -273,6 +299,66 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
       {viewOptions === "history" && (
         <div>
           <div>
+            <h4>PAID INVOICES</h4>
+            {Array.isArray(history) &&
+              history
+                .filter((invoice) => invoice.status === "paid")
+                .map((invoice, index) => (
+                  <div key={index}>
+                    <p>paid</p>
+                  </div>
+                ))}
+            <h4>UNPAID INVOICES</h4>
+            {Array.isArray(history) &&
+              history
+                .filter((invoice) => invoice.status === "unpaid")
+                .map((invoice, index) => (
+                  <div
+                    key={index}
+                    onClick={() => {
+                      setSelectedInvoice(invoice);
+                      setShowSortedInvoices(true);
+                    }}
+                  >
+                    <p>unpaid</p>
+                  </div>
+                ))}
+            {showSortedInvoices && selectedInvoice && (
+              <div
+                onClick={() => {
+                  setShowSortedInvoices(false);
+                  setViewOptions("add");
+                }}
+              >
+                <div>
+                  <p>Date created:</p>
+                  <p>{selectedInvoice.dateCreated}</p>
+                </div>
+                <div>
+                  <p>Client:</p>
+                  <p>{selectedInvoice.customerInfo?.name}</p>
+                </div>
+                <div>
+                  <p>Contact Person:</p>
+                  <p>{customer.contactPerson}</p>
+                </div>
+                <div>
+                  <p>Grand Total:</p>
+                  <p>R {selectedInvoice.total}</p>
+                </div>
+                <div>
+                  <p>Payment Terms:</p>
+                  <p>{customer.paymentTerms}</p>
+                </div>
+                <div>
+                  <p>Status</p>
+                  <p>{selectedInvoice.status}</p>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div>
             <button onClick={() => setViewOptions("edit")}>
               Edit customer profile
             </button>
@@ -323,97 +409,142 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
           </div>
         </div>
       )}
-      <div>
-        {viewOptions === "add" && (
-          <>
-            <div>
-              <button>X</button>
-              <p>CREATE NEW INVOICE</p>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-around",
-              }}
-            >
-              <div style={{ display: "flex" }}>
-                <div style={{ display: "block" }}>
-                  <span>
-                    <p>Client: </p>
-                    <p>{customer.companyName}</p>
-                  </span>
-                  <span>
-                    <p>Client email:</p>
-                    <p>{customer.email}</p>
-                  </span>
-                  <span>
-                    <p>Client number:</p>
-                    <p>{customer.cellNumber}</p>
-                  </span>
-                </div>
-              </div>
-              <div style={{ display: "flex" }}>
+
+      {viewOptions === "add" && (
+        <>
+          <div>
+            <button onClick={() => setViewOptions("history")}>X</button>
+            <p>CREATE NEW INVOICE</p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-around",
+            }}
+          >
+            <div style={{ display: "flex" }}>
+              <div style={{ display: "block" }}>
                 <span>
-                  <p>Date:</p>
-                  <p>{currentDate}</p>
+                  <p>Client: </p>
+                  <p>{customer.companyName}</p>
+                </span>
+                <span>
+                  <p>Client email:</p>
+                  <p>{customer.email}</p>
+                </span>
+                <span>
+                  <p>Client number:</p>
+                  <p>{customer.cellNumber}</p>
                 </span>
               </div>
-              <div>
-                <p>PRODUCT/SERVICE</p>
-                <p>QTY</p>
-                <p>PRICE / UNIT</p>
-                <p>TOTAL PRICE</p>
-                <button onClick={() => setViewOptions("prodService")}>+</button>
-              </div>
             </div>
+            <div style={{ display: "flex" }}>
+              <span>
+                <p>Date:</p>
+                <p>{currentDate}</p>
+              </span>
+            </div>
+            <div>
+              <p>PRODUCT/SERVICE</p>
+              <p>QTY</p>
+              <p>PRICE / UNIT</p>
+              <p>TOTAL PRICE</p>
+              <button onClick={() => setViewOptions("prodService")}>+</button>
+            </div>
+          </div>
 
-            {invoiceItems.map((item, index) => (
-              // const totalPrice = {item.qty} * {item.price};
-              //return (
-              <>
-                <div div key={index}>
-                  <p>{item.name}</p>
-                  {/*<p>{item.qty}</p>*/}
-                  <span>
-                    <button
-                      onClick={() => {
-                        const decrement = [...invoiceItems];
-                        decrement[index].qty = Math.max(
-                          1,
-                          decrement[index].qty - 1,
-                        );
-                        setInvoiceItems(decrement);
-                      }}
-                    >
-                      -
-                    </button>
-                    <p>{item.qty}</p>
-                    <button
-                      onClick={() => {
-                        const increment = [...invoiceItems];
-                        increment[index].qty++;
-                        setInvoiceItems(increment);
-                      }}
-                    >
-                      +
-                    </button>
-                  </span>
+          {invoiceItems.map((item, index) => {
+            const totalPrice = item.qty * item.price;
 
-                  <p>{item.price}</p>
+            return (
+              <div key={index}>
+                <p>{item.name}</p>
+                {/*<p>{item.qty}</p>*/}
+                <span>
+                  <button
+                    onClick={() => {
+                      const decrement = [...invoiceItems];
+                      decrement[index].qty = Math.max(
+                        1,
+                        decrement[index].qty - 1,
+                      );
+                      setInvoiceItems(decrement);
+                    }}
+                  >
+                    -
+                  </button>
+                  <p>{item.qty}</p>
+                  <button
+                    onClick={() => {
+                      const increment = [...invoiceItems];
+                      increment[index].qty++;
+                      setInvoiceItems(increment);
+                    }}
+                  >
+                    +
+                  </button>
+                </span>
+
+                <p>R {item.price}</p>
+                <p>R {totalPrice}</p>
+                <button
+                  onClick={() => {
+                    const filterAddedItems = invoiceItems.filter(
+                      (_, i) => i !== index,
+                    );
+                    setInvoiceItems(filterAddedItems);
+                  }}
+                >
+                  X
+                </button>
+              </div>
+            );
+          })}
+
+          {invoiceItems.length > 0 && (
+            <>
+              <div>
+                <p>
+                  GRAND TOTAL :{" "}
+                  {invoiceItems
+                    .reduce((t, item) => {
+                      return t + item.price * item.qty;
+                    }, 0)
+                    .toFixed(2)}
+                </p>
+                <div>
+                  <h4>BANK DETAILS</h4>
+                  <div>
+                    <p>BANK:</p>
+                    <p>{localStorage.getItem("bank") || "none"}</p>
+                  </div>
+                  <div>
+                    <p>ACCOUNT TYPE:</p>
+                    <p>{localStorage.getItem("accountType") || "none"}</p>
+                  </div>
+                  <div>
+                    <p>ACCOUNT NO:</p>
+                    <p>{localStorage.getItem("accountNumber") || "none"}</p>
+                  </div>
+                  <div>
+                    <p>ACCOUNT NAME:</p>
+                    <p>{localStorage.getItem("accountName") || "none"}</p>
+                  </div>
+                  <div>
+                    <p>PAYMENT TERMS:</p>
+                    <p>{customer.paymentTerms || "none"}</p>
+                  </div>
                 </div>
-              </>
-            ))}
-          </>
-        )}
-      </div>
-      <div>
-        {invoiceItems.length > 0 && (
-          <button onClick={handleInvoiceSave}>SAVE INVOICE</button>
-        )}
-      </div>
+              </div>
+              <button onClick={handleInvoiceSave}>SAVE INVOICE</button>
+            </>
+          )}
+        </>
+      )}
+
       {viewOptions === "prodService" && (
-        <>
+        <div>
           <div>
             <button onClick={() => setViewOptions("add")}>X</button>
             <h4>Add Product / Service</h4>
@@ -431,13 +562,18 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                 </option>
               ))}
           </select>
-          <div>
-            <button onClick={addProdToInvoice}>Add</button>
-          </div>
-          {newItem.desc && (
-            <div>
-              <p>{newItem.desc}</p>
-              {/* <input
+          <button onClick={addProdToInvoice}>Add to invoice</button>
+
+          {/*{newItem.desc && <p>{newItem.desc}</p>}*/}
+        </div>
+      )}
+    </div>
+  );
+}
+
+{
+  /* 
+               <input
                 value={newItem.qty}
                 onChange={(e) =>
                   setNewItem({ ...newItem, qty: e.target.value })
@@ -445,11 +581,5 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
               />
               <div>
                 <button onClick={addProdToInvoice}>Add</button>
-              </div>*/}
-            </div>
-          )}
-        </>
-      )}
-    </>
-  );
+              </div>*/
 }

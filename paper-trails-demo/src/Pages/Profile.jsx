@@ -16,10 +16,10 @@ export default function Profile() {
     companyContactInfo: "",
     companyEmail: "",
     companyName: localStorage.getItem("companyName") || "",
-    bank: "",
-    accountNumber: "",
-    accountType: "",
-    accountName: "",
+    bank: localStorage.getItem("bank") || "",
+    accountNumber: localStorage.getItem("accountNumber") || "",
+    accountType: localStorage.getItem("accountType") || "",
+    accountName: localStorage.getItem("accountName") || "",
   });
 
   const handleProfileChange = (e) => {
@@ -48,6 +48,7 @@ export default function Profile() {
       localStorage.setItem(
         "subscriptionType",
         fetchProfileInfo.subscriptionType,
+        console.log(fetchProfileInfo),
       );
 
       localStorage.setItem("firstName", fetchProfileInfo.firstName);
@@ -55,6 +56,10 @@ export default function Profile() {
       localStorage.setItem("companyName", fetchProfileInfo.companyName);
       localStorage.setItem("cellNumber", fetchProfileInfo.cellNumber);
       localStorage.setItem("email", fetchProfileInfo.email);
+      localStorage.setItem("bank", fetchProfileInfo.bank);
+      localStorage.setItem("accountNumber", fetchProfileInfo.accountNumber);
+      localStorage.setItem("accountName", fetchProfileInfo.accountName);
+      localStorage.setItem("accountType", fetchProfileInfo.accountType);
 
       alert("Profile successfully updated!");
       window.history.back();
