@@ -6,23 +6,24 @@ export default function Hero() {
     <>
       <div
         id="hero-container"
-        style={{ position: "relative", overflow: "hidden" }}
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          height: "300px",
+        }}
       >
-        <img src={heroImg} style={{ opacity: "0.4" }} />
+        <img src={heroImg} style={{ opacity: "0.85" }} />
         <h1
           style={{
-            position: "absolute",
-            top: "35%",
-            bottom: "50%",
             textAlign: "center",
 
             width: "100%",
             zIndex: "2",
-            color: "#652912",
-            textShadow: "5px -5px 8px rgba(175, 61, 29, 0.45) ",
+            color: "#7e0f0f",
+            textShadow: "5px -2px 10px rgba(181, 158, 158, 0.79) ",
           }}
         >
-          INVOICING MADE SIMPLE
+          SMART INVOICING MADE SIMPLE
         </h1>
       </div>
     </>

@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { baseUrl } from "../api";
+import "../Styles/login.css";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -8,19 +9,7 @@ export default function Login() {
 
   const handleUserLogin = async (e) => {
     e.preventDefault();
-    {
-      /*const user = JSON.parse(localStorage.getItem("loggedInUser"));
-    if (
-      userLogin.email === user.email &&
-      userLogin.password === user.password
-    ) {
-      alert("Login Successful");
-      navigate("/Dashboard");
-    } else {
-      alert("No user date found. Please sign up and try again.");
-      return;
-    }*/
-    }
+
     try {
       const res = await fetch(`${baseUrl}/user/login`, {
         method: "POST",
@@ -56,7 +45,10 @@ export default function Login() {
     <>
       <form onSubmit={handleUserLogin}>
         {/*Main div for header*/}
-        <div>
+        <div
+          id="login-container"
+          style={{ backgroundImage: "url(../assets/loading_image.png)" }}
+        >
           {/*div for close btn*/}
           <div>
             <Link to="/">

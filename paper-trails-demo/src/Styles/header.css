@@ -1,0 +1,23 @@
+@media screen and (max-width: 480px) {
+  #logo {
+    height: 40px;
+  }
+  #profile {
+    height: 40px;
+  }
+}
+
+@media screen and (min-width: 767px) {
+  #logo {
+    height: 60px;
+  }
+  #profile {
+    height: 60px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  #logo {
+    height: 80px;
+  }
+}

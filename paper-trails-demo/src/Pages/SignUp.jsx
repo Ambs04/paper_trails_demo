@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { baseUrl } from "../api";
+import "../Styles/signup.css";
 
 export default function SignUp() {
   const [isBusiness, setIsBusiness] = useState(true);
@@ -95,83 +96,135 @@ export default function SignUp() {
       <form onSubmit={handleSignUp}>
         <div>
           {/*main div for header*/}
-          <div>
+          <div
+            style={{
+              height: "70px",
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
             {/*close btn div*/}
-            <div>
-              <Link to="/">
-                <button>X</button>
+            <div
+              id="close-signup"
+              style={{
+                display: "flex",
+                backgroundColor: "#f9dc5c",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <div style={{ fontSize: "30px", color: "#465362" }}>X</div>
               </Link>
             </div>
             {/*Heading for header div*/}
-            <div>
-              <h1>REGISTRATION</h1>
+            <div
+              id="signup-heading"
+              style={{
+                display: "flex",
+                backgroundColor: "#465362",
+                color: "white",
+
+                alignItems: "center",
+              }}
+            >
+              <h2 style={{ paddingLeft: "20px" }}>REGISTRATION</h2>
             </div>
           </div>
           {/*main div for main section*/}
-          <div>
+          <div
+            style={{
+              padding: "40px",
+            }}
+          >
             {/*first name div*/}
-            <div>
+            <div class="sign-input">
               <p>First name*</p>
-              <input type="text" required id="firstName" />
+              <input
+                type="text"
+                required
+                id="firstName"
+                placeholder="type here"
+              />
             </div>
             {/*last name div*/}
-            <div>
+            <div class="sign-input">
               <p>Last name*</p>
-              <input type="text" required id="lastName" />
+              <input
+                type="text"
+                required
+                id="lastName"
+                placeholder="type here"
+              />
             </div>
             {/*email div*/}
-            <div>
+            <div class="sign-input">
               <p>Email address*</p>
-              <input type="email" required id="emailInput" />
+              <input
+                type="email"
+                required
+                id="emailInput"
+                placeholder="type here"
+              />
             </div>
             {/*contact div*/}
-            <div>
+            <div class="sign-input">
               <p>Contact details*</p>
-              <input type="text" required id="cellInput" />
+              <input
+                type="text"
+                required
+                id="cellInput"
+                placeholder="type here"
+              />
             </div>
             {/*question div: freelance or business*/}
-            <div>
-              <p>Is this a freelance account or a business account?*</p>
-              <br />
-              <label>
-                <input
-                  type="radio"
-                  name="account"
-                  onChange={() => setIsBusiness(false)}
-                />
-                Freelance
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  onChange={() => setIsBusiness(true)}
-                  name="account"
-                />
-                Business
-              </label>
+            <div class="radio-select-signup">
+              <div id="verification-question">
+                <p>Is this a freelance account or a business account?*</p>
+              </div>
+              <div id="question-options">
+                <label>
+                  Freelance
+                  <input
+                    type="radio"
+                    name="account"
+                    onChange={() => setIsBusiness(false)}
+                  />
+                </label>
+                <label>
+                  Business
+                  <input
+                    type="radio"
+                    onChange={() => setIsBusiness(true)}
+                    name="account"
+                  />
+                </label>
+              </div>
             </div>
             {/*company name: if business then required*/}
-            <div>
+            <div class="sign-input">
               <p>If for a business, insert Company name</p>
               <input
                 type="text"
                 required={isBusiness}
                 id="companyName"
                 name="companyName"
+                placeholder="type here"
               />
             </div>
             {/*password div*/}
-            <div>
+            <div class="sign-input">
               <p>Password* (min 8 characters)</p>
               <input
                 type="password"
                 name="password"
                 value={passwords.password}
                 onChange={verification}
+                placeholder="type here"
               />
             </div>
             {/*confirm password div*/}
-            <div>
+            <div class="sign-input">
               <p>Confirm password*</p>
               <input
                 type="password"
@@ -179,6 +232,7 @@ export default function SignUp() {
                 name="confirmPassword"
                 value={passwords.confirmPassword}
                 onChange={verification}
+                placeholder="type here"
               />
             </div>
             <input type="checkbox" required />
@@ -188,10 +242,12 @@ export default function SignUp() {
           </div>
           {/*div for buttons: sign up and cancel*/}
           <div>
-            <button type="submit">Sign Up</button>
+            <div type="submit" id="signup-submit">
+              Sign Up
+            </div>
 
-            <Link to="/">
-              <button>Cancel</button>
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <div id="cancel-signup">Cancel</div>
             </Link>
           </div>
         </div>

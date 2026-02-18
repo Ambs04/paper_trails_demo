@@ -1,6 +1,7 @@
 import logo from "../../assets/logo.png";
 import profileImg from "../../assets/user.png";
 import { Link, useLocation } from "react-router-dom";
+import "../../Styles/header.css";
 
 export default function Header() {
   const location = useLocation();
@@ -16,11 +17,13 @@ export default function Header() {
       <div
         style={{
           borderBottom: "2px solid black",
-          width: "375px",
-          height: "150pxv",
+          width: "100vw",
+          height: "100px",
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
+          alignItems: "center",
+          backgroundColor: "#465362",
         }}
       >
         {profilePage ? (
@@ -31,15 +34,16 @@ export default function Header() {
           <div
             style={{
               display: "flex",
-              width: "170px",
+              height: "60px",
               marginLeft: "0px",
               marginBottom: "0px",
               marginTop: "0px,",
               justifyContent: "space-between",
-              objectFit: "cover",
+              objectFit: "contain",
+              width: "auto",
             }}
           >
-            <img src={logo} style={{ width: "100%" }} />
+            <img src={logo} id="logo" />
           </div>
         )}
         <div
@@ -67,15 +71,16 @@ export default function Header() {
             }}
           >
             <Link to={currentPath}>
-              <button style={{ background: "white" }}>
+              <div style={{ background: "none" }}>
                 <img
+                  id="profile"
                   src={profileImg}
                   style={{
                     width: "100%",
                     marginTop: "0px",
                   }}
                 />
-              </button>
+              </div>
             </Link>
           </div>
         ) : (
