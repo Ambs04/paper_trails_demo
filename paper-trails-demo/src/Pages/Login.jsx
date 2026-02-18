@@ -45,10 +45,7 @@ export default function Login() {
     <>
       <form onSubmit={handleUserLogin}>
         {/*Main div for header*/}
-        <div
-          id="login-container"
-          style={{ backgroundImage: "url(../assets/loading_image.png)" }}
-        >
+        <div id="login-container">
           {/*div for close btn*/}
           <div>
             <Link to="/">
