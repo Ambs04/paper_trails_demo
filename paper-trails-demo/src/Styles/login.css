@@ -1,14 +1,15 @@
-#login-container {
+#login-page {
   position: relative;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   display: flex;
-  align-content: center;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   overflow: hidden;
 }
 
-#login-container::before {
+#login-page::before {
   content: "";
   position: absolute;
   top: 0;
@@ -18,6 +19,116 @@
   background-image: url(../assets/loading_image.png);
   background-size: cover;
   background-position: center;
-  opacity: 0.15;
+  opacity: 0.1;
   z-index: -1;
+}
+
+#login-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  z-index: 10;
+}
+
+#close-login-btn-div {
+  width: 10vw;
+}
+
+#login-heading {
+  width: 90vw;
+}
+
+#main-section-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  font-size: 20px;
+  font-weight: bolder;
+  color: #000000;
+}
+
+input {
+  padding: 12px;
+  border: 1px solid rgb(240, 234, 234);
+  border-radius: 5px;
+  background-color: rgb(240, 234, 234);
+  font-size: 1rem;
+  color: #1f1d1d;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+#login-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#forgot-pass {
+  color: #465362;
+  padding: 20px;
+}
+
+#forgot-pass:hover {
+  color: blue;
+  font-size: 25px;
+  padding: 30px;
+}
+
+#login-btn {
+  padding: 12px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border: 1px solid #cbc2c2;
+  border-radius: 3px;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#cancel-login-btn {
+  padding: 12px;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: #f9dc5c;
+  border: 1px solid #dcd915;
+  border-radius: 3px;
+  font-size: 20px;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
+
+.active-btn {
+  background-color: #465362;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.disabled-btn {
+  background-color: rgb(146, 138, 138);
+  cursor: not-allowed;
+  color: #fffafa;
+  filter: grayscale(1);
+}
+
+@media screen and (min-width: 768px) {
+  #close-login-btn-div {
+    width: 5vw;
+  }
+  #login-heading {
+    width: 95vw;
+  }
 }

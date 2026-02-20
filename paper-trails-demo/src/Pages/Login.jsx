@@ -6,6 +6,7 @@ import "../Styles/login.css";
 export default function Login() {
   const navigate = useNavigate();
   const [userLogin, setUserLogin] = useState({ email: "", password: "" });
+  const [loginValid, setLoginValid] = useState(false);
 
   const handleUserLogin = async (e) => {
     e.preventDefault();
@@ -41,28 +42,82 @@ export default function Login() {
     }
   };
 
+  const checkEmptyInputs = (e) => {
+    const valid = e.currentTarget.checkValidity();
+
+    setLoginValid(valid);
+  };
+
   return (
     <>
-      <form onSubmit={handleUserLogin}>
+      <form
+        onSubmit={handleUserLogin}
+        id="login-page"
+        onInput={checkEmptyInputs}
+      >
         {/*Main div for header*/}
-        <div id="login-container">
+        <div id="login-header">
           {/*div for close btn*/}
-          <div>
-            <Link to="/">
-              <button>X</button>
+
+          <div
+            id="close-login-btn-div"
+            style={{
+              display: "flex",
+              backgroundColor: "#f9dc5c",
+              height: "100%",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Link
+              to="/"
+              style={{
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                height: "100%",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "30px",
+                  color: "#465362",
+                  backgroundColor: "#f9dc5c",
+                }}
+              >
+                X
+              </div>
             </Link>
           </div>
+
           {/*div for heading*/}
-          <div>
-            <h1>LOGIN</h1>
+          <div
+            id="login-heading"
+            style={{
+              backgroundColor: "#465362",
+              display: "flex",
+              height: "100%",
+              alignItems: "center",
+            }}
+          >
+            <h1
+              style={{
+                paddingLeft: "20px",
+                color: "white",
+              }}
+            >
+              LOGIN
+            </h1>
           </div>
         </div>
         {/*div for main section*/}
-        <div>
-          <p>Login with email and password.</p>
+        <div id="main-section-login">
+          <p>Login with signup email and password.</p>
           {/*div for email*/}
           <div>
-            <p>Email</p>
+            <p style={{ color: "black" }}>Email</p>
             <input
               type="text"
               required
@@ -74,7 +129,7 @@ export default function Login() {
           </div>
           {/*div for password*/}
           <div>
-            <p>Password</p>
+            <p style={{ color: "black" }}>Password</p>
             <input
               type="password"
               required
@@ -84,14 +139,25 @@ export default function Login() {
               }
             />
           </div>
-          <p>
-            <a href="google.com">Forgot password</a>
-          </p>
+
+          <a href="google.com" id="forgot-pass">
+            Forgot password
+          </a>
+
           {/*div for btns: login and cancel*/}
-          <div>
-            <button type="submit">LOGIN</button>
-            <Link to="/">
-              <button type="button">CANCEL</button>
+          <div id="login-btns">
+            <div
+              type="submit"
+              id="login-btn"
+              disabled={!loginValid}
+              class={loginValid ? "active-btn" : "disabled-btn"}
+            >
+              LOGIN
+            </div>
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <div type="button" id="cancel-login-btn">
+                CANCEL
+              </div>
             </Link>
           </div>
         </div>
