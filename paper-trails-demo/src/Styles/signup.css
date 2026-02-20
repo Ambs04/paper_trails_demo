@@ -60,7 +60,7 @@ label {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 100px;
+
   font-size: 20px;
 }
 
@@ -81,6 +81,84 @@ input[type="radio"] {
 input[type="radio"]:checked {
   background-color: #465362;
   border-color: #465362;
+}
+
+#tandc {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+#tandc > input[type="checkbox"] {
+  appearance: none;
+  height: 2px;
+  width: 2px;
+  border: 2px solid #465362;
+  border-radius: 5px;
+  background-color: #ffffff;
+  align-self: center;
+}
+
+#tandc > input[type="checkbox"]:checked {
+  background-color: #465362;
+  border-color: #465362;
+}
+
+#tandc > p {
+  text-align: center;
+
+  padding: 10px;
+  font-size: 20px;
+}
+
+#tandc-link {
+  color: #465362;
+}
+
+#tandc-link:hover {
+  color: #adab41;
+  text-shadow: 2px 3px 10px #b09d9d;
+}
+
+#signup-submit {
+  padding: 12px;
+  margin-left: 50px;
+  margin-right: 50px;
+  border: 1px solid #cbc2c2;
+  border-radius: 3px;
+  font-size: 20px;
+  text-align: center;
+
+  font-weight: bold;
+}
+
+#cancel-signup {
+  padding: 12px;
+  margin-left: 50px;
+  margin-right: 50px;
+  background-color: #f9dc5c;
+  border: 1px solid #dcd915;
+  border-radius: 3px;
+  font-size: 20px;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
+
+.active-btn {
+  background-color: #465362;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.disabled-btn {
+  background-color: rgb(146, 138, 138);
+  cursor: not-allowed;
+  color: #fffafa;
+  filter: grayscale(1);
 }
 
 @media screen and (min-width: 768px) {

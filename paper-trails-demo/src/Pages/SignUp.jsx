@@ -11,6 +11,8 @@ export default function SignUp() {
     confirmPassword: "",
   });
 
+  const [formValid, setFormValid] = useState(false);
+
   const verification = (e) => {
     const { name, value } = e.target;
     setPasswords((prev) => ({ ...prev, [name]: value }));
@@ -19,27 +21,9 @@ export default function SignUp() {
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    {
-      /* navigate("/");*/
-    }
     if (passwords.password !== passwords.confirmPassword) {
       alert("Passwords do not match!");
       navigate("/signup");
-    }
-    {
-      /*else {
-      const nameInput = document.getElementById("firstName").value;
-      const surnameInput = document.getElementById("lastName").value;
-      const nameSurname = `${nameInput} ${surnameInput}`;
-
-      const userEmail = e.target.elements.email.value;
-      const userLoginData = {
-        email: userEmail,
-        password: passwords.password,
-      };
-      localStorage.setItem("loggedInUser", JSON.stringify(userLoginData));
-      localStorage.setItem("userGreeting", nameSurname);
-    }*/
     }
 
     const nameInput = document.getElementById("firstName").value;
@@ -91,9 +75,15 @@ export default function SignUp() {
     }
   };
 
+  const checkEmptyFields = (e) => {
+    const valid = e.currentTarget.checkValidity();
+
+    setFormValid(valid);
+  };
+
   return (
     <>
-      <form onSubmit={handleSignUp}>
+      <form onSubmit={handleSignUp} onInput={checkEmptyFields}>
         <div>
           {/*main div for header*/}
           <div
@@ -171,9 +161,11 @@ export default function SignUp() {
             <div class="sign-input">
               <p>Contact details*</p>
               <input
-                type="text"
+                type="tel"
+                pattern="[0-9]{10}"
                 required
                 id="cellInput"
+                title="Please enter 10-digit contact number"
                 placeholder="type here"
               />
             </div>
@@ -235,19 +227,29 @@ export default function SignUp() {
                 placeholder="type here"
               />
             </div>
-            <input type="checkbox" required />
-            <p>
-              Accept the <a href="www.google.com">T&C's</a>
-            </p>
+            <div id="tandc">
+              <input type="checkbox" required />
+              <p>
+                Accept the{" "}
+                <a href="www.google.com" id="tandc-link">
+                  T&C's
+                </a>
+              </p>
+            </div>
           </div>
           {/*div for buttons: sign up and cancel*/}
           <div>
-            <div type="submit" id="signup-submit">
-              Sign Up
+            <div
+              type="submit"
+              id="signup-submit"
+              disabled={!formValid}
+              class={formValid ? "active-btn" : "disabled-btn"}
+            >
+              SIGN UP
             </div>
 
             <Link to="/" style={{ textDecoration: "none" }}>
-              <div id="cancel-signup">Cancel</div>
+              <div id="cancel-signup">CANCEL</div>
             </Link>
           </div>
         </div>
