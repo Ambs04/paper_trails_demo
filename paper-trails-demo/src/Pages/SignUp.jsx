@@ -128,7 +128,7 @@ export default function SignUp() {
             }}
           >
             {/*first name div*/}
-            <div class="sign-input">
+            <div className="sign-input">
               <p>First name*</p>
               <input
                 type="text"
@@ -138,7 +138,7 @@ export default function SignUp() {
               />
             </div>
             {/*last name div*/}
-            <div class="sign-input">
+            <div className="sign-input">
               <p>Last name*</p>
               <input
                 type="text"
@@ -148,7 +148,7 @@ export default function SignUp() {
               />
             </div>
             {/*email div*/}
-            <div class="sign-input">
+            <div className="sign-input">
               <p>Email address*</p>
               <input
                 type="email"
@@ -158,7 +158,7 @@ export default function SignUp() {
               />
             </div>
             {/*contact div*/}
-            <div class="sign-input">
+            <div className="sign-input">
               <p>Contact details*</p>
               <input
                 type="tel"
@@ -170,11 +170,11 @@ export default function SignUp() {
               />
             </div>
             {/*question div: freelance or business*/}
-            <div class="radio-select-signup">
+            <div className="radio-select-signup">
               <div id="verification-question">
                 <p>Is this a freelance account or a business account?*</p>
               </div>
-              <div id="question-options">
+              <div className="question-options">
                 <label>
                   Freelance
                   <input
@@ -183,6 +183,7 @@ export default function SignUp() {
                     onChange={() => setIsBusiness(false)}
                   />
                 </label>
+
                 <label>
                   Business
                   <input
@@ -194,7 +195,7 @@ export default function SignUp() {
               </div>
             </div>
             {/*company name: if business then required*/}
-            <div class="sign-input">
+            <div className="sign-input">
               <p>If for a business, insert Company name</p>
               <input
                 type="text"
@@ -205,7 +206,7 @@ export default function SignUp() {
               />
             </div>
             {/*password div*/}
-            <div class="sign-input">
+            <div className="sign-input">
               <p>Password* (min 8 characters)</p>
               <input
                 type="password"
@@ -216,7 +217,7 @@ export default function SignUp() {
               />
             </div>
             {/*confirm password div*/}
-            <div class="sign-input">
+            <div className="sign-input">
               <p>Confirm password*</p>
               <input
                 type="password"
@@ -239,13 +240,15 @@ export default function SignUp() {
           </div>
           {/*div for buttons: sign up and cancel*/}
           <div>
-            <div
-              type="submit"
-              id="signup-submit"
-              disabled={!formValid}
-              class={formValid ? "active-btn" : "disabled-btn"}
-            >
-              SIGN UP
+            <div id="signup-submit-container">
+              <button
+                id="signup-submit"
+                type="submit"
+                disabled={!formValid}
+                class={formValid ? "active-btn" : "disabled-btn"}
+              >
+                SIGN UP
+              </button>
             </div>
 
             <Link to="/" style={{ textDecoration: "none" }}>

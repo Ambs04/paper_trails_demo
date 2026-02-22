@@ -23,6 +23,11 @@
   z-index: -1;
 }
 
+p {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
 #login-header {
   display: flex;
   flex-direction: row;
@@ -61,23 +66,26 @@ input {
   font-size: 1rem;
   color: #1f1d1d;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   margin-left: 10px;
   display: flex;
   flex-direction: column;
   padding-left: 50px;
   padding-right: 50px;
+  width: 85%;
 }
 
 #login-btns {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-top: 15px;
 }
 
 #forgot-pass {
   color: #465362;
   padding: 20px;
+  text-align: center;
 }
 
 #forgot-pass:hover {
@@ -99,7 +107,7 @@ input {
 }
 
 #cancel-login-btn {
-  padding: 12px;
+  padding: 12px 120px;
   margin-left: 10px;
   margin-right: 10px;
   background-color: #f9dc5c;

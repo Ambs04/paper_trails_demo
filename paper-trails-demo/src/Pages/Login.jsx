@@ -140,26 +140,25 @@ export default function Login() {
             />
           </div>
 
-          <a href="google.com" id="forgot-pass">
-            Forgot password
-          </a>
-
           {/*div for btns: login and cancel*/}
           <div id="login-btns">
-            <div
+            <button
               type="submit"
               id="login-btn"
               disabled={!loginValid}
               class={loginValid ? "active-btn" : "disabled-btn"}
             >
               LOGIN
-            </div>
+            </button>
             <Link to="/" style={{ textDecoration: "none" }}>
-              <div type="button" id="cancel-login-btn">
+              <button type="button" id="cancel-login-btn">
                 CANCEL
-              </div>
+              </button>
             </Link>
           </div>
+          <a href="google.com" id="forgot-pass">
+            Forgot password
+          </a>
         </div>
       </form>
     </>
