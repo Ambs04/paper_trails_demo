@@ -84,7 +84,7 @@ export default function SignUp() {
   return (
     <>
       <form onSubmit={handleSignUp} onInput={checkEmptyFields}>
-        <div>
+        <div id="content-wrapper">
           {/*main div for header*/}
           <div
             style={{

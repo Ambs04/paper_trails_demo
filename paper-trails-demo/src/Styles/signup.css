@@ -200,3 +200,18 @@ input[type="checkbox"]:checked {
     font-size: 20px;
   }
 }
+
+@media screen and (min-width: 1024px) {
+  form {
+    display: flex;
+    justify-content: center;
+  }
+
+  .sign-input {
+    margin-left: 120px;
+  }
+
+  .question-options {
+    padding: 0 190px;
+  }
+}
