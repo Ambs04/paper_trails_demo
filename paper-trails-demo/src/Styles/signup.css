@@ -199,9 +199,7 @@ input[type="checkbox"]:checked {
   #tandc > p {
     font-size: 20px;
   }
-}
 
-@media screen and (min-width: 1024px) {
   form {
     display: flex;
     justify-content: center;
@@ -215,3 +213,19 @@ input[type="checkbox"]:checked {
     padding: 0 190px;
   }
 }
+
+/*@media screen and (min-width: 1024px) {
+  form {
+    display: flex;
+    justify-content: center;
+  }
+
+  .sign-input {
+    margin-left: 120px;
+  }
+
+  .question-options {
+    padding: 0 190px;
+  }
+}
+*/
