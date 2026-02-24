@@ -4,11 +4,12 @@ import { baseUrl } from "../../api";
 export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
   const [viewOptions, setViewOptions] = useState("menu");
   const [editCustomer, setEditCustomer] = useState({ ...customer });
-  const [history, setHistory] = useState([]);
-  //const [invoiceStatus, setInvoiceStatus] = useState("unpaid");
+  const [history, setHistory] = useState(true);
   const [availableProdService, setAvailableProdService] = useState([]);
   const [selectedInvoice, setSelectedInvoice] = useState(null);
   const [showSortedInvoices, setShowSortedInvoices] = useState(false);
+  const [invoiceFilter, setInvoiceFilter] = useState("unpaid");
+  const [editingInvoice, setEditingInvoice] = useState(false);
 
   const currentDate = new Date().toLocaleDateString();
 
@@ -55,37 +56,45 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
     }
   };
 
+  const fetchInvoiceHistory = async () => {
+    try {
+      const res = await fetch(`${baseUrl}/invoice/getInvoicesPerCustomer`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          companyId: localStorage.getItem("companyId"),
+          customerId: customer._id,
+        }),
+      });
+      const data = await res.json();
+      console.log(data.invoiceList);
+      setHistory(Array.isArray(data.invoiceList) ? data.invoiceList : []);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  {
+    /*} useEffect(() => {
+    fetchInvoiceHistory();
+  }, [viewOptions]);
+*/
+  }
   useEffect(() => {
-    const fetchInvoiceHistory = async () => {
-      try {
-        const res = await fetch(`${baseUrl}/invoice/getInvoicesPerCustomer`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            companyId: localStorage.getItem("companyId"),
-            customerId: customer._id,
-          }),
-        });
-        const data = await res.json();
-        setHistory(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     if (viewOptions === "history") {
       fetchInvoiceHistory();
     }
-  }, [viewOptions, customer._id]);
+  }, [viewOptions]);
 
   const handleInvoiceSave = async () => {
     const grandTotal = invoiceItems.reduce((t, item) => {
-      return t + item.price * item.qty;
+      return t + Number(item.price) * Number(item.qty);
     }, 0);
 
     const invoiceData = {
       companyId: localStorage.getItem("companyId"),
       customerId: customer._id,
-      invoiceId: `INV-${Date.now()}`,
+
       customerInfo: {
         name: customer.companyName,
         email: customer.email,
@@ -93,16 +102,17 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
       },
       billingCompanyInfo: {
         name: localStorage.getItem("companyName"),
-        bankdetails: {
-          bank: localStorage.getItem("bank"),
-          accountType: localStorage.getItem("accountType"),
-          accountNumber: localStorage.getItem("accountNumber"),
-          accountName: localStorage.getItem("accountName"),
-          paymentTerms:
-            localStorage.getItem("paymentTerms") || editCustomer.paymentTerms,
-        },
       },
+      bankdetails: {
+        bank: localStorage.getItem("bank"),
+        accountType: localStorage.getItem("accountType"),
+        accountNumber: localStorage.getItem("accountNumber"),
+        accountName: localStorage.getItem("accountName"),
+      },
+      paymentTerms:
+        localStorage.getItem("paymentTerms") || editCustomer.paymentTerms,
       status: "unpaid",
+
       total: grandTotal,
       vat: 0,
       discount: 0,
@@ -110,10 +120,12 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
       paidSoFar: 0,
       paymentHistory: [],
       dateCreated: new Date().toDateString(),
+      dateEdited: new Date().toDateString(),
+      editedBy: localStorage.getItem("userId") || "Admin",
       invoicedItems: invoiceItems.map((item) => ({
         description: item.name,
-        qty: item.qty,
-        price: item.price,
+        qty: Number(item.qty),
+        price: Number(item.price),
       })),
     };
     console.log(invoiceData);
@@ -132,7 +144,7 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
       if (res.ok) {
         alert("Invoice created successfully");
         setInvoiceItems([]);
-        //fetchInvoiceHistory()
+        await fetchInvoiceHistory();
         const savedInvoice = data.invoice || data;
         setSelectedInvoice(savedInvoice);
         setShowSortedInvoices(true);
@@ -154,7 +166,6 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
           }),
         });
         const data = await res.json();
-        console.log(data);
 
         if (res.ok && Array.isArray(data.products)) {
           setAvailableProdService(data.products);
@@ -192,6 +203,39 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
     setInvoiceItems([...invoiceItems, formatItem]);
     setNewItem({ desc: "", qty: "", price: "" });
     setViewOptions("add");
+  };
+
+  const handleInvoiceUpdate = async () => {
+    const grandTotal = invoiceItems.reduce(
+      (t, item) => t + item.price * item.pty,
+    );
+
+    const updatedInvoiceData = {
+      invoiceId: selectedInvoice._id,
+      total: grandTotal,
+      invoiceItems: invoiceItems.map((item) => ({
+        description: item.name,
+        qty: Number(item.pty),
+        price: Number(item.price),
+      })),
+      dateEdited: new Date().toDateString(),
+    };
+    try {
+      const res = await fetch(`${baseUrl}/invoice/updateInvoice`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedInvoiceData),
+      });
+      if (res.ok) {
+        alert("Invoice successfully updated");
+        setEditingInvoice(false);
+        setInvoiceItems([]);
+        fetchInvoiceHistory();
+        setViewOptions("history");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -265,7 +309,7 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
             />
           </div>
           <div>
-            <p>PAYMENT TETMS</p>
+            <p>PAYMENT TERMS</p>
 
             <select
               name="paymentTerms"
@@ -299,30 +343,50 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
       {viewOptions === "history" && (
         <div>
           <div>
-            <h4>PAID INVOICES</h4>
+            <h4>
+              {invoiceFilter === "paid" ? "PAID INVOICES" : "UNPAID INVOICES"}
+            </h4>
+
             {Array.isArray(history) &&
               history
-                .filter((invoice) => invoice.status === "paid")
-                .map((invoice, index) => (
-                  <div key={index}>
-                    <p>paid</p>
-                  </div>
-                ))}
-            <h4>UNPAID INVOICES</h4>
-            {Array.isArray(history) &&
-              history
-                .filter((invoice) => invoice.status === "unpaid")
-                .map((invoice, index) => (
+                .filter((invoice) => invoice.status === invoiceFilter)
+                .map((invoice) => (
                   <div
-                    key={index}
+                    key={invoice._id}
                     onClick={() => {
+                      const formattedInvoiceItems = invoice.invoiceItems.map(
+                        (item) => ({
+                          name: item.desc,
+                          qty: item.qty,
+                          price: item.price,
+                        }),
+                      );
+                      setInvoiceItems(formattedInvoiceItems);
                       setSelectedInvoice(invoice);
+                      setEditingInvoice(true);
                       setShowSortedInvoices(true);
                     }}
+                    style={{ border: "1px solid black" }}
                   >
-                    <p>unpaid</p>
+                    <p>Date Created:</p>
+                    <p>{invoice.dateCreated}</p>
+                    <p>Client:</p>
+                    <p>{invoice.customerInfo?.name}</p>
+
+                    <p>Contact Person:</p>
+                    <p>{customer.contactPerson}</p>
+
+                    <p>Grand Total:</p>
+                    <p>R {invoice.total}</p>
+
+                    <p>Payment Terms:</p>
+                    <p>{invoice.paymentTerms}</p>
+
+                    <p>Status</p>
+                    <p>{invoice.status}</p>
                   </div>
                 ))}
+
             {showSortedInvoices && selectedInvoice && (
               <div
                 onClick={() => {
@@ -390,7 +454,7 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
             </div>
           </div>
           <div>
-            {invoiceItems.length === 0 ? (
+            {history.length === 0 ? (
               <>
                 <p>No invoices for this customer found</p>
                 <button onClick={() => setViewOptions("add")}>
@@ -398,13 +462,22 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                 </button>
               </>
             ) : (
-              <>
-                <span>
-                  <button>PAID</button>
-                  <button>UNPAID</button>
-                  <button onClick={() => setViewOptions("add")}>+</button>
-                </span>
-              </>
+              <span>
+                <button onClick={() => setInvoiceFilter("paid")}>PAID</button>
+                <button onClick={() => setInvoiceFilter("unpaid")}>
+                  UNPAID
+                </button>
+
+                <button
+                  onClick={() => {
+                    setViewOptions("add");
+                    setEditingInvoice(false);
+                    setInvoiceItems([]);
+                  }}
+                >
+                  +
+                </button>
+              </span>
             )}
           </div>
         </div>
@@ -414,7 +487,7 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
         <>
           <div>
             <button onClick={() => setViewOptions("history")}>X</button>
-            <p>CREATE NEW INVOICE</p>
+            <p>{editingInvoice ? "EDIT INVOICE" : "CREATE NEW INVOICE"}</p>
           </div>
           <div
             style={{
@@ -537,7 +610,11 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                   </div>
                 </div>
               </div>
-              <button onClick={handleInvoiceSave}>SAVE INVOICE</button>
+              {editingInvoice ? (
+                <button onClick={handleInvoiceUpdate}>UPDATE INVOICE</button>
+              ) : (
+                <button onClick={handleInvoiceSave}>SAVE INVOICE</button>
+              )}
             </>
           )}
         </>
