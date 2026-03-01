@@ -18,7 +18,7 @@ export default function Header() {
         style={{
           borderBottom: "2px solid black",
           width: "100vw",
-          height: "100px",
+          height: "50px",
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
@@ -31,20 +31,32 @@ export default function Header() {
             <button onClick={() => window.history.back()}>X</button>
           </div>
         ) : (
-          <div
-            style={{
-              display: "flex",
-              height: "60px",
-              marginLeft: "0px",
-              marginBottom: "0px",
-              marginTop: "0px,",
-              justifyContent: "space-between",
-              objectFit: "contain",
-              width: "auto",
-            }}
-          >
-            <img src={logo} id="logo" />
-          </div>
+          <>
+            <div
+              style={{
+                display: "flex",
+                height: "80px",
+
+                position: "absolute",
+                top: "0px",
+                objectFit: "contain",
+                width: "80px",
+              }}
+            >
+              <img src={logo} id="logo" style={{ opacity: "0.9" }} />
+            </div>
+            <div>
+              <p
+                style={{
+                  color: "white",
+                  marginLeft: "80px",
+                  fontWeight: "bold",
+                }}
+              >
+                PAPER TRAILS
+              </p>
+            </div>
+          </>
         )}
         <div
           style={{
@@ -87,13 +99,23 @@ export default function Header() {
           <div
             style={{
               display: "flex",
-              width: "150px",
-              height: "150px",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "40px",
+              height: "40px",
               alignSelf: "center",
               marginLeft: "50px",
             }}
           >
-            <img src={logo} style={{ width: "100%" }} />
+            <img
+              src={logo}
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            />
           </div>
         )}
       </div>

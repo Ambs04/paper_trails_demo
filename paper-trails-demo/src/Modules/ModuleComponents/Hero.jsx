@@ -12,19 +12,7 @@ export default function Hero() {
           height: "300px",
         }}
       >
-        <img src={heroImg} style={{ opacity: "0.85" }} />
-        <h1
-          style={{
-            textAlign: "center",
-
-            width: "100%",
-            zIndex: "2",
-            color: "#7e0f0f",
-            textShadow: "5px -2px 10px rgba(181, 158, 158, 0.79) ",
-          }}
-        >
-          SMART INVOICING MADE SIMPLE
-        </h1>
+        <img src={heroImg} />
       </div>
     </>
   );
