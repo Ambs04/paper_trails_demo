@@ -2,15 +2,22 @@ import logo from "../../assets/logo.png";
 import profileImg from "../../assets/user.png";
 import { Link, useLocation } from "react-router-dom";
 import "../../Styles/header.css";
+import dashImg from "../../blank_image_loading.png";
 
 export default function Header() {
   const location = useLocation();
 
   const currentHeading = location.pathname;
 
-  const currentPath = location.pathname === "/" ? "/login" : "/profile";
+  {
+    /*} const currentPath = location.pathname === "/" ? "/login" : "/profile";
+  const profilePage = location.pathname === "/profile";*/
+  }
 
-  const profilePage = location.pathname === "/profile";
+  const path = location.pathname;
+  const homePage = path === "/";
+  const profilePage = path === "/profile";
+  const iconLink = homePage ? "/login" : "/profile";
 
   return (
     <>
@@ -30,7 +37,7 @@ export default function Header() {
           <div>
             <button onClick={() => window.history.back()}>X</button>
           </div>
-        ) : (
+        ) : homePage ? (
           <>
             <div
               style={{
@@ -57,19 +64,26 @@ export default function Header() {
               </p>
             </div>
           </>
+        ) : (
+          <>
+            <div>
+              <img src={dashImg} />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignSelf: "center",
+                justifySelf: "flex-start",
+              }}
+            >
+              <h3 id="header-heading">
+                {currentHeading.replace("/", "").toUpperCase()}
+              </h3>
+            </div>
+          </>
         )}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignSelf: "center",
-            justifySelf: "flex-start",
-          }}
-        >
-          <h3 id="header-heading">
-            {currentHeading.replace("/", "").toUpperCase()}
-          </h3>
-        </div>
+
         {!profilePage ? (
           <div
             style={{
@@ -82,7 +96,7 @@ export default function Header() {
               padding: "30px",
             }}
           >
-            <Link to={currentPath}>
+            <Link to={iconLink}>
               <div style={{ background: "none" }}>
                 <img
                   id="profile"

@@ -5,7 +5,16 @@ import DashFooter from "../Modules/ModuleComponents/DashFooter";
 export default function Dashboard() {
   const currentPlan = localStorage.getItem("subscriptionType") || "FREE";
   return (
-    <>
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-start",
+      }}
+    >
       <div>
         <Header />
       </div>
@@ -119,6 +128,6 @@ export default function Dashboard() {
       <div>
         <DashFooter />
       </div>
-    </>
+    </div>
   );
 }
