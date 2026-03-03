@@ -2,7 +2,7 @@ import logo from "../../assets/logo.png";
 import profileImg from "../../assets/user.png";
 import { Link, useLocation } from "react-router-dom";
 import "../../Styles/header.css";
-import dashImg from "../../blank_image_loading.png";
+import dashImg from "../../assets/blank_image_loading.png";
 
 export default function Header() {
   const location = useLocation();
@@ -23,7 +23,6 @@ export default function Header() {
     <>
       <div
         style={{
-          borderBottom: "2px solid black",
           width: "100vw",
           height: "50px",
           display: "flex",
@@ -31,6 +30,8 @@ export default function Header() {
           justifyContent: "space-between",
           alignItems: "center",
           backgroundColor: "#465362",
+          position: "absolute",
+          top: "0",
         }}
       >
         {profilePage ? (
@@ -65,8 +66,8 @@ export default function Header() {
             </div>
           </>
         ) : (
-          <>
-            <div>
+          <div>
+            <div style={{ height: "80px", position: "absolute", top: "0px" }}>
               <img src={dashImg} />
             </div>
             <div
@@ -77,11 +78,18 @@ export default function Header() {
                 justifySelf: "flex-start",
               }}
             >
-              <h3 id="header-heading">
+              <h3
+                id="header-heading"
+                style={{
+                  marginLeft: "80px",
+                  fontWeight: "bold",
+                  color: "white",
+                }}
+              >
                 {currentHeading.replace("/", "").toUpperCase()}
               </h3>
             </div>
-          </>
+          </div>
         )}
 
         {!profilePage ? (
@@ -92,18 +100,22 @@ export default function Header() {
               width: "50px",
               height: "100px",
               alignItems: "center",
-
-              padding: "30px",
+              paddingRight: "0px",
+              paddingTop: "10px",
             }}
           >
             <Link to={iconLink}>
-              <div style={{ background: "none" }}>
+              <div
+                style={{
+                  background: "none",
+                }}
+              >
                 <img
                   id="profile"
                   src={profileImg}
                   style={{
-                    width: "100%",
-                    marginTop: "0px",
+                    width: "40px",
+                    height: "40px",
                   }}
                 />
               </div>
@@ -122,7 +134,7 @@ export default function Header() {
             }}
           >
             <img
-              src={logo}
+              src={dashImg}
               style={{
                 width: "100%",
                 display: "flex",

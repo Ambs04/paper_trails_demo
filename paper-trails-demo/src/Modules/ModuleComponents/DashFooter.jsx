@@ -10,11 +10,10 @@ export default function DashFooter() {
           justifyContent: "flex-end",
           marginLeft: "auto",
           marginRight: "auto",
-          marginTop: "100px",
 
-          position: "static",
+          position: "absolute",
           bottom: "0px",
-          height: "10%",
+          height: "70px",
           width: "100%",
           overflow: "hidden",
         }}

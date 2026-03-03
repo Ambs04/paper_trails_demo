@@ -45,15 +45,61 @@ export default function Customers() {
       <div>
         <Header />
       </div>
-      <div>
-        <Searchbar />
-        <div>
-          <Link to="/add-customer">
-            <button>+</button>
-          </Link>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          minHeight: "40px",
+          gap: "10px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100vw",
+            alignItems: "center",
+            marginTop: "10px",
+          }}
+        >
+          <Searchbar />
         </div>
+
+        <Link to="/add-customer" style={{ textDecoration: "none" }}>
+          <button
+            style={{
+              marginTop: "45px",
+              marginRight: "10px",
+              minHeight: "40px",
+              height: "40px",
+              width: "40px",
+              borderRadius: "8px",
+              backgroundColor: "rgb(249, 220, 92)",
+              borderWidth: "0px",
+              color: "rgb(0,0,0)",
+              fontWeight: "bold",
+              fontSize: "30px",
+              textAlign: "center",
+              opacity: "1",
+            }}
+          >
+            +
+          </button>
+        </Link>
       </div>
-      <div>
+      <div
+        style={{
+          width: "100vw",
+          height: "930px",
+          marginTop: "20px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          overflow: "hidden scroll",
+          gap: "20px",
+        }}
+      >
         {customer?.length === 0 ? (
           <p>No customers found.</p>
         ) : (
@@ -61,35 +107,191 @@ export default function Customers() {
             <div
               key={item._id}
               onClick={() => setSelectedCustomer(item)}
-              style={{ border: "1px solid black" }}
+              style={{
+                width: "100%",
+                maxWidth: "800px",
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
-              <div>
-                <p>Company Name</p>
-                <p>{item.companyName}</p>
-              </div>
-              <div>
-                <p>Company Email</p>
-                <p>{item.email}</p>
-              </div>
-              <div>
-                <p>Company Phone</p>
-                <p>{item.cellNumber}</p>
-              </div>
-              <div>
-                <p>Contact Person</p>
-                <p>{item.contactPerson}</p>
-              </div>
-              <div>
-                <p>Address</p>
-                <p>{item.address}</p>
-              </div>
-              <div>
-                <p>Payment Terms</p>
-                <p>{item.paymentTerms}</p>
-              </div>
-              <div>
-                <p>Status</p>
-                <p>{item.status}</p>
+              <div
+                style={{
+                  display: "flex",
+                  boxShadow: "rgba(0,0,0,0.125) 0px 0px 7px 2px",
+                  width: "90%",
+                  height: "90%",
+                  borderRadius: "12px",
+                  padding: "5px",
+                }}
+              >
+                <div style={{ marginTop: "10px" }}>
+                  <div style={{ marginLeft: "10px", width: "150px" }}>
+                    <div
+                      style={{
+                        fontSize: "10px",
+                        fontWeight: "bold",
+                        opacity: "0.7",
+                        marginBottom: "3px",
+                        color: "black",
+                      }}
+                    >
+                      Company Name
+                    </div>
+                    <p
+                      style={{
+                        fontWeight: "normal",
+                        fontSize: "14px",
+                        paddingTop: "5px",
+                        paddingLeft: "0px",
+                      }}
+                    >
+                      {item.companyName}
+                    </p>
+                  </div>
+                  <div style={{ marginTop: "5px", marginLeft: "10px" }}>
+                    <div
+                      style={{
+                        fontSize: "10px",
+                        fontWeight: "bold",
+                        opacity: "0.7",
+                        marginBottom: "0px",
+                        color: "black",
+                      }}
+                    >
+                      Company Email
+                    </div>
+
+                    <p
+                      style={{
+                        fontWeight: "normal",
+                        fontSize: "14px",
+                        paddingTop: "5px",
+                        paddingLeft: "0px",
+                      }}
+                    >
+                      {item.email}
+                    </p>
+                  </div>
+                  <div style={{ marginTop: "5px", marginLeft: "5px" }}>
+                    <div
+                      style={{
+                        fontSize: "10px",
+                        fontWeight: "bold",
+                        opacity: "0.7",
+                        paddingBottom: "2px",
+                        color: "black",
+                        paddingLeft: "5px",
+                      }}
+                    >
+                      Company Phone
+                    </div>
+                    <p
+                      style={{
+                        fontWeight: "normal",
+                        fontSize: "14px",
+                        paddingTop: "5px",
+                        paddingLeft: "5px",
+                      }}
+                    >
+                      {item.cellNumber}
+                    </p>
+                  </div>
+                  <div style={{ marginTop: "5px", marginLeft: "10px" }}>
+                    <div
+                      style={{
+                        fontSize: "10px",
+                        fontWeight: "bold",
+                        opacity: "0.7",
+                        marginBottom: "3px",
+                        color: "black",
+                      }}
+                    >
+                      Contact Person
+                    </div>
+                    <p
+                      style={{
+                        fontWeight: "normal",
+                        fontSize: "14px",
+                        paddingTop: "5px",
+                        paddingLeft: "0px",
+                        marginBottom: "7px",
+                      }}
+                    >
+                      {item.contactPerson}
+                    </p>
+                  </div>
+                </div>
+                <div style={{ marginTop: "10px" }}>
+                  <div style={{ marginLeft: "10px", width: "200px" }}>
+                    <div
+                      style={{
+                        fontSize: "10px",
+                        fontWeight: "bold",
+                        opacity: "0.7",
+                        marginBottom: "3px",
+                        color: "black",
+                      }}
+                    >
+                      Address
+                    </div>
+                    <p
+                      style={{
+                        fontWeight: "normal",
+                        fontSize: "14px",
+                        paddingTop: "5px",
+                        paddingLeft: "0px",
+                      }}
+                    >
+                      {item.address}
+                    </p>
+                  </div>
+                  <div style={{ marginTop: "5px", marginLeft: "10px" }}>
+                    <div
+                      style={{
+                        fontSize: "10px",
+                        fontWeight: "bold",
+                        opacity: "0.7",
+                        marginBottom: "3px",
+                        color: "black",
+                      }}
+                    >
+                      Payment Terms
+                    </div>
+                    <p
+                      style={{
+                        fontWeight: "normal",
+                        fontSize: "14px",
+                        paddingTop: "5px",
+                        paddingLeft: "0px",
+                      }}
+                    >
+                      {item.paymentTerms}
+                    </p>
+                  </div>
+                  <div style={{ marginTop: "5px", marginLeft: "10px" }}>
+                    <div
+                      style={{
+                        fontSize: "10px",
+                        fontWeight: "bold",
+                        opacity: "0.7",
+                        marginBottom: "3px",
+                        color: "black",
+                      }}
+                    >
+                      Status
+                    </div>
+                    <p
+                      style={{
+                        fontWeight: "normal",
+                        fontSize: "14px",
+                        paddingTop: "5px",
+                        paddingLeft: "0px",
+                      }}
+                    >
+                      {item.status}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           ))
