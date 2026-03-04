@@ -87,12 +87,48 @@ export default function Users() {
       <div>
         <Header />
       </div>
-      <div>
-        <Searchbar />
-        <div>
-          <Link to="/add-user">
-            <button>+</button>
-          </Link>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          minHeight: "40px",
+          gap: "10px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100vw",
+            alignItems: "center",
+            marginTop: "10px",
+          }}
+        >
+          <Searchbar />
+          <div>
+            <Link to="/add-user">
+              <button
+                style={{
+                  marginTop: "35px",
+                  marginRight: "10px",
+                  marginLeft: "10px",
+                  minHeight: "40px",
+                  height: "40px",
+                  width: "40px",
+                  borderRadius: "8px",
+                  backgroundColor: "rgb(249, 220, 92)",
+                  borderWidth: "0px",
+                  color: "rgb(0,0,0)",
+                  fontWeight: "bold",
+                  fontSize: "30px",
+                  textAlign: "center",
+                  opacity: "1",
+                }}
+              >
+                +
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
       {newUser.length === 0 ? (

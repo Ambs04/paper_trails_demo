@@ -133,39 +133,178 @@ export default function Products() {
       <div>
         <Header />
       </div>
-      <div>
-        <Searchbar />
-        <div>
-          <Link to="/add-product">
-            <button>+</button>
-          </Link>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          minHeight: "40px",
+          gap: "10px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100vw",
+            alignItems: "center",
+            marginTop: "10px",
+          }}
+        >
+          <Searchbar />
+          <div>
+            <Link to="/add-product">
+              <button
+                style={{
+                  marginTop: "35px",
+                  marginRight: "10px",
+                  marginLeft: "10px",
+                  minHeight: "40px",
+                  height: "40px",
+                  width: "40px",
+                  borderRadius: "8px",
+                  backgroundColor: "rgb(249, 220, 92)",
+                  borderWidth: "0px",
+                  color: "rgb(0,0,0)",
+                  fontWeight: "bold",
+                  fontSize: "30px",
+                  textAlign: "center",
+                  opacity: "1",
+                }}
+              >
+                +
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
 
       {prods.length === 0 ? (
         <p>No products found.</p>
       ) : (
-        <div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+            height: "780px",
+            overflow: "hidden scroll",
+            gap: "0px",
+          }}
+        >
           {prods.map((product) => (
             <div
               key={product.id || product._id}
-              style={{ border: "1px solid black" }}
               onClick={() => {
                 handleEditModalOpen(product);
               }}
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
-              <div>
-                <h3>Product / Service</h3>
-                <p>{product.productOrServiceName}</p>
-
-                <h3>Description</h3>
-                <p>{product.description}</p>
-
-                <h3>Price: </h3>
-                <p>R{product.price}</p>
-
-                <h3>Status</h3>
-                <p>{product.status}</p>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "90%",
+                  boxShadow: "rgba(0,0,0,0.125) 0px 0px 7px 2px",
+                  height: "100%",
+                  borderRadius: "12px",
+                }}
+              >
+                <div style={{ marginTop: "10px", marginLeft: "15px" }}>
+                  <h3
+                    style={{
+                      fontSize: "10px",
+                      fontWeight: "bold",
+                      opacity: "0.7",
+                      color: "black",
+                    }}
+                  >
+                    Product / Service
+                  </h3>
+                  <p
+                    style={{
+                      fontWeight: "normal",
+                      fontSize: "14px",
+                      paddingTop: "5px",
+                      paddingLeft: "0px",
+                    }}
+                  >
+                    {product.productOrServiceName}
+                  </p>
+                </div>
+                <div style={{ marginLeft: "15px" }}>
+                  <h3
+                    style={{
+                      fontSize: "10px",
+                      fontWeight: "bold",
+                      opacity: "0.7",
+                      color: "black",
+                    }}
+                  >
+                    Description
+                  </h3>
+                  <p
+                    style={{
+                      fontWeight: "normal",
+                      fontSize: "14px",
+                      paddingTop: "5px",
+                      paddingLeft: "0px",
+                    }}
+                  >
+                    {product.description}
+                  </p>
+                </div>
+                <div style={{ marginLeft: "15px" }}>
+                  <h3
+                    style={{
+                      fontSize: "10px",
+                      fontWeight: "bold",
+                      opacity: "0.7",
+                      color: "black",
+                    }}
+                  >
+                    Price:{" "}
+                  </h3>
+                  <p
+                    style={{
+                      fontWeight: "normal",
+                      fontSize: "14px",
+                      paddingTop: "5px",
+                      paddingLeft: "0px",
+                    }}
+                  >
+                    R{product.price}
+                  </p>
+                </div>
+              </div>
+              <div style={{ marginLeft: "15px" }}>
+                <div style={{ width: "100%" }}>
+                  <h3
+                    style={{
+                      fontSize: "10px",
+                      fontWeight: "bold",
+                      opacity: "0.7",
+                      color: "black",
+                    }}
+                  >
+                    Status
+                  </h3>
+                  <p
+                    style={{
+                      fontWeight: "normal",
+                      fontSize: "14px",
+                      paddingTop: "5px",
+                      paddingLeft: "0px",
+                    }}
+                  >
+                    {product.status}
+                  </p>
+                </div>
               </div>
             </div>
           ))}

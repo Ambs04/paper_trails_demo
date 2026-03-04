@@ -28,9 +28,20 @@ export default function Dashboard() {
           marginLeft: "30px",
         }}
       >
-        <h3>
+        <div>
           <Greeting />
-        </h3>
+        </div>
+        <div
+          style={{
+            fontSize: "14px",
+            fontWeight: "normal",
+            paddingTop: "10px",
+            paddingBottom: "10px",
+          }}
+        >
+          This Dashboard will be here to give you a quick overview of what's
+          happening on your system.
+        </div>
         <div style={{ width: "90%" }}>
           <h4 style={{ marginTop: "10px", marginBottom: "0px" }}>
             ACCOUNT TYPE

@@ -3,6 +3,7 @@ import profileImg from "../../assets/user.png";
 import { Link, useLocation } from "react-router-dom";
 import "../../Styles/header.css";
 import dashImg from "../../assets/blank_image_loading.png";
+import returnIcon from "../../assets/return_icon.png";
 
 export default function Header() {
   const location = useLocation();
@@ -23,20 +24,42 @@ export default function Header() {
     <>
       <div
         style={{
-          width: "100vw",
+          width: "100%",
           height: "50px",
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
           backgroundColor: "#465362",
-          position: "absolute",
+          position: "fixed",
           top: "0",
         }}
       >
         {profilePage ? (
-          <div>
-            <button onClick={() => window.history.back()}>X</button>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <div
+              onClick={() => window.history.back()}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: "5px",
+              }}
+            >
+              <img src={returnIcon} style={{ height: "40px", width: "40px" }} />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: "20px",
+                fontWeight: "bold",
+                color: "white",
+              }}
+            >
+              {path.replace("/", "").toUpperCase()}
+            </div>
           </div>
         ) : homePage ? (
           <>
@@ -67,9 +90,16 @@ export default function Header() {
           </>
         ) : (
           <div>
-            <div style={{ height: "80px", position: "absolute", top: "0px" }}>
-              <img src={dashImg} />
-            </div>
+            <img
+              src={dashImg}
+              style={{
+                height: "80px",
+                width: "80px",
+                position: "absolute",
+                top: "0px",
+              }}
+            />
+
             <div
               style={{
                 display: "flex",
@@ -136,10 +166,13 @@ export default function Header() {
             <img
               src={dashImg}
               style={{
-                width: "100%",
+                width: "80px",
+                height: "80px",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                marginTop: "30px",
+                marginRight: "40px",
               }}
             />
           </div>
