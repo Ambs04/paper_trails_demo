@@ -11,7 +11,7 @@ export default function Dashboard() {
         height: "100vh",
         display: "flex",
         flexDirection: "column",
-
+        paddingBottom: "100px",
         justifySelf: "flex-start",
         overflow: "hidden scroll",
       }}
