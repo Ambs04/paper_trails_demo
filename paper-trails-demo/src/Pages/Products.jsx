@@ -36,7 +36,7 @@ export default function Products() {
       }
     };
     fetchProds();
-  });
+  }, []);
 
   const handleChange = (e) => {
     setProdInfo({ ...prodInfo, [e.target.name]: e.target.value });
@@ -154,6 +154,7 @@ export default function Products() {
           <div>
             <Link to="/add-product">
               <button
+                type="button"
                 style={{
                   marginTop: "35px",
                   marginRight: "10px",
@@ -189,7 +190,7 @@ export default function Products() {
             width: "100%",
             height: "780px",
             overflow: "hidden scroll",
-            gap: "0px",
+            gap: "10px",
           }}
         >
           {prods.map((product) => (
@@ -199,23 +200,25 @@ export default function Products() {
                 handleEditModalOpen(product);
               }}
               style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                display: "grid",
+                gridTemplateColumns: "3fr 1fr",
+
+                width: "90%",
+                boxShadow: "rgba(0,0,0,0.125) 0px 0px 7px 2px",
+                height: "215px",
+                borderRadius: "12px",
               }}
             >
               <div
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  width: "90%",
-                  boxShadow: "rgba(0,0,0,0.125) 0px 0px 7px 2px",
-                  height: "100%",
-                  borderRadius: "12px",
+                  gap: "2px",
+                  gridColumn: "1 / 2",
+                  marginLeft: "20px",
                 }}
               >
-                <div style={{ marginTop: "10px", marginLeft: "15px" }}>
+                <div>
                   <h3
                     style={{
                       fontSize: "10px",
@@ -230,14 +233,15 @@ export default function Products() {
                     style={{
                       fontWeight: "normal",
                       fontSize: "14px",
-                      paddingTop: "5px",
+                      paddingTop: "2px",
                       paddingLeft: "0px",
                     }}
                   >
                     {product.productOrServiceName}
                   </p>
                 </div>
-                <div style={{ marginLeft: "15px" }}>
+
+                <div>
                   <h3
                     style={{
                       fontSize: "10px",
@@ -259,7 +263,7 @@ export default function Products() {
                     {product.description}
                   </p>
                 </div>
-                <div style={{ marginLeft: "15px" }}>
+                <div>
                   <h3
                     style={{
                       fontSize: "10px",
@@ -268,21 +272,28 @@ export default function Products() {
                       color: "black",
                     }}
                   >
-                    Price:{" "}
+                    Price:
                   </h3>
                   <p
                     style={{
                       fontWeight: "normal",
                       fontSize: "14px",
-                      paddingTop: "5px",
-                      paddingLeft: "0px",
+                      paddingTop: "2px",
+                      paddingLeft: "2px",
                     }}
                   >
                     R{product.price}
                   </p>
                 </div>
               </div>
-              <div style={{ marginLeft: "15px" }}>
+              <div
+                style={{
+                  display: "grid",
+                  gridColumn: "2 / 3",
+                  textAlign: "right",
+                  marginRight: "20px",
+                }}
+              >
                 <div style={{ width: "100%" }}>
                   <h3
                     style={{

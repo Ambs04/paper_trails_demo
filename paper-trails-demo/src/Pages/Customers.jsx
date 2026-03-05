@@ -89,7 +89,7 @@ export default function Customers() {
       </div>
       <div
         style={{
-          width: "100vw",
+          width: "100%",
           height: "930px",
           marginTop: "20px",
           display: "flex",
@@ -109,7 +109,7 @@ export default function Customers() {
               onClick={() => setSelectedCustomer(item)}
               style={{
                 width: "100%",
-                maxWidth: "800px",
+
                 display: "flex",
                 justifyContent: "center",
               }}

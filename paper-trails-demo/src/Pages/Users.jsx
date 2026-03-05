@@ -108,6 +108,7 @@ export default function Users() {
           <div>
             <Link to="/add-user">
               <button
+                type="button"
                 style={{
                   marginTop: "35px",
                   marginRight: "10px",
@@ -134,39 +135,135 @@ export default function Users() {
       {newUser.length === 0 ? (
         <p>No users found yet</p>
       ) : (
-        <div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+            height: "780px",
+            overflow: "hidden scroll",
+            gap: "10px",
+          }}
+        >
           {newUser.map((user) => (
             <div
               key={user.id || user._id}
-              style={{ border: "1px solid black" }}
               onClick={() => handleUserEdit(user)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "3fr 1fr",
+                padding: " 10px",
+                width: "90%",
+                boxShadow: "rgba(0,0,0,0.125) 0px 0px 7px 2px",
+                borderRadius: "12px",
+              }}
             >
-              {/*first name */}
-              <div>
-                <p>Name:</p>
-                <br />
-                <p>
-                  {user.firstName} {user.lastName}
-                </p>
-              </div>
+              <div style={{ display: "grid", marginLeft: "20px" }}>
+                {/*first name */}
+                <div>
+                  <h3
+                    style={{
+                      fontSize: "10px",
+                      fontWeight: "bold",
+                      opacity: "0.7",
+                      color: "black",
+                    }}
+                  >
+                    Name:
+                  </h3>
 
-              {/*email */}
-              <div>
-                <p>Email:</p>
-                <br />
-                <p>{user.email}</p>
+                  <p
+                    style={{
+                      fontWeight: "normal",
+                      fontSize: "14px",
+                      paddingTop: "0px",
+                      paddingLeft: "0px",
+                    }}
+                  >
+                    {user.firstName} {user.lastName}
+                  </p>
+                </div>
+
+                {/*email */}
+                <div>
+                  <h3
+                    style={{
+                      fontSize: "10px",
+                      fontWeight: "bold",
+                      opacity: "0.7",
+                      color: "black",
+                    }}
+                  >
+                    Email:
+                  </h3>
+
+                  <p
+                    style={{
+                      fontWeight: "normal",
+                      fontSize: "14px",
+                      paddingTop: "0px",
+                      paddingLeft: "0px",
+                    }}
+                  >
+                    {user.email}
+                  </p>
+                </div>
+                {/* phone number*/}
+                <div>
+                  <h3
+                    style={{
+                      fontSize: "10px",
+                      fontWeight: "bold",
+                      opacity: "0.7",
+                      color: "black",
+                    }}
+                  >
+                    Phone:
+                  </h3>
+
+                  <p
+                    style={{
+                      fontWeight: "normal",
+                      fontSize: "14px",
+                      paddingTop: "0px",
+                      paddingLeft: "0px",
+                    }}
+                  >
+                    {user.cellNumber}
+                  </p>
+                </div>
               </div>
-              {/* phone number*/}
-              <div>
-                <p>Phone:</p>
-                <br />
-                <p>{user.cellNumber}</p>
-              </div>
-              {/*status*/}
-              <div>
-                <p>Status</p>
-                <br />
-                <p>{user.accountStatus || "active"}</p>
+              <div
+                style={{
+                  display: "grid",
+                  textAlign: "right",
+                  marginRight: "20px",
+                }}
+              >
+                {/*status*/}
+                <div>
+                  <h3
+                    style={{
+                      fontSize: "10px",
+                      fontWeight: "bold",
+                      opacity: "0.7",
+                      color: "black",
+                    }}
+                  >
+                    Status
+                  </h3>
+
+                  <p
+                    style={{
+                      fontWeight: "normal",
+                      fontSize: "14px",
+                      paddingTop: "0px",
+                    }}
+                  >
+                    {user.accountStatus || "active"}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
