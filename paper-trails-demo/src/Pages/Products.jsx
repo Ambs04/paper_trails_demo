@@ -5,6 +5,8 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { baseUrl } from "../api";
 import { useState, useEffect } from "react";
 import Alert from "../Modules/CommonComponents/Alert";
+import LoadingPage from "./../Modules/CommonComponents/LoadingPage";
+import loadingLogo from "../assets/loading_image.png";
 
 export default function Products() {
   const [prods, setProds] = useState([]);
@@ -17,6 +19,7 @@ export default function Products() {
     prodPrice: " ",
     status: "active",
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   const location = useLocation();
   const [showAlert, setShowAlert] = useState(
@@ -27,6 +30,7 @@ export default function Products() {
   useEffect(() => {
     const fetchProds = async () => {
       const savedId = localStorage.getItem("companyId");
+      setIsLoading(true);
 
       try {
         const res = await fetch(`${baseUrl}/productServices/getAllProducts`, {
@@ -40,6 +44,8 @@ export default function Products() {
         }
       } catch (error) {
         alert("Failed to fetch products.", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchProds();
@@ -63,6 +69,7 @@ export default function Products() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     const editing = selectedProd !== null;
+    setIsLoading(true);
 
     const updatedInfo = {
       productOrServiceName: prodInfo.prodName,
@@ -143,6 +150,7 @@ export default function Products() {
 
   return (
     <>
+      {isLoading && <LoadingPage logo={loadingLogo} />}
       {showAlert && <Alert showAlert={showAlert} setShowAlert={setShowAlert} />}
       <div>
         <Header />
@@ -193,7 +201,7 @@ export default function Products() {
         </div>
       </div>
 
-      {prods.length === 0 ? (
+      {!isLoading && prods.length === 0 ? (
         <p>No products found.</p>
       ) : (
         <div

@@ -2,14 +2,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { baseUrl } from "../api";
 import "../Styles/login.css";
+import LoadingPage from "./../Modules/CommonComponents/LoadingPage";
+import loadingLogo from "./../assets/loading_image.png";
 
 export default function Login() {
   const navigate = useNavigate();
   const [userLogin, setUserLogin] = useState({ email: "", password: "" });
   const [loginValid, setLoginValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleUserLogin = async (e) => {
     e.preventDefault();
+
+    setIsLoading(true);
 
     try {
       const res = await fetch(`${baseUrl}/user/login`, {
@@ -39,6 +44,8 @@ export default function Login() {
       }
     } catch (error) {
       console.error("Connection error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -50,6 +57,7 @@ export default function Login() {
 
   return (
     <>
+      {isLoading && <LoadingPage logo={loadingLogo} />}
       <form
         onSubmit={handleUserLogin}
         id="login-page"

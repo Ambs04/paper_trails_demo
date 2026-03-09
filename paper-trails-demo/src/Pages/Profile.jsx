@@ -2,6 +2,8 @@ import { baseUrl } from "../api";
 import Greeting from "../Modules/CommonComponents/Greeting";
 import Header from "../Modules/CommonComponents/Header";
 import { useState } from "react";
+import LoadingPage from "./../Modules/CommonComponents/LoadingPage";
+import loadingLogo from "../../assets/loading_image.png";
 
 export default function Profile() {
   const [profileInfo, setProfileInfo] = useState({
@@ -22,6 +24,8 @@ export default function Profile() {
     accountName: localStorage.getItem("accountName") || "",
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
     setProfileInfo((prev) => ({ ...prev, [name]: value }));
@@ -29,6 +33,7 @@ export default function Profile() {
 
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const fetchProfileInfo = {
       ...profileInfo,
       userId: localStorage.getItem("userId"),
@@ -36,42 +41,50 @@ export default function Profile() {
       subscriptionType: profileInfo.subscriptionType || "free",
       invoiceType: "standard",
     };
+    try {
+      const res = await fetch(`${baseUrl}/user/updateUserInformation`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fetchProfileInfo),
+      });
 
-    const res = await fetch(`${baseUrl}/user/updateUserInformation`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(fetchProfileInfo),
-    });
+      //const data = await res.json();
+      console.log(fetchProfileInfo);
+      if (res.ok) {
+        localStorage.setItem(
+          "subscriptionType",
+          fetchProfileInfo.subscriptionType,
+        );
+        localStorage.setItem("companyLogoId", fetchProfileInfo.companyLogoId);
+        localStorage.setItem("colors1", fetchProfileInfo.colors1);
+        localStorage.setItem("colors2", fetchProfileInfo.colors2);
+        localStorage.setItem("firstName", fetchProfileInfo.firstName);
+        localStorage.setItem("lastName", fetchProfileInfo.lastName);
+        localStorage.setItem("companyName", fetchProfileInfo.companyName);
+        localStorage.setItem("cellNumber", fetchProfileInfo.cellNumber);
+        localStorage.setItem("email", fetchProfileInfo.email);
+        localStorage.setItem("bank", fetchProfileInfo.bank);
+        localStorage.setItem("accountNumber", fetchProfileInfo.accountNumber);
+        localStorage.setItem("accountName", fetchProfileInfo.accountName);
+        localStorage.setItem("accountType", fetchProfileInfo.accountType);
 
-    //const data = await res.json();
-    console.log(fetchProfileInfo);
-    if (res.ok) {
-      localStorage.setItem(
-        "subscriptionType",
-        fetchProfileInfo.subscriptionType,
-      );
-      localStorage.setItem("companyLogoId", fetchProfileInfo.companyLogoId);
-      localStorage.setItem("colors1", fetchProfileInfo.colors1);
-      localStorage.setItem("colors2", fetchProfileInfo.colors2);
-      localStorage.setItem("firstName", fetchProfileInfo.firstName);
-      localStorage.setItem("lastName", fetchProfileInfo.lastName);
-      localStorage.setItem("companyName", fetchProfileInfo.companyName);
-      localStorage.setItem("cellNumber", fetchProfileInfo.cellNumber);
-      localStorage.setItem("email", fetchProfileInfo.email);
-      localStorage.setItem("bank", fetchProfileInfo.bank);
-      localStorage.setItem("accountNumber", fetchProfileInfo.accountNumber);
-      localStorage.setItem("accountName", fetchProfileInfo.accountName);
-      localStorage.setItem("accountType", fetchProfileInfo.accountType);
-
-      alert("Profile successfully updated!");
-      window.history.back();
-      //  console.log(data);
-      //console.log(profileInfo);
+        alert("Profile successfully updated!");
+        window.history.back();
+        //  console.log(data);
+        //console.log(profileInfo);
+      } else {
+        alert("Update failed");
+      }
+    } catch (error) {
+      alert(`${error.message}`);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div>
+      {isLoading && <LoadingPage logo="loadingLogo" />}
       <div>
         <Header />
       </div>

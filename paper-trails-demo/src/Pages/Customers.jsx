@@ -6,6 +6,8 @@ import { baseUrl } from "../api";
 import { useState, useEffect } from "react";
 import ManageCustomerModal from "../Modules/ModuleComponents/ManageCustomerModal";
 import Alert from "../Modules/CommonComponents/Alert";
+import LoadingPage from "./../Modules/CommonComponents/LoadingPage";
+import loadingLogo from "./../assets/loading_image.png";
 
 export default function Customers() {
   const [customer, setCustomer] = useState([]);
@@ -15,9 +17,11 @@ export default function Customers() {
     location.state?.userCreated || false,
   );
   const nav = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchCustomers = async () => {
+      setIsLoading(true);
       try {
         const res = await fetch(`${baseUrl}/customer/getCompanyCustomers`, {
           method: "POST",
@@ -34,6 +38,8 @@ export default function Customers() {
         }
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchCustomers();
@@ -54,6 +60,8 @@ export default function Customers() {
 
   return (
     <>
+      {isLoading && <LoadingPage logo={loadingLogo} />}
+
       {showAlert && <Alert showAlert={showAlert} setShowAlert={setShowAlert} />}
       <div>
         <Header />
@@ -113,7 +121,7 @@ export default function Customers() {
           gap: "20px",
         }}
       >
-        {customer?.length === 0 ? (
+        {!isLoading && customer?.length === 0 ? (
           <p>No customers found.</p>
         ) : (
           customer?.map((item) => (

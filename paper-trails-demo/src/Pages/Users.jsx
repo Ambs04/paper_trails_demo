@@ -6,6 +6,8 @@ import DashFooter from "../Modules/ModuleComponents/DashFooter";
 import { baseUrl } from "../api";
 import { useState, useEffect } from "react";
 import Alert from "../Modules/CommonComponents/Alert";
+import LoadingPage from "./../Modules/CommonComponents/LoadingPage";
+import loadingLogo from "./../assets/loading_image.png";
 
 export default function Users() {
   const [newUser, setNewUser] = useState([]);
@@ -16,9 +18,11 @@ export default function Users() {
     location.state?.userCreated || false,
   );
   const nav = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchUsers = async () => {
+      setIsLoading(true);
       try {
         const res = await fetch(`${baseUrl}/user/getComapnyAllCustomers`, {
           method: "POST",
@@ -36,6 +40,8 @@ export default function Users() {
         }
       } catch (error) {
         console.error("Error:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchUsers();
@@ -53,6 +59,7 @@ export default function Users() {
 
   const handleUserUpdate = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     {
       /*} const updateUserInfo = {
@@ -97,6 +104,7 @@ export default function Users() {
 
   return (
     <>
+      {isLoading && <LoadingPage logo={loadingLogo} />}
       {showAlert && <Alert showAlert={showAlert} setShowAlert={setShowAlert} />}
 
       <div>
@@ -151,7 +159,7 @@ export default function Users() {
           </div>
         </div>
       </div>
-      {newUser.length === 0 ? (
+      {!isLoading && newUser.length === 0 ? (
         <p>No users found yet</p>
       ) : (
         <div

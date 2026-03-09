@@ -2,6 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { baseUrl } from "../api";
 import "../Styles/signup.css";
+import "./../Modules/CommonComponents/LoadingPage";
+import LoadingPage from "./../Modules/CommonComponents/LoadingPage";
+import loadingLogo from "./../assets/loading_image.png";
 
 export default function SignUp() {
   const [isBusiness, setIsBusiness] = useState(true);
@@ -12,6 +15,8 @@ export default function SignUp() {
   });
 
   const [formValid, setFormValid] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const verification = (e) => {
     const { name, value } = e.target;
@@ -25,6 +30,8 @@ export default function SignUp() {
       alert("Passwords do not match!");
       navigate("/signup");
     }
+
+    setIsLoading(true);
 
     const nameInput = document.getElementById("firstName").value;
     const surnameInput = document.getElementById("lastName").value;
@@ -72,6 +79,8 @@ export default function SignUp() {
     } catch (error) {
       (console.error("Error:", error),
         alert("Server is currently unavailable."));
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -83,6 +92,7 @@ export default function SignUp() {
 
   return (
     <>
+      {isLoading && <LoadingPage logo={loadingLogo} />}
       <form onSubmit={handleSignUp} onInput={checkEmptyFields}>
         <div id="content-wrapper">
           {/*main div for header*/}
