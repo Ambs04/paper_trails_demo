@@ -1,14 +1,20 @@
 import Header from "../Modules/CommonComponents/Header";
 import DashFooter from "../Modules/ModuleComponents/DashFooter";
 import Searchbar from "../Modules/CommonComponents/Searchbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { baseUrl } from "../api";
 import { useState, useEffect } from "react";
 import ManageCustomerModal from "../Modules/ModuleComponents/ManageCustomerModal";
+import Alert from "../Modules/CommonComponents/Alert";
 
 export default function Customers() {
   const [customer, setCustomer] = useState([]);
   const [selectedCustomer, setSelectedCustomer] = useState();
+  const location = useLocation();
+  const [showAlert, setShowAlert] = useState(
+    location.state?.userCreated || false,
+  );
+  const nav = useNavigate();
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -40,8 +46,15 @@ export default function Customers() {
     setCustomer(updatedDetails);
   };
 
+  useEffect(() => {
+    if (location.state?.userCreated) {
+      nav(location.pathname, { replace: true });
+    }
+  }, [location, nav]);
+
   return (
     <>
+      {showAlert && <Alert showAlert={showAlert} setShowAlert={setShowAlert} />}
       <div>
         <Header />
       </div>
@@ -68,7 +81,7 @@ export default function Customers() {
         <Link to="/add-customer" style={{ textDecoration: "none" }}>
           <button
             style={{
-              marginTop: "45px",
+              marginTop: "50px",
               marginRight: "10px",
               minHeight: "40px",
               height: "40px",

@@ -48,7 +48,7 @@ export default function AddNewProd() {
 
       if (res.ok) {
         alert("Successfully added product!");
-        nav("/products");
+        nav("/products", { state: { userCreated: true } });
       } else {
         const err = await res.json();
 

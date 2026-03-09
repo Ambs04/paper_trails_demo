@@ -41,7 +41,7 @@ export default function NewCustomer() {
       }
       if (res.ok) {
         alert("Customer successfully added!");
-        navigate("/customers");
+        navigate("/customers", { state: { userCreated: true } });
       } else {
         alert("Failed to add customer");
         console.log(fetchNewCustomerInfo);

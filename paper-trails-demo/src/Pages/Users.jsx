@@ -1,14 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Header from "../Modules/CommonComponents/Header";
 import Searchbar from "../Modules/CommonComponents/Searchbar";
 import DashFooter from "../Modules/ModuleComponents/DashFooter";
 import { baseUrl } from "../api";
 import { useState, useEffect } from "react";
+import Alert from "../Modules/CommonComponents/Alert";
 
 export default function Users() {
   const [newUser, setNewUser] = useState([]);
   const [isuserEditActive, setIsUserEditActive] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const location = useLocation();
+  const [showAlert, setShowAlert] = useState(
+    location.state?.userCreated || false,
+  );
+  const nav = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -82,8 +89,16 @@ export default function Users() {
     }
   };
 
+  useEffect(() => {
+    if (location.state?.userCreated) {
+      nav(location.pathname, { replace: true });
+    }
+  }, [location, nav]);
+
   return (
     <>
+      {showAlert && <Alert showAlert={showAlert} setShowAlert={setShowAlert} />}
+
       <div>
         <Header />
       </div>
@@ -91,21 +106,25 @@ export default function Users() {
         style={{
           display: "flex",
           alignItems: "center",
+          flexDirection: "row",
+          width: "100%",
           minHeight: "40px",
           gap: "10px",
+          marginBottom: "20px",
         }}
       >
         <div
           style={{
             display: "flex",
             justifyContent: "center",
-            width: "100vw",
+            flex: "1",
             alignItems: "center",
             marginTop: "10px",
+            paddingLeft: "30px",
           }}
         >
           <Searchbar />
-          <div>
+          <div style={{ display: "flex", flex: "1" }}>
             <Link to="/add-user">
               <button
                 type="button"

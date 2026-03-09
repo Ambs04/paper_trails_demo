@@ -2,7 +2,6 @@ import { baseUrl } from "../api";
 import Greeting from "../Modules/CommonComponents/Greeting";
 import Header from "../Modules/CommonComponents/Header";
 import { useState } from "react";
-import ".././Styles/profile.css";
 
 export default function Profile() {
   const [profileInfo, setProfileInfo] = useState({
@@ -10,10 +9,10 @@ export default function Profile() {
     lastName: localStorage.getItem("lastName") || "",
     cellNumber: localStorage.getItem("cellNumber") || "",
     email: localStorage.getItem("email") || "",
-    colors1: "#D8DFE7",
-    colors2: "#000000",
-    companyLogoId: "",
-    compamyAddress: "",
+    colors1: localStorage.getItem("colors1") || "",
+    colors2: localStorage.getItem("colors2") || "",
+    companyLogoId: localStorage.getItem("companyLogoId") || "",
+    compamyAddress: localStorage.getItem("compamyAddress") || "",
     companyContactInfo: "",
     companyEmail: "",
     companyName: localStorage.getItem("companyName") || "",
@@ -52,7 +51,8 @@ export default function Profile() {
         fetchProfileInfo.subscriptionType,
       );
       localStorage.setItem("companyLogoId", fetchProfileInfo.companyLogoId);
-
+      localStorage.setItem("colors1", fetchProfileInfo.colors1);
+      localStorage.setItem("colors2", fetchProfileInfo.colors2);
       localStorage.setItem("firstName", fetchProfileInfo.firstName);
       localStorage.setItem("lastName", fetchProfileInfo.lastName);
       localStorage.setItem("companyName", fetchProfileInfo.companyName);
@@ -71,28 +71,40 @@ export default function Profile() {
   };
 
   return (
-    <>
+    <div>
       <div>
         <Header />
       </div>
       <div
         style={{
-          padding: "0 90px",
-          maxWidth: "900px",
-          margin: "0 auto 0 auto",
+          width: "90%",
+          textAlign: "left",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          marginLeft: "50px",
         }}
       >
-        <div style={{ width: "200px", textAlign: "left" }}>
-          <Greeting />
-        </div>
+        <Greeting />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flex: "1 1 0%",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <form
           onSubmit={handleProfileUpdate}
           style={{
+            width: "90%",
             display: "flex",
-            flexDirection: "column",
+            maxWidth: "800px",
+            justifyContent: "center",
             alignItems: "center",
-            margin: "0 auto 0 auto",
-            width: "80%",
+            flexDirection: "column",
           }}
         >
           <div
@@ -100,9 +112,11 @@ export default function Profile() {
               marginTop: "10px",
               fontSize: "14px",
               width: "90%",
+              marginLeft: "0",
+              paddingLeft: "0",
             }}
           >
-            <p style={{ color: "black", paddingLeft: "0px" }}>
+            <p style={{ color: "black", textAlign: "left" }}>
               SUBSCRIPTION PLAN
             </p>
           </div>
@@ -116,71 +130,84 @@ export default function Profile() {
               marginTop: "20px",
               marginBottom: "20px",
               width: "100%",
+              gap: "5px",
             }}
           >
-            <button
-              type="button"
-              onClick={() => {
-                setProfileInfo({
-                  ...profileInfo,
-                  subscriptionType: "free",
-                });
-              }}
-              style={{
-                height: "40px",
-                width: "120px",
-                backgroundColor:
-                  profileInfo.subscriptionType === "free"
-                    ? "rgb(249, 220, 92)"
-                    : "rgba(0,0,0,0.035)",
-                borderWidth: "0px",
-                color: "black",
-                fontWeight: "bold",
-                opacity: "1",
-              }}
-            >
-              FREE PLAN
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setProfileInfo({ ...profileInfo, subscriptionType: "small" });
-              }}
-              style={{
-                height: "40px",
-                width: "120px",
-                backgroundColor:
-                  profileInfo.subscriptionType === "small"
-                    ? "rgb(249, 220, 92)"
-                    : "rgba(0,0,0,0.035)",
-                borderWidth: "0px",
-                color: "black",
-                fontWeight: "bold",
-                opacity: "1",
-              }}
-            >
-              SMALL PLAN
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setProfileInfo({ ...profileInfo, subscriptionType: "big" });
-              }}
-              style={{
-                height: "40px",
-                width: "120px",
-                backgroundColor:
-                  profileInfo.subscriptionType === "big"
-                    ? "rgb(249, 220, 92)"
-                    : "rgba(0,0,0,0.035)",
-                borderWidth: "0px",
-                color: "black",
-                fontWeight: "bold",
-                opacity: "1",
-              }}
-            >
-              BIG PLAN
-            </button>
+            <div style={{ display: "flex", flex: "1" }}>
+              <button
+                type="button"
+                onClick={() => {
+                  setProfileInfo({
+                    ...profileInfo,
+                    subscriptionType: "free",
+                  });
+                }}
+                style={{
+                  height: "40px",
+                  minHeight: "40px",
+                  width: "130px",
+                  backgroundColor:
+                    profileInfo.subscriptionType === "free"
+                      ? "rgb(249, 220, 92)"
+                      : "rgba(0,0,0,0.035)",
+                  borderWidth: "0px",
+                  color: "black",
+                  fontWeight: "bold",
+                  opacity: "1",
+                  transition: "0.6s",
+                }}
+              >
+                FREE PLAN
+              </button>
+            </div>
+            <div style={{ display: "flex", flex: "1" }}>
+              <button
+                type="button"
+                onClick={() => {
+                  setProfileInfo({ ...profileInfo, subscriptionType: "small" });
+                }}
+                style={{
+                  height: "40px",
+                  minHeight: "40px",
+                  width: "130px",
+                  backgroundColor:
+                    profileInfo.subscriptionType === "small"
+                      ? "rgb(249, 220, 92)"
+                      : "rgba(0,0,0,0.035)",
+                  borderWidth: "0px",
+                  color: "black",
+                  fontWeight: "bold",
+                  opacity: "1",
+                  transition: "0.6s",
+                }}
+              >
+                SMALL PLAN
+              </button>
+            </div>
+            <div style={{ display: "flex", flex: "1" }}>
+              <button
+                type="button"
+                onClick={() => {
+                  setProfileInfo({ ...profileInfo, subscriptionType: "big" });
+                }}
+                style={{
+                  height: "40px",
+                  minHeight: "40px",
+                  width: "130px",
+                  backgroundColor:
+                    profileInfo.subscriptionType === "big"
+                      ? "rgb(249, 220, 92)"
+                      : "rgba(0,0,0,0.035)",
+                  borderWidth: "0px",
+                  color: "black",
+                  fontWeight: "bold",
+                  opacity: "1",
+                  transition: "0.6s",
+                }}
+              >
+                BIG PLAN
+              </button>
+            </div>
           </div>
 
           <div style={{ width: "100%" }}>
@@ -198,14 +225,14 @@ export default function Profile() {
               style={{
                 display: "flex",
                 flexDirection: "row",
-                justifyContent: "space-evenly",
+                justifyContent: "center",
                 alignItems: "center",
               }}
             >
               <button
                 type="button"
                 style={{
-                  height: "40px",
+                  minHeight: "40px",
                   width: "50%",
                   backgroundColor: "rgb(249, 220, 92)",
                   borderWidth: "0px",
@@ -219,7 +246,7 @@ export default function Profile() {
               <button
                 type="button"
                 style={{
-                  height: "40px",
+                  minHeight: "40px",
                   width: "50%",
                   backgroundColor: "rgba(0,0,0,0.035)",
                   borderWidth: "0px",
@@ -244,558 +271,596 @@ export default function Profile() {
             your information on documents as required...
             <div
               style={{
-                width: "100%",
-                maxWidth: "900px",
-                margin: "0 auto",
+                width: "80%",
+                fontSize: "14px",
+                marginBottom: "10px",
+                marginTop: "30px",
+                marginLeft: "15px",
               }}
             >
-              <div
+              <p
                 style={{
-                  width: "80%",
+                  marginTop: "20px",
+                  marginBottom: "30px",
                   fontSize: "14px",
-                  marginBottom: "10px",
-                  marginTop: "30px",
-                  marginLeft: "15px",
+                  width: "90%",
                 }}
               >
                 BUSINESS PROFILE INFORMATION
-              </div>
-              <div
+              </p>
+            </div>
+            <div style={{ width: "100%" }}>
+              <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
+                COMPANY NAME
+              </p>
+              <input
+                name="companyName"
+                type="text"
+                value={profileInfo.companyName}
+                onChange={handleProfileChange}
                 style={{
-                  width: "85%",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  justifyContent: "center",
-                  gap: "15px",
-                  marginLeft: "0px",
+                  height: "30px",
+                  width: "90%",
+                  borderStyle: "none",
+                  borderRadius: "4px",
+                  padding: "8px 10px 10px 50px",
+                  color: "black",
+                  backgroundColor: "rgba(0,0,0,0.035)",
+                  fontWeight: "bold",
+                  fontSize: "14px",
                 }}
-              >
-                <div style={{ width: "100%" }}>
-                  <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
-                    COMPANY NAME
-                  </p>
-                  <input
-                    name="companyName"
-                    type="text"
-                    value={profileInfo.companyName}
-                    onChange={handleProfileChange}
-                    style={{
-                      height: "30px",
-                      width: "100%",
-                      borderRadius: "4px",
-                      padding: "8px 10px 8px 50px",
-                      paddingTop: "5px",
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  />
-                </div>
-                <div style={{ width: "100%" }}>
-                  <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
-                    COMPANY EMAIL
-                  </p>
-                  <input
-                    type="email"
-                    name="companyEmail"
-                    value={profileInfo.companyEmail}
-                    onChange={handleProfileChange}
-                    style={{
-                      height: "30px",
-                      borderRadius: "4px",
-                      padding: "8px 10px 8px 50px",
-                      paddingTop: "5px",
-                      display: "flex",
-                      flexDirection: "column",
-                      width: "100%",
-                    }}
-                  />
-                </div>
-                <div style={{ width: "100%" }}>
-                  <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
-                    COMPANY CONTACT NUMBER
-                  </p>
-                  <input
-                    name="companyContactInfo"
-                    value={profileInfo.companyContactInfo}
-                    onChange={handleProfileChange}
-                    style={{
-                      height: "30px",
-                      borderRadius: "4px",
-                      padding: "8px 10px 8px 50px",
-                      paddingTop: "5px",
-                      display: "flex",
-                      flexDirection: "column",
-                      width: "100%",
-                    }}
-                  />
-                </div>
-                <div style={{ width: "100%" }}>
-                  <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
-                    COMPANY ADDRESS
-                  </p>
-                  <input
-                    name="compamyAddress"
-                    value={profileInfo.compamyAddress}
-                    onChange={handleProfileChange}
-                    style={{
-                      height: "30px",
-                      borderRadius: "4px",
-                      padding: "8px 10px 70px 50px",
-                      paddingTop: "5px",
-                      display: "flex",
-                      flexDirection: "column",
-                      width: "100%",
-                    }}
-                  />
-                </div>
-                <div style={{ width: "100%" }}>
-                  {profileInfo.companyLogoId && (
-                    <div
-                      style={{
-                        marginBottom: "30px",
-                        width: "500px",
-                        height: "300px",
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <img
-                        src={profileInfo.companyLogoId}
-                        style={{
-                          maxHeight: "250px",
-                          objectFit: "contain",
-                        }}
-                      />
-                    </div>
-                  )}
-                  <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
-                    COMPANY LOGO (insert url)
-                  </p>
-                  <input
-                    placeholder="none"
-                    name="companyLogoId"
-                    onChange={handleProfileChange}
-                    style={{
-                      height: "30px",
-                      width: "100%",
-                      borderRadius: "4px",
-                      padding: "8px 10px 8px 50px",
-                      paddingTop: "5px",
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                    value={profileInfo.companyLogoId}
-                  />
-                </div>
+              />
+            </div>
+            <div style={{ width: "100%" }}>
+              <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
+                COMPANY EMAIL
+              </p>
+              <input
+                type="email"
+                name="companyEmail"
+                value={profileInfo.companyEmail}
+                onChange={handleProfileChange}
+                style={{
+                  height: "30px",
+                  width: "90%",
+                  borderStyle: "none",
+                  borderRadius: "4px",
+                  padding: "8px 10px 10px 50px",
+                  color: "black",
+                  backgroundColor: "rgba(0,0,0,0.035)",
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                }}
+              />
+            </div>
+            <div style={{ width: "100%" }}>
+              <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
+                COMPANY CONTACT NUMBER
+              </p>
+              <input
+                name="companyContactInfo"
+                value={profileInfo.companyContactInfo}
+                onChange={handleProfileChange}
+                style={{
+                  height: "30px",
+                  width: "90%",
+                  borderStyle: "none",
+                  borderRadius: "4px",
+                  padding: "8px 10px 10px 50px",
+                  color: "black",
+                  backgroundColor: "rgba(0,0,0,0.035)",
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                }}
+              />
+            </div>
+            <div style={{ width: "100%" }}>
+              <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
+                COMPANY ADDRESS
+              </p>
+              <textarea
+                name="compamyAddress"
+                value={profileInfo.compamyAddress}
+                onChange={handleProfileChange}
+                style={{
+                  height: "30px",
+                  width: "90%",
+                  borderStyle: "none",
+                  borderRadius: "4px",
+                  padding: "8px 10px 10px 50px",
+                  color: "black",
+                  backgroundColor: "rgba(0,0,0,0.035)",
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                }}
+              />
+            </div>
+            <div style={{ width: "100%" }}>
+              {profileInfo.companyLogoId && (
                 <div
                   style={{
-                    margin: "20px auto 20px auto",
-                    height: "100%",
+                    marginBottom: "30px",
+                    width: "90%",
+                    maxWidth: "250px",
+                    minHeight: "150px",
                     display: "flex",
-                    flexDirection: "column",
 
-                    alignItems: "center",
                     justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
-                  <p
+                  <img
+                    src={profileInfo.companyLogoId}
                     style={{
-                      color: "black",
-                      alignSelf: "flex-start",
-                      paddingTop: "20px ",
-                      paddingBottom: "40px",
+                      maxHeight: "250px",
+                      maxWidth: "100%",
+                      objectFit: "contain",
                     }}
-                  >
-                    COMPANY COLORS
-                  </p>
-                  <div
-                    style={{
-                      display: "flex",
-
-                      flexDirection: "row",
-                      alignItems: "center",
-
-                      gap: "15px",
-                      width: "100%",
-                    }}
-                  >
-                    <div
-                      style={{
-                        marginLeft: "20px",
-                        height: "50px",
-                        width: "60px",
-                        backgroundColor: profileInfo.colors1,
-                        border: "none",
-                        borderRadius: "8px",
-                      }}
-                    >
-                      <input
-                        type="color"
-                        name="colors1"
-                        value={profileInfo.colors1}
-                        onChange={handleProfileChange}
-                        style={{ display: "none" }}
-                      />
-                    </div>
-                    <label
-                      style={{
-                        color: "rgb(70,83,98)",
-                        display: "flex",
-                        flexDirection: "column",
-                        fontSize: "14px",
-                        alignItems: "flex-start",
-                        fontWeight: "bold",
-                        marginBottom: "10px",
-                      }}
-                    >
-                      COLOR 1
-                      <input
-                        type="text"
-                        name="colors1"
-                        value={profileInfo.colors1}
-                        onChange={handleProfileChange}
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "flex-start",
-                          marginTop: "10px",
-                        }}
-                      />
-                    </label>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      gap: "15px",
-                      width: "100%",
-                    }}
-                  >
-                    <div
-                      style={{
-                        marginLeft: "20px",
-                        height: "50px",
-                        width: "60px",
-                        backgroundColor: profileInfo.colors2,
-                        border: "none",
-                        borderRadius: "8px",
-                      }}
-                    >
-                      <input
-                        type="color"
-                        name="colors2"
-                        value={profileInfo.colors2}
-                        onChange={handleProfileChange}
-                        style={{
-                          display: "none",
-                        }}
-                      />
-                    </div>
-                    <label
-                      style={{
-                        color: "rgb(70,83,98)",
-                        display: "flex",
-                        flexDirection: "column",
-                        fontSize: "14px",
-                        alignItems: "flex-start",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      COLOR 2
-                      <input
-                        type="text"
-                        name="colors2"
-                        value={profileInfo.colors2}
-                        onChange={handleProfileChange}
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "flex-start",
-                          marginTop: "10px",
-                        }}
-                      />
-                    </label>
-                  </div>
+                  />
                 </div>
-              </div>
-              <div style={{ width: "100%" }}>
-                <p style={{ color: "black" }}>BANKING DETAILS</p>
-              </div>
-              <div style={{ width: "100%" }}>
-                <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
-                  BANK
-                </p>
-                <input
-                  name="bank"
-                  value={profileInfo.bank}
-                  onChange={handleProfileChange}
-                  style={{
-                    height: "30px",
-                    borderRadius: "4px",
-                    padding: "8px 10px 8px 50px",
-                    paddingTop: "5px",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                />
-              </div>
-              <div
+              )}
+              <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
+                COMPANY LOGO (insert url)
+              </p>
+              <input
+                placeholder="none"
+                name="companyLogoId"
+                onChange={handleProfileChange}
                 style={{
-                  width: "350px",
-                  marginBottom: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  paddingLeft: "20px",
-                  margin: "0 auto 0 auto",
+                  height: "30px",
+                  width: "90%",
+                  borderStyle: "none",
+                  borderRadius: "4px",
+                  padding: "8px 10px 10px 50px",
+                  color: "black",
+                  backgroundColor: "rgba(0,0,0,0.035)",
+                  fontWeight: "bold",
+                  fontSize: "14px",
                 }}
-              >
-                <p style={{ marginBottom: "10px" }}>ACCOUNT TYPE</p>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-
-                    width: "100%",
-                    gap: "15px",
-                  }}
-                >
-                  <div
-                    onClick={() =>
-                      handleProfileChange({
-                        target: { name: "accountType", value: "Savings" },
-                      })
-                    }
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      padding: "10px 15px",
-                      border: "none",
-                    }}
-                  >
-                    SAVINGS
-                    <div
-                      style={{
-                        width: "30px",
-                        height: "30px",
-                        borderRadius: "8px",
-                        border: "2px solid #465362",
-                        backgroundColor:
-                          profileInfo.accountType === "Savings"
-                            ? "#465362"
-                            : "transparent",
-                      }}
-                    ></div>
-                  </div>
-
-                  <div
-                    onClick={() =>
-                      handleProfileChange({
-                        target: { name: "accountType", value: "Cheque" },
-                      })
-                    }
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      padding: "10px 15px",
-                      border: "none",
-                    }}
-                  >
-                    CHEQUE
-                    <div
-                      style={{
-                        width: "30px",
-                        height: "30px",
-                        borderRadius: "8px",
-                        border: "2px solid #465362",
-                        backgroundColor:
-                          profileInfo.accountType === "Cheque"
-                            ? "#465362"
-                            : "transparent",
-                      }}
-                    ></div>
-                  </div>
-                </div>
-              </div>
-              <div style={{ width: "100%" }}>
-                <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
-                  ACCOUNT NUMBER
-                </p>
-                <input
-                  name="accountNumber"
-                  value={profileInfo.accountNumber}
-                  onChange={handleProfileChange}
-                  style={{
-                    height: "30px",
-                    borderRadius: "4px",
-                    padding: "8px 10px 8px 50px",
-                    paddingTop: "5px",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                />
-              </div>
-              <div style={{ width: "100%" }}>
-                <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
-                  ACCOUNT NAME
-                </p>
-                <input
-                  name="accountName"
-                  value={profileInfo.accountName}
-                  onChange={handleProfileChange}
-                  style={{
-                    height: "30px",
-                    borderRadius: "4px",
-                    padding: "8px 10px 8px 50px",
-                    paddingTop: "5px",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                />
-              </div>
+                value={profileInfo.companyLogoId}
+              />
             </div>
             <div
               style={{
+                margin: "20px auto 20px auto",
+                height: "100%",
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "flex-start",
-                justifyContent: "center",
-                gap: "15px",
-                width: "85%",
-                margin: "0px auto 0px auto",
-              }}
-            >
-              <p style={{ color: "black" }}>COMPANY OWNER PROFILE</p>
 
-              <div
-                style={{
-                  width: "100%",
-                }}
-              >
-                <div>
-                  <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
-                    FIRST NAME
-                  </p>
-                  <input
-                    name="firstName"
-                    value={profileInfo.firstName}
-                    onChange={handleProfileChange}
-                    style={{
-                      height: "30px",
-                      borderRadius: "4px",
-                      padding: "8px 10px 5px 50px",
-
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  />
-                </div>
-                <div>
-                  <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
-                    LAST NAME
-                  </p>
-                  <input
-                    name="lastName"
-                    value={profileInfo.lastName}
-                    onChange={handleProfileChange}
-                    style={{
-                      height: "30px",
-                      borderRadius: "4px",
-                      padding: "8px 10px 5px 50px",
-
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  />
-                </div>
-                <div>
-                  <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
-                    EMAIL
-                  </p>
-                  <input
-                    name="email"
-                    value={profileInfo.email}
-                    onChange={handleProfileChange}
-                    style={{
-                      height: "30px",
-                      borderRadius: "4px",
-                      padding: "8px 10px 5px 50px",
-
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  />
-                </div>
-                <div>
-                  <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
-                    CONTACT NUMBER
-                  </p>
-                  <input
-                    name="cellNumber"
-                    value={profileInfo.cellNumber}
-                    onChange={handleProfileChange}
-                    style={{
-                      height: "30px",
-                      borderRadius: "4px",
-                      padding: "8px 10px 5px 50px",
-
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: "15px",
               }}
             >
-              <button
-                type="submit"
+              <p
                 style={{
-                  height: "40px",
-                  width: "100%",
-                  fontWeight: "bold",
-                  backgroundColor: "rgb(249,220,92)",
-                  borderWidth: "0",
                   color: "black",
-                  transition: "0.6s",
-                  opacity: "1",
+                  alignSelf: "flex-start",
+                  paddingTop: "20px ",
+                  paddingBottom: "40px",
                 }}
               >
-                UPDATE
-              </button>
-              <button
-                type="button"
+                COMPANY COLORS
+              </p>
+              <div
                 style={{
-                  height: "40px",
-                  width: "100%",
-                  fontWeight: "bold",
+                  display: "flex",
 
-                  backgroundColor: "rgb()",
-                  borderWidth: "0",
-                  color: "black",
-                  transition: "0.6s",
-                  opacity: "1",
+                  flexDirection: "row",
+                  alignItems: "center",
+
+                  gap: "15px",
+                  width: "100%",
                 }}
               >
-                REQUEST SUPPORT
-              </button>
+                <label
+                  style={{
+                    marginLeft: "20px",
+                    height: "40px",
+                    width: "40px",
+                    backgroundColor: profileInfo.colors1,
+                    border: "none",
+                    borderRadius: "4px",
+                  }}
+                >
+                  <input
+                    type="color"
+                    name="colors1"
+                    value={profileInfo.colors1}
+                    onChange={handleProfileChange}
+                    style={{ display: "none" }}
+                  />
+                </label>
+                <label
+                  style={{
+                    color: "rgb(70,83,98)",
+                    display: "flex",
+                    flexDirection: "column",
+                    fontSize: "14px",
+                    alignItems: "flex-start",
+                    fontWeight: "bold",
+                    marginBottom: "10px",
+                  }}
+                >
+                  COLOR 1
+                  <input
+                    type="text"
+                    name="colors1"
+                    value={profileInfo.colors1}
+                    onChange={handleProfileChange}
+                    style={{
+                      height: "30px",
+                      width: "90%",
+                      borderStyle: "none",
+                      borderRadius: "4px",
+                      padding: "8px 10px 10px 50px",
+                      color: "black",
+                      backgroundColor: "rgba(0,0,0,0.035)",
+                      fontWeight: "bold",
+                      fontSize: "14px",
+                    }}
+                  />
+                </label>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "15px",
+                  width: "100%",
+                }}
+              >
+                <label
+                  style={{
+                    marginLeft: "20px",
+                    height: "40px",
+                    width: "40px",
+                    backgroundColor: profileInfo.colors2,
+                    border: "none",
+                    borderRadius: "4px",
+                  }}
+                >
+                  <input
+                    type="color"
+                    name="colors2"
+                    value={profileInfo.colors2}
+                    onChange={handleProfileChange}
+                    style={{
+                      display: "none",
+                    }}
+                  />
+                </label>
+                <label
+                  style={{
+                    color: "rgb(70,83,98)",
+                    display: "flex",
+                    flexDirection: "column",
+                    fontSize: "14px",
+                    alignItems: "flex-start",
+                    fontWeight: "bold",
+                  }}
+                >
+                  COLOR 2
+                  <input
+                    type="text"
+                    name="colors2"
+                    value={profileInfo.colors2}
+                    onChange={handleProfileChange}
+                    style={{
+                      height: "30px",
+                      width: "90%",
+                      borderStyle: "none",
+                      borderRadius: "4px",
+                      padding: "8px 10px 10px 50px",
+                      color: "black",
+                      backgroundColor: "rgba(0,0,0,0.035)",
+                      fontWeight: "bold",
+                      fontSize: "14px",
+                    }}
+                  />
+                </label>
+              </div>
             </div>
+            <p
+              style={{
+                marginTop: "50px",
+                marginBottom: "30px",
+                fontSize: "14px",
+                width: "90%",
+              }}
+            >
+              BANKING DETAILS
+            </p>
+            <div style={{ width: "100%" }}>
+              <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>BANK</p>
+              <input
+                name="bank"
+                value={profileInfo.bank}
+                onChange={handleProfileChange}
+                style={{
+                  height: "30px",
+                  width: "90%",
+                  borderStyle: "none",
+                  borderRadius: "4px",
+                  padding: "8px 10px 10px 50px",
+                  color: "black",
+                  backgroundColor: "rgba(0,0,0,0.035)",
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                }}
+              />
+            </div>
+            <div
+              style={{
+                width: "350px",
+                marginBottom: "10px",
+                display: "flex",
+                flexDirection: "column",
+                paddingLeft: "20px",
+                margin: "0 auto 0 auto",
+              }}
+            >
+              <p style={{ marginBottom: "10px" }}>ACCOUNT TYPE</p>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+
+                  width: "100%",
+                  gap: "15px",
+                }}
+              >
+                <div
+                  onClick={() =>
+                    handleProfileChange({
+                      target: { name: "accountType", value: "Savings" },
+                    })
+                  }
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px 15px",
+                    border: "none",
+                  }}
+                >
+                  SAVINGS
+                  <div
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      borderRadius: "8px",
+                      border: "2px solid #465362",
+                      backgroundColor:
+                        profileInfo.accountType === "Savings"
+                          ? "#465362"
+                          : "transparent",
+                      transition: "0.6s",
+                    }}
+                  ></div>
+                </div>
+
+                <div
+                  onClick={() =>
+                    handleProfileChange({
+                      target: { name: "accountType", value: "Cheque" },
+                    })
+                  }
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px 15px",
+                    border: "none",
+                  }}
+                >
+                  CHEQUE
+                  <div
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      borderRadius: "8px",
+                      border: "2px solid #465362",
+                      backgroundColor:
+                        profileInfo.accountType === "Cheque"
+                          ? "#465362"
+                          : "transparent",
+                      transition: "0.6s",
+                    }}
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <div style={{ width: "100%" }}>
+              <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
+                ACCOUNT NUMBER
+              </p>
+              <input
+                name="accountNumber"
+                value={profileInfo.accountNumber}
+                onChange={handleProfileChange}
+                style={{
+                  height: "30px",
+                  width: "90%",
+                  borderStyle: "none",
+                  borderRadius: "4px",
+                  padding: "8px 10px 10px 50px",
+                  color: "black",
+                  backgroundColor: "rgba(0,0,0,0.035)",
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                }}
+              />
+            </div>
+            <div style={{ width: "100%" }}>
+              <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
+                ACCOUNT NAME
+              </p>
+              <input
+                name="accountName"
+                value={profileInfo.accountName}
+                onChange={handleProfileChange}
+                style={{
+                  height: "30px",
+                  width: "90%",
+                  borderStyle: "none",
+                  borderRadius: "4px",
+                  padding: "8px 10px 10px 50px",
+                  color: "black",
+                  backgroundColor: "rgba(0,0,0,0.035)",
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                }}
+              />
+            </div>
+            <p
+              style={{
+                marginTop: "30px",
+                marginBottom: "30px",
+                fontSize: "14px",
+                width: "90%",
+              }}
+            >
+              COMPANY OWNER PROFILE
+            </p>
+            <div
+              style={{
+                width: "100%",
+              }}
+            >
+              <div>
+                <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
+                  FIRST NAME
+                </p>
+                <input
+                  name="firstName"
+                  value={profileInfo.firstName}
+                  onChange={handleProfileChange}
+                  style={{
+                    height: "30px",
+                    width: "90%",
+                    borderStyle: "none",
+                    borderRadius: "4px",
+                    padding: "8px 10px 10px 50px",
+                    color: "black",
+                    backgroundColor: "rgba(0,0,0,0.035)",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                  }}
+                />
+              </div>
+              <div>
+                <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
+                  LAST NAME
+                </p>
+                <input
+                  name="lastName"
+                  value={profileInfo.lastName}
+                  onChange={handleProfileChange}
+                  style={{
+                    height: "30px",
+                    width: "90%",
+                    borderStyle: "none",
+                    borderRadius: "4px",
+                    padding: "8px 10px 10px 50px",
+                    color: "black",
+                    backgroundColor: "rgba(0,0,0,0.035)",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                  }}
+                />
+              </div>
+              <div>
+                <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
+                  EMAIL
+                </p>
+                <input
+                  name="email"
+                  value={profileInfo.email}
+                  onChange={handleProfileChange}
+                  style={{
+                    height: "30px",
+                    width: "90%",
+                    borderStyle: "none",
+                    borderRadius: "4px",
+                    padding: "8px 10px 10px 50px",
+                    color: "black",
+                    backgroundColor: "rgba(0,0,0,0.035)",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                  }}
+                />
+              </div>
+              <div>
+                <p style={{ color: "rgb(70,83,98)", fontWeight: "bold" }}>
+                  CONTACT NUMBER
+                </p>
+                <input
+                  name="cellNumber"
+                  value={profileInfo.cellNumber}
+                  onChange={handleProfileChange}
+                  style={{
+                    height: "30px",
+                    width: "90%",
+                    borderStyle: "none",
+                    borderRadius: "4px",
+                    padding: "8px 10px 10px 50px",
+                    color: "black",
+                    backgroundColor: "rgba(0,0,0,0.035)",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "15px",
+              marginBottom: "30px",
+            }}
+          >
+            <button
+              type="submit"
+              style={{
+                minHeight: "40px",
+                width: "80%",
+                fontWeight: "bold",
+                backgroundColor: "rgb(249,220,92)",
+                borderWidth: "0",
+                color: "black",
+                transition: "0.6s",
+                opacity: "1",
+              }}
+            >
+              UPDATE
+            </button>
+
+            <button
+              type="button"
+              style={{
+                minHeight: "40px",
+                width: "80%",
+                fontWeight: "bold",
+
+                borderWidth: "0",
+                color: "black",
+                transition: "0.6s",
+                opacity: "1",
+              }}
+            >
+              REQUEST SUPPORT
+            </button>
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 }

@@ -7,12 +7,13 @@ export default function Searchbar() {
 
   return (
     <>
+      <label style={{ fontWeight: "700" }}></label>
       <input
         type="text"
         placeholder={`Search ${location.replace("/", "")}`.toUpperCase()}
         style={{
           height: "25px",
-          width: "100%",
+          width: "90%",
           marginTop: "60px",
           borderRadius: "4px",
           padding: "8px 10px 8px 20px",
@@ -21,6 +22,7 @@ export default function Searchbar() {
           color: "rgb(0,0,0)",
           fontWeight: "bold",
           borderWidth: "0px",
+          marginBottom: "20px",
         }}
       />
     </>

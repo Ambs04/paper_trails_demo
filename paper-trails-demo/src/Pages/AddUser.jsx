@@ -10,6 +10,7 @@ export default function AddUser() {
     cell: "",
     email: "",
     password: "",
+    confirmPassword: "",
     status: "active",
     address: "",
   });
@@ -21,6 +22,12 @@ export default function AddUser() {
 
   const handleAddUser = async (e) => {
     e.preventDefault();
+
+    if (userInfo.password !== userInfo.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
     const userFetchInfo = {
       firstName: userInfo.firstName,
       lastName: userInfo.lastName,
@@ -44,12 +51,11 @@ export default function AddUser() {
 
       console.log(userFetchInfo);
       if (res.ok) {
-        alert("User successfully added!");
-        navigate("/users");
+        navigate("/users", { state: { userCreated: true } });
       } else {
         console.log(dataErr.message);
 
-        alert(`Failed to add user. Please try again later. ${dataErr}`);
+        alert(`Failed to add user. Please try again later. ${dataErr.message}`);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -58,19 +64,66 @@ export default function AddUser() {
 
   return (
     <>
-      <div>
-        <div>
-          <Link to="/users">
-            <button>X</button>
+      <div
+        style={{
+          minHeight: "50px",
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          position: "sticky",
+          top: "0",
+        }}
+      >
+        <div style={{ display: "flex", width: "10%" }}>
+          <Link to="/users" style={{ textDecoration: "none" }}>
+            <button
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                height: "50px",
+                width: "50px",
+                minHeight: " 50px",
+                border: "none",
+                color: "black",
+                fontWeight: "bold",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              X
+            </button>
           </Link>
         </div>
-        <h1>add new user</h1>
+        <div
+          style={{
+            display: "flex",
+
+            alignItems: "flex-start",
+            width: "90%",
+            height: "50px",
+            backgroundColor: "rgb(70,83,98)",
+            color: "white",
+            fontWeight: "bold",
+          }}
+        >
+          <h3>ADD NEW USER</h3>
+        </div>
       </div>
       <div>
         <h3>BASIC ACCOUNT INFORMATION</h3>
       </div>
       {/*form section*/}
-      <form onSubmit={handleAddUser}>
+      <form
+        onSubmit={handleAddUser}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "560px",
+          height: "100vh",
+          alignItems: "center",
+          justifyContent: "flex-start",
+        }}
+      >
         {/*first name */}
         <div>
           <p>First Name:</p>
@@ -92,17 +145,17 @@ export default function AddUser() {
           />
         </div>
         {/*email */}
-        <div>
-          <p>Email:</p>
-          <input
-            name="email"
-            type="email"
-            placeholder="james@email.com"
-            value={userInfo.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
+
+        <p>Email:</p>
+        <input
+          name="email"
+          type="email"
+          placeholder="james@email.com"
+          value={userInfo.email}
+          onChange={handleChange}
+          required
+        />
+
         <div>
           <p>Physical Address</p>
           <input
@@ -136,11 +189,17 @@ export default function AddUser() {
         </div>
         <div>
           <p>Confirm Password:</p>
-          <input type="password" placeholder="124578" required />
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="124578"
+            required
+            onChange={handleChange}
+          />
         </div>
         <div>
           <div>
-            <button>SUBMIT</button>
+            <button type="submit">SUBMIT</button>
           </div>
           <div>
             <button onClick={() => navigate("/users")}>CANCEL</button>

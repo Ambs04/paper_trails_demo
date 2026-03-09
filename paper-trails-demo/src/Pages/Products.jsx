@@ -1,9 +1,10 @@
 import Header from "../Modules/CommonComponents/Header";
 import DashFooter from "../Modules/ModuleComponents/DashFooter";
 import Searchbar from "../Modules/CommonComponents/Searchbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { baseUrl } from "../api";
 import { useState, useEffect } from "react";
+import Alert from "../Modules/CommonComponents/Alert";
 
 export default function Products() {
   const [prods, setProds] = useState([]);
@@ -16,6 +17,12 @@ export default function Products() {
     prodPrice: " ",
     status: "active",
   });
+
+  const location = useLocation();
+  const [showAlert, setShowAlert] = useState(
+    location.state?.userCreated || false,
+  );
+  const nav = useNavigate();
 
   useEffect(() => {
     const fetchProds = async () => {
@@ -93,6 +100,12 @@ export default function Products() {
     }
   };
 
+  useEffect(() => {
+    if (location.state?.userCreated) {
+      nav(location.pathname, { replace: true });
+    }
+  }, [location, nav]);
+
   {
     /*const handleDelete = async () => {
     const confirmDeletion = window.confirm(
@@ -130,6 +143,7 @@ export default function Products() {
 
   return (
     <>
+      {showAlert && <Alert showAlert={showAlert} setShowAlert={setShowAlert} />}
       <div>
         <Header />
       </div>
