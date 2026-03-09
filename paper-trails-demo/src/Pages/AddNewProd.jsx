@@ -62,13 +62,63 @@ export default function AddNewProd() {
 
   return (
     <>
-      <div>
-        <div>
-          <Link to="/products">
-            <button>X</button>
-          </Link>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          position: "absolute",
+          top: "0",
+          left: "0",
+          width: "100%",
+        }}
+      >
+        <Link
+          to="/products"
+          style={{
+            textDecoration: "none",
+            width: "60px",
+            display: "flex",
+            justifyContent: "center",
+            height: "100%",
+            alignItems: "center",
+            borderRight: "1px solid #eee",
+          }}
+        >
+          <button
+            style={{
+              border: "none",
+              background: "none",
+              fontSize: "1.2rem",
+              cursor: "pointer",
+              fontWeight: "bold",
+            }}
+          >
+            X
+          </button>
+        </Link>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexGrow: 1,
+            height: "100%",
+            backgroundColor: "#465362",
+            color: "white",
+            paddingLeft: "20px",
+          }}
+        >
+          <h1
+            style={{
+              margin: 0,
+              fontSize: "1rem",
+              letterSpacing: "1.5px",
+              fontWeight: "500",
+            }}
+          >
+            {" "}
+            add new product/service
+          </h1>
         </div>
-        <h1> add new product/service</h1>
       </div>
       <form onSubmit={handleProdSubmit}>
         <div>

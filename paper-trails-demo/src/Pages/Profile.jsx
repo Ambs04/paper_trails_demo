@@ -3,7 +3,7 @@ import Greeting from "../Modules/CommonComponents/Greeting";
 import Header from "../Modules/CommonComponents/Header";
 import { useState } from "react";
 import LoadingPage from "./../Modules/CommonComponents/LoadingPage";
-import loadingLogo from "../../assets/loading_image.png";
+import loadingLogo from "../assets/loading_image.png";
 
 export default function Profile() {
   const [profileInfo, setProfileInfo] = useState({
@@ -84,7 +84,7 @@ export default function Profile() {
 
   return (
     <div>
-      {isLoading && <LoadingPage logo="loadingLogo" />}
+      {isLoading && <LoadingPage logo={loadingLogo} />}
       <div>
         <Header />
       </div>

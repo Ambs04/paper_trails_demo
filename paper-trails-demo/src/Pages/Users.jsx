@@ -7,7 +7,7 @@ import { baseUrl } from "../api";
 import { useState, useEffect } from "react";
 import Alert from "../Modules/CommonComponents/Alert";
 import LoadingPage from "./../Modules/CommonComponents/LoadingPage";
-import loadingLogo from "./../assets/loading_image.png";
+import loadingLogo from "../assets/loading_image.png";
 
 export default function Users() {
   const [newUser, setNewUser] = useState([]);

@@ -14,8 +14,12 @@ export default function LoadingPage({ logo }) {
       }}
     >
       <img
-        src={logo}
-        style={{ width: "120px", animation: "spin 1.2s linear infinite" }}
+        src={image}
+        style={{
+          width: "120px",
+          height: "120px",
+          animation: "spin 1.2s linear infinite",
+        }}
       />
     </div>
   );

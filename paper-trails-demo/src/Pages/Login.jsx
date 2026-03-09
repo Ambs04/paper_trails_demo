@@ -37,7 +37,6 @@ export default function Login() {
 
         localStorage.setItem("loggedInUser", JSON.stringify(userLogin));
 
-        alert("Login successful!");
         navigate("/Dashboard");
       } else {
         alert(data.message || "Incorrect credentials!");

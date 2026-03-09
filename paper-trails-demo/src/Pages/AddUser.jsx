@@ -70,8 +70,9 @@ export default function AddUser() {
           width: "100%",
           display: "flex",
           alignItems: "center",
-          position: "sticky",
+          position: "absolute",
           top: "0",
+          left: "0",
         }}
       >
         <div style={{ display: "flex", width: "10%" }}>
@@ -81,7 +82,7 @@ export default function AddUser() {
                 display: "flex",
                 flexDirection: "row",
                 height: "50px",
-                width: "50px",
+                width: "100%",
                 minHeight: " 50px",
                 border: "none",
                 color: "black",

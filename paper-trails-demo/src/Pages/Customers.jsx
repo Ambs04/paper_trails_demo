@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import ManageCustomerModal from "../Modules/ModuleComponents/ManageCustomerModal";
 import Alert from "../Modules/CommonComponents/Alert";
 import LoadingPage from "./../Modules/CommonComponents/LoadingPage";
-import loadingLogo from "./../assets/loading_image.png";
+import loadingLogo from "../assets/loading_image.png";
 
 export default function Customers() {
   const [customer, setCustomer] = useState([]);
