@@ -14,7 +14,7 @@ export default function LoadingPage({ logo }) {
       }}
     >
       <img
-        src={image}
+        src={logo}
         style={{
           width: "120px",
           height: "120px",

@@ -55,8 +55,8 @@ export default function Home() {
             <div style={{ display: "flex" }}>
               <Hero />
             </div>
-            <div id="home-text" style={{ padding: "5px 5px", display: "flex" }}>
-              <p>Smart Invoicing Made Simple</p>
+            <div id="home-text">
+              <p style={{ color: "black" }}>Smart Invoicing Made Simple</p>
               <p style={{ color: "black" }}>
                 Manage clients, track payments, and send invoices in seconds.
                 Empower your business with a fast, intuitive tool built for

@@ -62,7 +62,6 @@ export default function AddNewProd() {
 
   return (
     <div
-      div
       style={{
         display: "flex",
         flex: "1 1 0%",
@@ -163,7 +162,7 @@ export default function AddNewProd() {
               paddingLeft: "0px",
             }}
           >
-            Service / Product Name
+            SERVICE / PRODUCT NAME
           </p>
           <input
             name="prodName"
@@ -206,7 +205,7 @@ export default function AddNewProd() {
               paddingLeft: "0px",
             }}
           >
-            Description
+            DESCRIPTION
           </p>
           <input
             name="prodDesc"
@@ -248,7 +247,7 @@ export default function AddNewProd() {
               paddingLeft: "0px",
             }}
           >
-            Price: R
+            PRICE: R
           </p>
           <input
             name="prodPrice"
@@ -271,9 +270,35 @@ export default function AddNewProd() {
             }}
           />
         </div>
-        <div>
-          <h2>STATUS</h2>
-          <div>
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <h2
+            style={{
+              width: "80%",
+              fontSize: "16px",
+              fontWeight: "bold",
+              color: "rgb(70,83,98)",
+              marginBottom: "15px",
+              textAlign: "left",
+            }}
+          >
+            STATUS
+          </h2>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              width: "80%",
+              gap: "10px",
+            }}
+          >
             <div
               onClick={() =>
                 handleChange({ target: { name: "status", value: "active" } })
@@ -325,6 +350,26 @@ export default function AddNewProd() {
               ></div>
             </div>
           </div>
+        </div>
+        <div
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <button
+            type="submit"
+            style={{
+              height: "40px",
+              width: "85%",
+              marginTop: "20px",
+              backgroundColor: "rgb(249,220,92)",
+              border: "none",
+              borderRadius: "4px",
+              fontWeight: "bold",
+              cursor: "pointer",
+              transition: "0.3s",
+            }}
+          >
+            SUBMIT
+          </button>
         </div>
       </form>
     </div>
