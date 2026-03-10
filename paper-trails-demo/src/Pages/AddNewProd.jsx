@@ -61,36 +61,51 @@ export default function AddNewProd() {
   };
 
   return (
-    <>
+    <div
+      div
+      style={{
+        display: "flex",
+        flex: "1 1 0%",
+        flexDirection: "column",
+        alignItems: "center",
+        minHeight: "100vh",
+        justifyContent: "flex-start",
+        position: "relative",
+        overflowY: "hidden scroll",
+      }}
+    >
       <div
         style={{
+          width: "100%",
+          minHeight: "50px",
           display: "flex",
           alignItems: "center",
-          position: "absolute",
-          top: "0",
-          left: "0",
-          width: "100%",
         }}
       >
         <Link
           to="/products"
           style={{
             textDecoration: "none",
-            width: "60px",
+            width: "50px",
+            height: "50px",
             display: "flex",
             justifyContent: "center",
-            height: "100%",
+
             alignItems: "center",
-            borderRight: "1px solid #eee",
+
+            backgroundColor: "rgb(249, 220, 92)",
           }}
         >
           <button
             style={{
-              border: "none",
-              background: "none",
-              fontSize: "1.2rem",
-              cursor: "pointer",
+              height: "50px",
+              width: "50px",
+              backgroundColor: "rgb(249, 220,92)",
+              borderWidth: "0px",
               fontWeight: "bold",
+              fontSize: "18px",
+              color: "black",
+              cursor: "pointer",
             }}
           >
             X
@@ -98,52 +113,143 @@ export default function AddNewProd() {
         </Link>
         <div
           style={{
+            width: "100%",
             display: "flex",
             alignItems: "center",
-            flexGrow: 1,
-            height: "100%",
-            backgroundColor: "#465362",
-            color: "white",
-            paddingLeft: "20px",
+            height: "50px",
+            backgroundColor: "rgb(70,83,98)",
           }}
         >
-          <h1
+          <p
             style={{
-              margin: 0,
-              fontSize: "1rem",
-              letterSpacing: "1.5px",
-              fontWeight: "500",
+              paddingTop: "15px",
+              fontSize: "18px",
+              color: "white",
+              fontWeight: "bold",
             }}
           >
-            {" "}
-            add new product/service
-          </h1>
+            ADD NEW PRODUCT / SERVICE
+          </p>
         </div>
       </div>
-      <form onSubmit={handleProdSubmit}>
-        <div>
-          <p>Service/Product Name</p>
+      <form
+        onSubmit={handleProdSubmit}
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: " column",
+          marginTop: "10px",
+        }}
+      >
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            marginTop: "10px",
+          }}
+        >
+          <p
+            style={{
+              width: "80%",
+              fontWeight: "500",
+              fontSize: "14px",
+              color: "rgb(70,83,98)",
+              textAlign: "left",
+              paddingLeft: "0px",
+            }}
+          >
+            Service / Product Name
+          </p>
           <input
             name="prodName"
             value={prodData.prodName}
-            placeholder="e.g clean"
+            placeholder="e.g basic cleaning"
             type="text"
             onChange={handleChange}
             required
+            style={{
+              height: "35px",
+              width: "80%",
+              marginTop: "5px",
+              borderRadius: "4px",
+              padding: "8px 10px 8px 20px",
+              fontSize: "14px",
+              border: "none",
+              backgroundColor: "rgba(0,0,0,0.035)",
+              color: "black",
+              fontWeight: "bold",
+            }}
           />
         </div>
-        <div>
-          <p>Description</p>
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            marginTop: "10px",
+          }}
+        >
+          <p
+            style={{
+              width: "80%",
+              fontWeight: "500",
+              fontSize: "14px",
+              color: "rgb(70,83,98)",
+              textAlign: "left",
+              paddingLeft: "0px",
+            }}
+          >
+            Description
+          </p>
           <input
             name="prodDesc"
             value={prodData.prodDesc}
-            placeholder="e.g cleaning workplace"
+            placeholder="e.g basic cleaning"
             type="text"
             onChange={handleChange}
+            style={{
+              height: "35px",
+              width: "80%",
+              marginTop: "5px",
+              borderRadius: "4px",
+              padding: "8px 10px 8px 20px",
+              fontSize: "14px",
+              border: "none",
+              backgroundColor: "rgba(0,0,0,0.035)",
+              color: "black",
+              fontWeight: "bold",
+            }}
           />
         </div>
-        <div>
-          <p>Price: R</p>
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            marginTop: "10px",
+          }}
+        >
+          <p
+            style={{
+              width: "80%",
+              fontWeight: "500",
+              fontSize: "14px",
+              color: "rgb(70,83,98)",
+              textAlign: "left",
+              paddingLeft: "0px",
+            }}
+          >
+            Price: R
+          </p>
           <input
             name="prodPrice"
             value={prodData.prodPrice}
@@ -151,20 +257,76 @@ export default function AddNewProd() {
             type="text"
             onChange={handleChange}
             required
+            style={{
+              height: "35px",
+              width: "80%",
+              marginTop: "5px",
+              borderRadius: "4px",
+              padding: "8px 10px 8px 20px",
+              fontSize: "14px",
+              border: "none",
+              backgroundColor: "rgba(0,0,0,0.035)",
+              color: "black",
+              fontWeight: "bold",
+            }}
           />
         </div>
         <div>
           <h2>STATUS</h2>
-          <select name="status" value={prodData.status} onChange={handleChange}>
-            <option value="active">Active</option>
-
-            <option value="inactive">Inactive</option>
-          </select>
           <div>
-            <button type="submit">SUBMIT</button>
+            <div
+              onClick={() =>
+                handleChange({ target: { name: "status", value: "active" } })
+              }
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "10px 15px",
+                border: "none",
+              }}
+            >
+              ACTIVE
+              <div
+                style={{
+                  width: "30px",
+                  height: "30px",
+                  borderRadius: "8px",
+                  border: "2px solid #465362",
+                  backgroundColor:
+                    prodData.status === "active" ? "#465362" : "transparent",
+                  transition: "0.6s",
+                }}
+              ></div>
+            </div>
+            <div
+              onClick={() =>
+                handleChange({ target: { name: "status", value: "inactive" } })
+              }
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "10px 15px",
+                border: "none",
+              }}
+            >
+              INACTIVE
+              <div
+                style={{
+                  width: "30px",
+                  height: "30px",
+                  borderRadius: "8px",
+                  border: "2px solid #465362",
+                  backgroundColor:
+                    prodData.status === "inactive" ? "#465362" : "transparent",
+                  transition: "0.6s",
+                }}
+              ></div>
+            </div>
           </div>
         </div>
       </form>
-    </>
+    </div>
   );
 }
