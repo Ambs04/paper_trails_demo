@@ -16,11 +16,12 @@ export default function DashFooter() {
           flexDirection: "column",
           justifyContent: "flex-end",
           width: "100%",
+
           position: "fixed",
           bottom: "0px",
           backgroundColor: "rgb(249, 220, 92)",
           overflow: "hidden",
-          marginTop: "100px",
+          marginTop: "0",
         }}
       >
         <div

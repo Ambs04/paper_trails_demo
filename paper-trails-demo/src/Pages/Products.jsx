@@ -68,8 +68,8 @@ export default function Products() {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const editing = selectedProd !== null;
     setIsLoading(true);
+    const editing = selectedProd !== null;
 
     const updatedInfo = {
       productOrServiceName: prodInfo.prodName,
@@ -96,14 +96,22 @@ export default function Products() {
       });
 
       if (res.ok) {
-        alert(
-          path === "updateProductService" ? "Product updated" : "Product Added",
+        const updatedProduct = await res.json();
+
+        setProds((prev) =>
+          prev.map((p) =>
+            (p.id || p._id) === (selectedProd.id || selectedProd._id)
+              ? { ...p, ...updatedProduct.product }
+              : p,
+          ),
         );
         setIsModalActive(false);
         setSelectedProd(null);
       }
     } catch (error) {
       alert("Update failed", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -345,55 +353,305 @@ export default function Products() {
       )}
 
       {isModalActive && (
-        <div>
-          <form onSubmit={handleUpdate}>
-            <div>
-              <button onClick={() => setIsModalActive(false)}>X</button>
-            </div>
-            <div>
-              <h3>UPDATE PRODUCT / SERVICE</h3>
-            </div>
-            <div>
-              <p>Service/Product Name</p>
-              <input
-                required
-                name="prodName"
-                value={prodInfo.prodName}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <p>Description</p>
-              <input
-                name="prodDesc"
-                value={prodInfo.prodDesc}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <p>Price: R</p>
-              <input
-                required
-                name="prodPrice"
-                value={prodInfo.prodPrice}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <h2>STATUS</h2>
-              <select
-                name="status"
-                value={prodInfo.status}
-                onChange={handleChange}
-              >
-                <option value="active">Active</option>
+        <div
+          style={{
+            position: "fixed",
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.44)",
+            top: "0",
+            left: "0",
+            overflow: "hidden",
+            display: "flex",
 
-                <option value="inactive">Inactive</option>
-              </select>
-            </div>
-            <div>
-              <button type="submit">{selectedProd ? "Update" : "Save"}</button>
-              {/* <button
+            justifyContent: "center",
+
+            transition: "0.2s",
+            zIndex: "1000",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flex: "1 1 0%",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              position: "relative",
+              flexDirection: "column",
+              height: "100vh",
+              overflowY: "scroll",
+              backgroundColor: "white",
+            }}
+          >
+            <form
+              onSubmit={handleUpdate}
+              style={{
+                width: "100%",
+                paddingTop: "5px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <div
+                style={{
+                  width: "100%",
+                  backgroundColor: "rgba(255,255,255,0.314)",
+                  minHeight: "50px",
+                  display: "flex",
+                  alignItems: "center",
+                  position: "fixed",
+                  top: "0",
+                  zIndex: "10",
+                }}
+              >
+                <button
+                  onClick={() => setIsModalActive(false)}
+                  style={{
+                    height: "50px",
+                    minHeight: "50px",
+                    width: "50px",
+                    backgroundColor: "rgb(249,220,92)",
+                    borderWidth: "0px",
+                    color: "black",
+                    fontWeight: "bold",
+                    fontSize: "18px",
+                  }}
+                >
+                  X
+                </button>
+                <div
+                  style={{
+                    width: "100%",
+                    backgroundColor: "rgb(70,83,98)",
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    fontWeight: "bold",
+                    color: "white",
+                    minHeight: "50px",
+                  }}
+                >
+                  <div style={{ marginLeft: "20px" }}>
+                    UPDATE PRODUCT / SERVICE
+                  </div>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "80%",
+                  marginTop: "50px",
+                }}
+              >
+                <p
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    color: "rgb(70,83,98)",
+                    textAlign: "left",
+                  }}
+                >
+                  SERVICE / PRODUCT NAME
+                </p>
+                <input
+                  required
+                  name="prodName"
+                  value={prodInfo.prodName}
+                  onChange={handleChange}
+                />
+              </div>
+              <div
+                style={{
+                  width: "80%",
+                }}
+              >
+                <p
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    color: "rgb(70,83,98)",
+                    textAlign: "left",
+                  }}
+                >
+                  DESCRIPTION
+                </p>
+                <input
+                  name="prodDesc"
+                  value={prodInfo.prodDesc}
+                  onChange={handleChange}
+                />
+              </div>
+              <div
+                style={{
+                  width: "80%",
+                }}
+              >
+                <p
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    color: "rgb(70,83,98)",
+                    textAlign: "left",
+                  }}
+                >
+                  PRICE: R
+                </p>
+                <input
+                  required
+                  name="prodPrice"
+                  value={prodInfo.prodPrice}
+                  onChange={handleChange}
+                />
+              </div>
+              <div
+                style={{
+                  width: "80%",
+                }}
+              >
+                <p
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    color: "rgb(70,83,98)",
+                    textAlign: "left",
+                  }}
+                >
+                  STATUS
+                </p>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    margin: "0 auto 0 auto",
+                    width: "80%",
+                    gap: "15px",
+                  }}
+                >
+                  <div
+                    onClick={() =>
+                      setProdInfo((prev) => ({
+                        ...prev,
+                        status: "active",
+                      }))
+                    }
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      fontSize: "14px",
+                      border: "none",
+                    }}
+                  >
+                    ACTIVE
+                    <div
+                      style={{
+                        height: "15px",
+                        width: "15px",
+                        borderRadius: "4px",
+                        border: "2px solid rgb(70,83,98)",
+                        backgroundColor:
+                          prodInfo.status === "active"
+                            ? "#465362"
+                            : "transparent",
+                        transition: "0.6s",
+                      }}
+                    ></div>
+                  </div>
+                  <div
+                    onClick={() =>
+                      setProdInfo((prev) => ({
+                        ...prev,
+                        status: "inactive",
+                      }))
+                    }
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      fontSize: "14px",
+                      border: "none",
+                    }}
+                  >
+                    INACTIVE
+                    <div
+                      style={{
+                        height: "15px",
+                        width: "15px",
+                        borderRadius: "4px",
+                        border: "2px solid rgb(70,83,98)",
+                        backgroundColor:
+                          prodInfo.status === "inactive"
+                            ? "#465362"
+                            : "transparent",
+                        transition: "0.6s",
+                      }}
+                    ></div>
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    marginBottom: "50px",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <button
+                      type="submit"
+                      style={{
+                        height: "40px",
+                        width: "85%",
+                        marginTop: "30px",
+                        backgroundColor: "rgb(249,220,92)",
+                        border: "none",
+                        borderRadius: "4px",
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                        transition: "0.3s",
+                      }}
+                    >
+                      UPDATE
+                    </button>
+                  </div>
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <button
+                      onClick={() => nav("/products")}
+                      style={{
+                        height: "40px",
+                        width: "85%",
+                        marginTop: "20px",
+
+                        border: "none",
+                        borderRadius: "4px",
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                        transition: "0.3s",
+                      }}
+                    >
+                      CANCEL
+                    </button>
+                  </div>
+                </div>
+                {/* <button
                 type="button"
                 onClick={() => {
                   handleDelete();
@@ -401,8 +659,9 @@ export default function Products() {
               >
                 Delete
               </button>*/}
-            </div>
-          </form>
+              </div>
+            </form>
+          </div>
         </div>
       )}
 

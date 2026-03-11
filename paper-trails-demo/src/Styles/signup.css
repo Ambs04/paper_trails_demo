@@ -69,8 +69,7 @@ label {
   font-size: 20px;
 }
 
-input[type="radio"],
-input[type="checkbox"] {
+input[type="radio"] {
   appearance: none;
   height: 2px;
   width: 2px;

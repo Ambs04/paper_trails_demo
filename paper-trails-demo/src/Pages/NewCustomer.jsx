@@ -603,7 +603,7 @@ export default function NewCustomer() {
             }}
           >
             <button
-              onClick={() => navigate("/users")}
+              onClick={() => navigate("/customers")}
               style={{
                 height: "40px",
                 width: "85%",

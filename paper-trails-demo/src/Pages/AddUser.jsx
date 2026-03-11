@@ -72,7 +72,7 @@ export default function AddUser() {
         position: "relative",
         flexDirection: "column",
         minHeight: "100vh",
-        overflowY: "hidden scroll",
+        overflow: "auto",
       }}
     >
       <div
@@ -80,7 +80,9 @@ export default function AddUser() {
           width: "100%",
           minHeight: "50px",
           display: "flex",
-          alignItems: "center",
+
+          position: "sticky",
+          top: "0",
         }}
       >
         <Link

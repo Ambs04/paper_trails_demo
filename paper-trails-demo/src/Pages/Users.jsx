@@ -87,7 +87,7 @@ export default function Users() {
       console.log(data);
 
       if (res.ok) {
-        alert("User updated successfully");
+        setIsLoading(true);
         setIsUserEditActive(false);
         window.location.reload();
       }
@@ -300,79 +300,396 @@ export default function Users() {
         <DashFooter />
       </div>
       {isuserEditActive && selectedUser && (
-        <div>
-          <form onSubmit={handleUserUpdate}>
-            <div>
-              <button onClick={() => setIsUserEditActive(false)}>X</button>
-            </div>
-            <div>
-              <h3>MANAGE USER INFORMATION</h3>
-            </div>
-            {/*first name */}
-            <div>
-              <p>First Name:</p>
-              <input
-                name="firstName"
-                value={selectedUser.firstName}
-                onChange={handleUserChange}
-                required
-              />
-            </div>
-            {/*last name */}
-            <div>
-              <p>Last Name:</p>
-              <input
-                name="lastName"
-                value={selectedUser.lastName}
-                onChange={handleUserChange}
-                required
-              />
-            </div>
-            {/*email */}
-            <div>
-              <p>Email:</p>
-              <input
-                name="email"
-                type="email"
-                placeholder="james@email.com"
-                value={selectedUser.email}
-                onChange={handleUserChange}
-                required
-              />
-            </div>
-            <div>
-              <p>Phone:</p>
-              <input
-                name="cell"
-                placeholder="078 888 8888"
-                value={selectedUser.cellNumber || ""}
-                onChange={handleUserChange}
-                required
-              />
-            </div>
-            {/* status*/}
-            <div>
-              <p>Status:</p>
-              <select
-                name="accountStatus"
-                value={selectedUser.accountStatus || "active"}
-                onChange={handleUserChange}
-                required
+        <div
+          style={{
+            position: "absolute",
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0,0,0,0.44)",
+            top: "0",
+            left: "0",
+            overflow: "hidden",
+            display: "flex",
+
+            justifyContent: "center",
+
+            transition: "0.2s",
+            zIndex: "1000",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flex: "1 1 0%",
+              justifyContent: "flex-start",
+              alignItems: "flex-start",
+              position: "relative",
+              flexDirection: "column",
+              height: "100vh",
+              overflowY: "scroll",
+              backgroundColor: "white",
+            }}
+          >
+            <form
+              onSubmit={handleUserUpdate}
+              style={{
+                width: "100%",
+                paddingTop: "10px",
+
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <div
+                style={{
+                  width: "100%",
+                  backgroundColor: "rgba(255,255,255,0.314)",
+                  minHeight: "50px",
+                  display: "flex",
+                  alignItems: "flex-start",
+                  justifyContent: "flex-start",
+                  position: "fixed",
+                  top: "0",
+                  zIndex: "10",
+                }}
               >
-                <option value="active">active</option>
-                <option value="inactive">inactive</option>
-              </select>
-            </div>
-            <div>
-              <div>
-                <button type="submit">UPDATE</button>
+                <button
+                  onClick={() => setIsUserEditActive(false)}
+                  style={{
+                    height: "50px",
+                    minHeight: "50px",
+                    width: "50px",
+                    backgroundColor: "rgb(249,220,92)",
+                    borderWidth: "0px",
+                    color: "black",
+                    fontWeight: "bold",
+                    fontSize: "18px",
+                  }}
+                >
+                  X
+                </button>
+
+                <div
+                  style={{
+                    width: "100%",
+                    backgroundColor: "rgb(70,83,98)",
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    fontWeight: "bold",
+                    color: "white",
+                    minHeight: "50px",
+                  }}
+                >
+                  <div style={{ marginLeft: "20px" }}>
+                    MANAGE USER INFORMATION
+                  </div>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "85%",
+                  marginTop: "60px",
+                  marginBottom: "20px",
+                  fontSize: "16px",
+                }}
+              >
+                BASIC ACCOUNT INFORMATION
+              </div>
+              {/*first name */}
+              <div
+                style={{
+                  width: "80%",
+                }}
+              >
+                <p
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    color: "rgb(70,83,98)",
+                    textAlign: "left",
+                  }}
+                >
+                  FIRST NAME:
+                </p>
+                <input
+                  name="firstName"
+                  value={selectedUser.firstName}
+                  onChange={handleUserChange}
+                  required
+                  style={{
+                    height: "35px",
+                    width: "80%",
+                    marginTop: "5px",
+                    borderRadius: "4px",
+                    padding: "8px 10px 8px 20px",
+                    fontSize: "14px",
+                    border: "none",
+                    backgroundColor: "rgba(0,0,0,0.035)",
+                    fontWeight: "bold",
+                  }}
+                />
+              </div>
+              {/*last name */}
+              <div
+                style={{
+                  width: "80%",
+                }}
+              >
+                <p
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    color: "rgb(70,83,98)",
+                    textAlign: "left",
+                  }}
+                >
+                  LAST NAME:
+                </p>
+                <input
+                  name="lastName"
+                  value={selectedUser.lastName}
+                  onChange={handleUserChange}
+                  required
+                  style={{
+                    height: "35px",
+                    width: "80%",
+                    marginTop: "5px",
+                    borderRadius: "4px",
+                    padding: "8px 10px 8px 20px",
+                    fontSize: "14px",
+                    border: "none",
+                    backgroundColor: "rgba(0,0,0,0.035)",
+                    fontWeight: "bold",
+                  }}
+                />
+              </div>
+              {/*email */}
+              <div
+                style={{
+                  width: "80%",
+                }}
+              >
+                <p
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    color: "rgb(70,83,98)",
+                    textAlign: "left",
+                  }}
+                >
+                  EMAIL:
+                </p>
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="james@email.com"
+                  value={selectedUser.email}
+                  onChange={handleUserChange}
+                  required
+                  style={{
+                    height: "35px",
+                    width: "80%",
+                    marginTop: "5px",
+                    borderRadius: "4px",
+                    padding: "8px 10px 8px 20px",
+                    fontSize: "14px",
+                    border: "none",
+                    backgroundColor: "rgba(0,0,0,0.035)",
+                    fontWeight: "bold",
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  width: "80%",
+                }}
+              >
+                <p
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    color: "rgb(70,83,98)",
+                    textAlign: "left",
+                  }}
+                >
+                  PHONE:
+                </p>
+                <input
+                  name="cell"
+                  placeholder="078 888 8888"
+                  value={selectedUser.cellNumber || ""}
+                  onChange={handleUserChange}
+                  required
+                  style={{
+                    height: "35px",
+                    width: "80%",
+                    marginTop: "5px",
+                    borderRadius: "4px",
+                    padding: "8px 10px 8px 20px",
+                    fontSize: "14px",
+                    border: "none",
+                    backgroundColor: "rgba(0,0,0,0.035)",
+                    fontWeight: "bold",
+                  }}
+                />
+              </div>
+              {/* status*/}
+              <div
+                style={{
+                  width: "80%",
+                }}
+              >
+                <p
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    color: "rgb(70,83,98)",
+                    textAlign: "left",
+                    paddingBottom: "20px",
+                  }}
+                >
+                  STATUS:
+                </p>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    margin: "0 auto 0 auto",
+                    width: "80%",
+                    gap: "15px",
+                  }}
+                >
+                  <div
+                    onClick={() =>
+                      handleUserChange({
+                        target: { name: "status", value: "active" },
+                      })
+                    }
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      fontSize: "14px",
+                      border: "none",
+                    }}
+                  >
+                    ACTIVE
+                    <div
+                      style={{
+                        height: "15px",
+                        width: "15px",
+                        borderRadius: "4px",
+                        border: "2px solid rgb(70,83,98)",
+                        backgroundColor:
+                          selectedUser.status === "active"
+                            ? "#465362"
+                            : "transparent",
+                        transition: "0.6s",
+                      }}
+                    ></div>
+                  </div>
+                  <div
+                    onClick={() =>
+                      handleUserChange({
+                        target: { name: "status", value: "inactive" },
+                      })
+                    }
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      fontSize: "14px",
+                      border: "none",
+                    }}
+                  >
+                    INACTIVE
+                    <div
+                      style={{
+                        height: "15px",
+                        width: "15px",
+                        borderRadius: "4px",
+                        border: "2px solid rgb(70,83,98)",
+                        backgroundColor:
+                          selectedUser.status === "inactive"
+                            ? "#465362"
+                            : "transparent",
+                        transition: "0.6s",
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  marginBottom: "50px",
+                }}
+              >
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <button
+                    type="submit"
+                    style={{
+                      height: "40px",
+                      width: "85%",
+                      marginTop: "30px",
+                      backgroundColor: "rgb(249,220,92)",
+                      border: "none",
+                      borderRadius: "4px",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                      transition: "0.3s",
+                    }}
+                  >
+                    SUBMIT
+                  </button>
+                </div>
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <button
+                    onClick={() => nav("/users")}
+                    style={{
+                      height: "40px",
+                      width: "85%",
+                      marginTop: "20px",
+
+                      border: "none",
+                      borderRadius: "4px",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                      transition: "0.3s",
+                    }}
+                  >
+                    CANCEL
+                  </button>
+                </div>
               </div>
 
               {/*<button onClick={() => setIsUserEditActive(false)}>
                   Delete
                 </button>*/}
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       )}
     </>

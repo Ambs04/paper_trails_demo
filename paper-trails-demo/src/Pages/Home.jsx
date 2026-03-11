@@ -56,7 +56,9 @@ export default function Home() {
               <Hero />
             </div>
             <div id="home-text">
-              <p style={{ color: "black" }}>Smart Invoicing Made Simple</p>
+              <p style={{ color: "black", fontWeight: "bold" }}>
+                Smart Invoicing Made Simple
+              </p>
               <p style={{ color: "black" }}>
                 Manage clients, track payments, and send invoices in seconds.
                 Empower your business with a fast, intuitive tool built for

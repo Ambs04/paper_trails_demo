@@ -268,367 +268,980 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
 
   return (
     <>
-      <div>
-        <span>
-          <button onClick={onClose}>X</button>
-          <h3>Manage Customer</h3>
-        </span>
-        {viewOptions === "menu" && (
-          <div>
-            <h4>What would you like to manage first?</h4>
-            <div>
-              <button onClick={() => setViewOptions("edit")}>
-                Edit customer profile
-              </button>
-              <button onClick={() => setViewOptions("history")}>
-                View customer invoice history
-              </button>
-            </div>
-          </div>
-        )}
+      <div
+        style={{
+          position: "relative",
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "rgba(0,0,0,0.44)",
+          top: "0",
 
-        {viewOptions === "edit" && (
-          <div>
-            <div>
-              <button onClick={() => setViewOptions("edit")}>
-                Edit customer profile
-              </button>
-              <button onClick={() => setViewOptions("history")}>
-                View customer invoice history
-              </button>
-            </div>
-            <div>
-              <p>Company Name</p>
-              <input
-                name="companyName"
-                value={editCustomer.companyName}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <p>Company Email</p>
-              <input
-                name="email"
-                value={editCustomer.email}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <p>Company Phone</p>
-              <input
-                name="cellNumber"
-                value={editCustomer.cellNumber}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <p>Contact Person</p>
-              <input
-                name="contactPerson"
-                value={editCustomer.contactPerson}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <p>Address</p>
-              <input
-                name="address"
-                value={editCustomer.address}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <p>PAYMENT TERMS</p>
-
-              <select
-                name="paymentTerms"
-                value={editCustomer.paymentTerms}
-                onChange={handleChange}
-              >
-                Select payment term
-                <option value="30 days">30 days</option>
-                <option value="14 days">14 days</option>
-                <option value="7 days">7 days</option>
-                <option value="cash on delivery">cash on delivery</option>
-              </select>
-            </div>
-            <div>
-              <select
-                name="status"
-                value={editCustomer.status}
-                onChange={handleChange}
-              >
-                Status
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-              </select>
-            </div>
-            <button onClick={handleCustomerUpdate}>UPDATE</button>
-            <button type="button" onClick={onClose}>
-              CANCEL
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          transition: "0.2s",
+          zIndex: "1000",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flex: "1 1 0%",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            position: "relative",
+            flexDirection: "column",
+            minHeight: "1714px",
+            height: "1714px",
+            overflowY: "hidden scroll",
+            backgroundColor: "white",
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              backgroundColor: "rgba(255,255,255,0.314)",
+              minHeight: "50px",
+              display: "flex",
+              alignItems: "center",
+              position: "fixed",
+              top: "0",
+              zIndex: "10",
+            }}
+          >
+            <button
+              onClick={onClose}
+              style={{
+                height: "50px",
+                minHeight: "50px",
+                width: "50px",
+                backgroundColor: "rgb(249,220,92)",
+                border: "0",
+                fontWeight: "bold",
+                fontSize: "18px",
+              }}
+            >
+              X
             </button>
+            <div
+              style={{
+                width: "100%",
+                backgroundColor: "rgb(70,83,98)",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                fontWeight: "bold",
+                color: "white",
+                minHeight: "50px",
+              }}
+            >
+              <div style={{ marginLeft: "20px" }}> MANAGE CUSTOMER</div>
+            </div>
           </div>
-        )}
-        {viewOptions === "history" && (
-          <div>
-            <div>
-              <h4>
-                {invoiceFilter === "paid" ? "PAID INVOICES" : "UNPAID INVOICES"}
-              </h4>
+          {viewOptions === "menu" && (
+            <div
+              style={{
+                width: "100%",
+                borderRadius: "10px",
+                display: "flex",
+                alignItems: "center",
+                position: "fixed",
+                top: "52px",
+                zIndex: "9",
+                transition: "0.6s",
+              }}
+            >
+              <button
+                onClick={() => setViewOptions("edit")}
+                style={{
+                  height: "40px",
+                  width: "50%",
+                  backgroundColor:
+                    viewOptions === "edit" ? "rgb(249,220,92)" : "white",
+                  border: "0",
+                  fontWeight: "bold",
+                  transition: "0.6s",
+                }}
+              >
+                PROFILE
+              </button>
+              <button
+                onClick={() => setViewOptions("history")}
+                style={{
+                  height: "40px",
+                  width: "50%",
+                  backgroundColor:
+                    viewOptions === "history" ? "rgb(249,220,92)" : "white",
+                  border: "0",
+                  fontWeight: "bold",
+                  transition: "0.6s",
+                }}
+              >
+                HISTORY
+              </button>
+            </div>
+          )}
 
-              {Array.isArray(history) &&
-                history
-                  .filter((invoice) => invoice.status === invoiceFilter)
-                  .map((invoice) => (
-                    <div
-                      key={invoice._id}
-                      onClick={() => {
-                        const formattedInvoiceItems = invoice.invoicedItems.map(
-                          (item) => ({
-                            name: item.description,
-                            qty: item.qty,
-                            price: item.price,
-                          }),
-                        );
-                        setInvoiceItems(formattedInvoiceItems);
-                        setSelectedInvoice(invoice);
-                        setEditingInvoice(true);
-                        setShowSortedInvoices(true);
-                      }}
-                      style={{ border: "1px solid black" }}
-                    >
-                      <p>Date Created:</p>
-                      <p>{invoice.dateCreated}</p>
-                      <p>Client:</p>
-                      <p>{invoice.customerInfo?.name}</p>
-
-                      <p>Contact Person:</p>
-                      <p>{customer.contactPerson}</p>
-
-                      <p>Grand Total:</p>
-                      <p>R {invoice.total}</p>
-
-                      <p>Payment Terms:</p>
-                      <p>{invoice.paymentTerms}</p>
-
-                      <p>Status</p>
-                      <p>{invoice.status}</p>
-                    </div>
-                  ))}
-
-              {showSortedInvoices && selectedInvoice && (
-                <div
-                  onClick={() => {
-                    setShowSortedInvoices(false);
-                    setViewOptions("add");
+          {viewOptions === "edit" && (
+            <div style={{ width: "100%" }}>
+              <div>
+                <button
+                  onClick={() => setViewOptions("edit")}
+                  style={{
+                    height: "40px",
+                    width: "50%",
+                    backgroundColor:
+                      viewOptions === "edit" ? "rgb(249,220,92)" : "white",
+                    border: "0",
+                    fontWeight: "bold",
+                    transition: "0.6s",
                   }}
                 >
-                  <div>
-                    <p>Date created:</p>
-                    <p>{selectedInvoice.dateCreated}</p>
-                  </div>
-                  <div>
-                    <p>Client:</p>
-                    <p>{selectedInvoice.customerInfo?.name}</p>
-                  </div>
-                  <div>
-                    <p>Contact Person:</p>
-                    <p>{customer.contactPerson}</p>
-                  </div>
-                  <div>
-                    <p>Grand Total:</p>
-                    <p>R {selectedInvoice.total}</p>
-                  </div>
-                  <div>
-                    <p>Payment Terms:</p>
-                    <p>{customer.paymentTerms}</p>
-                  </div>
-                  <div>
-                    <p>Status</p>
-                    <p>{selectedInvoice.status}</p>
-                  </div>
-                  <div>
-                    <p>Invoice items:</p>
-                    <p>
-                      {invoiceItems.map((item, index) => (
-                        <div key={index}>
-                          <p>Items: {item.name}</p>
-                          <p>Qty: {item.qty}</p>
-                        </div>
-                      ))}
-                    </p>
-                  </div>
+                  PROFILE
+                </button>
+                <button
+                  onClick={() => setViewOptions("history")}
+                  style={{
+                    height: "40px",
+                    width: "50%",
+                    backgroundColor:
+                      viewOptions === "history" ? "rgb(249,220,92)" : "white",
+                    border: "0",
+                    fontWeight: "bold",
+                    transition: "0.6s",
+                  }}
+                >
+                  HISTORY
+                </button>
+              </div>
+              <div
+                style={{
+                  width: "85%",
+                  marginTop: "100px",
+                  marginBottom: "20px",
+                  fontSize: "16px",
+                }}
+              >
+                BASIC ACCOUNT INFORMATION
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <p
+                  style={{
+                    width: "80%",
+                    fontWeight: "500",
+                    fontSize: "14px",
+                    color: "rgb(70,83,98)",
+                    textAlign: "left",
+                  }}
+                >
+                  COMPANY NAME:
+                </p>
+                <input
+                  name="companyName"
+                  value={editCustomer.companyName}
+                  onChange={handleChange}
+                  style={{
+                    height: "35px",
+                    width: "80%",
+                    marginTop: "5px",
+                    borderRadius: "4px",
+                    padding: "8px 10px 8px 20px",
+                    fontSize: "14px",
+                    border: "none",
+                    backgroundColor: "rgba(0,0,0,0.035)",
+                    fontWeight: "bold",
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <p
+                  style={{
+                    width: "80%",
+                    fontWeight: "500",
+                    fontSize: "14px",
+                    color: "rgb(70,83,98)",
+                    textAlign: "left",
+                  }}
+                >
+                  COMPANY EMAIL:
+                </p>
+                <input
+                  name="email"
+                  value={editCustomer.email}
+                  onChange={handleChange}
+                  style={{
+                    height: "35px",
+                    width: "80%",
+                    marginTop: "5px",
+                    borderRadius: "4px",
+                    padding: "8px 10px 8px 20px",
+                    fontSize: "14px",
+                    border: "none",
+                    backgroundColor: "rgba(0,0,0,0.035)",
+                    fontWeight: "bold",
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <p
+                  style={{
+                    width: "80%",
+                    fontWeight: "500",
+                    fontSize: "14px",
+                    color: "rgb(70,83,98)",
+                    textAlign: "left",
+                  }}
+                >
+                  COMPANY PHONE:
+                </p>
+                <input
+                  name="cellNumber"
+                  value={editCustomer.cellNumber}
+                  onChange={handleChange}
+                  style={{
+                    height: "35px",
+                    width: "80%",
+                    marginTop: "5px",
+                    borderRadius: "4px",
+                    padding: "8px 10px 8px 20px",
+                    fontSize: "14px",
+                    border: "none",
+                    backgroundColor: "rgba(0,0,0,0.035)",
+                    fontWeight: "bold",
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <p
+                  style={{
+                    width: "80%",
+                    fontWeight: "500",
+                    fontSize: "14px",
+                    color: "rgb(70,83,98)",
+                    textAlign: "left",
+                  }}
+                >
+                  CONTACT PERSON:
+                </p>
+                <input
+                  name="contactPerson"
+                  value={editCustomer.contactPerson}
+                  onChange={handleChange}
+                  style={{
+                    height: "35px",
+                    width: "80%",
+                    marginTop: "5px",
+                    borderRadius: "4px",
+                    padding: "8px 10px 8px 20px",
+                    fontSize: "14px",
+                    border: "none",
+                    backgroundColor: "rgba(0,0,0,0.035)",
+                    fontWeight: "bold",
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <p
+                  style={{
+                    width: "80%",
+                    fontWeight: "500",
+                    fontSize: "14px",
+                    color: "rgb(70,83,98)",
+                    textAlign: "left",
+                  }}
+                >
+                  ADDRESS
+                </p>
+                <textarea
+                  name="address"
+                  value={editCustomer.address}
+                  onChange={handleChange}
+                  style={{
+                    height: "35px",
+                    width: "80%",
+                    marginTop: "5px",
+                    borderRadius: "4px",
+                    padding: "8px 10px 8px 20px",
+                    fontSize: "14px",
+                    border: "none",
+                    backgroundColor: "rgba(0,0,0,0.035)",
+                    fontWeight: "bold",
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginTop: "30px",
+                  marginBottom: "30px",
+                }}
+              >
+                <p
+                  style={{
+                    width: "80%",
+                    fontWeight: "500",
+                    fontSize: "14px",
+                    color: "rgb(70,83,98)",
+                    textAlign: "left",
+                  }}
+                >
+                  PAYMENT TERMS:
+                </p>
+
+                <div
+                  style={{
+                    width: "80%",
+                    display: "flex",
+                    flexDirection: "column",
+
+                    gap: "15px",
+                  }}
+                >
+                  {["30 days", "14 days", "7 days", "cash on delivery"].map(
+                    (payTerm) => (
+                      <div
+                        key={payTerm}
+                        onClick={() =>
+                          handleChange({
+                            target: { name: "paymentTerms", value: payTerm },
+                          })
+                        }
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {payTerm.toUpperCase()}
+                        <div
+                          style={{
+                            height: "15px",
+                            width: "15px",
+                            borderRadius: "4px",
+                            border: "2px solid rgb(70,83,98)",
+                            backgroundColor:
+                              editCustomer.paymentTerms === payTerm
+                                ? "rgb(70,83,98)"
+                                : "transparent",
+                            transition: "0.6s",
+                          }}
+                        ></div>
+                      </div>
+                    ),
+                  )}
                 </div>
-              )}
-            </div>
+              </div>
+              {/*account status */}
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <p
+                  style={{
+                    width: "80%",
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    color: "rgb(70,83,98)",
+                    textAlign: "left",
+                    paddingLeft: "0px",
+                    paddingBottom: "20px",
+                  }}
+                >
+                  ACCOUNT STATUS
+                </p>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "80%",
+                    gap: "15px",
+                  }}
+                >
+                  <div
+                    onClick={() =>
+                      handleChange({
+                        target: { name: "status", value: "active" },
+                      })
+                    }
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
 
-            <div>
-              <button onClick={() => setViewOptions("edit")}>
-                Edit customer profile
-              </button>
-              <button onClick={() => setViewOptions("history")}>
-                View customer invoice history
-              </button>
-            </div>
-            <div>
-              <p>Date: {currentDate}</p>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-around",
-              }}
-            >
-              <div style={{ display: "flex" }}>
-                <p></p>
-                <p>OUTSTANDING</p>
-              </div>
-              <div style={{ display: "flex" }}>
-                <p></p>
-                <p>PAID</p>
-              </div>
-              <div style={{ display: "flex" }}>
-                <p></p>
-                <p>INVOICES</p>
-              </div>
-            </div>
-            <div>
-              {history.length === 0 ? (
-                <>
-                  <p>No invoices for this customer found</p>
-                  <button onClick={() => setViewOptions("add")}>
-                    Create Invoice
-                  </button>
-                </>
-              ) : (
-                <span>
-                  <button onClick={() => setInvoiceFilter("paid")}>PAID</button>
-                  <button onClick={() => setInvoiceFilter("unpaid")}>
-                    UNPAID
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setViewOptions("add");
-                      setEditingInvoice(false);
-                      setInvoiceItems([]);
+                      border: "none",
                     }}
                   >
-                    +
-                  </button>
-                </span>
-              )}
-            </div>
-          </div>
-        )}
+                    ACTIVE
+                    <div
+                      style={{
+                        height: "15px",
+                        width: "15px",
+                        borderRadius: "4px",
+                        border: "2px solid rgb(70,83,98)",
+                        backgroundColor:
+                          editCustomer.status === "active"
+                            ? "#465362"
+                            : "transparent",
+                        transition: "0.6s",
+                      }}
+                    ></div>
+                  </div>
+                  <div
+                    onClick={() =>
+                      handleChange({
+                        target: { name: "status", value: "inactive" },
+                      })
+                    }
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
 
-        {viewOptions === "add" && (
-          <>
-            <div>
-              <button onClick={() => setViewOptions("history")}>X</button>
-              <p>{editingInvoice ? "EDIT INVOICE" : "CREATE NEW INVOICE"}</p>
-            </div>
-            {editingInvoice && selectedInvoice && (
-              <div>
-                <p>
-                  {" "}
-                  Invoice ID: {selectedInvoice._id.slice(-6).toUpperCase()}
-                </p>
-              </div>
-            )}
-
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-around",
-              }}
-            >
-              <div style={{ display: "flex" }}>
-                <div style={{ display: "block" }}>
-                  <span>
-                    <p>Client: </p>
-                    <p>{customer.companyName}</p>
-                  </span>
-                  <span>
-                    <p>Client email:</p>
-                    <p>{customer.email}</p>
-                  </span>
-                  <span>
-                    <p>Client number:</p>
-                    <p>{customer.cellNumber}</p>
-                  </span>
+                      border: "none",
+                    }}
+                  >
+                    INACTIVE
+                    <div
+                      style={{
+                        height: "15px",
+                        width: "15px",
+                        borderRadius: "4px",
+                        border: "2px solid rgb(70,83,98)",
+                        backgroundColor:
+                          editCustomer.status === "inactive"
+                            ? "#465362"
+                            : "transparent",
+                        transition: "0.6s",
+                      }}
+                    ></div>
+                  </div>
                 </div>
               </div>
-              <div style={{ display: "flex" }}>
-                <span>
-                  <p>Date:</p>
-                  <p>{currentDate}</p>
-                </span>
-              </div>
-              <div>
-                <p>PRODUCT/SERVICE</p>
-                <p>QTY</p>
-                <p>PRICE / UNIT</p>
-                <p>TOTAL PRICE</p>
-                <button onClick={() => setViewOptions("prodService")}>+</button>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  marginBottom: "50px",
+                }}
+              >
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <button
+                    onClick={handleCustomerUpdate}
+                    style={{
+                      height: "40px",
+                      width: "85%",
+                      marginTop: "20px",
+                      backgroundColor: "rgb(249,220,92)",
+                      border: "none",
+                      borderRadius: "4px",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                      transition: "0.3s",
+                    }}
+                  >
+                    UPDATE
+                  </button>
+                </div>
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <button
+                    type="button"
+                    onClick={onClose}
+                    style={{
+                      height: "40px",
+                      width: "85%",
+                      marginTop: "20px",
+
+                      border: "none",
+                      borderRadius: "4px",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                      transition: "0.3s",
+                    }}
+                  >
+                    CANCEL
+                  </button>
+                </div>
               </div>
             </div>
+          )}
+          {viewOptions === "history" && (
+            <div style={{ width: "100%", padding: "15px" }}>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginTop: "100px",
+                }}
+              >
+                <h4
+                  style={{
+                    width: "85%",
+                    marginBottom: "15px",
+                    fontSize: "16px",
+                  }}
+                >
+                  {invoiceFilter === "paid"
+                    ? "PAID INVOICES"
+                    : "UNPAID INVOICES"}
+                </h4>
 
-            {invoiceItems.map((item, index) => {
-              const totalPrice = item.qty * item.price;
+                {Array.isArray(history) &&
+                  history
+                    .filter((invoice) => invoice.status === invoiceFilter)
+                    .map((invoice) => (
+                      <div
+                        key={invoice._id}
+                        onClick={() => {
+                          const formattedInvoiceItems =
+                            invoice.invoicedItems.map((item) => ({
+                              name: item.description,
+                              qty: item.qty,
+                              price: item.price,
+                            }));
+                          setInvoiceItems(formattedInvoiceItems);
+                          setSelectedInvoice(invoice);
+                          setEditingInvoice(true);
+                          setShowSortedInvoices(true);
+                        }}
+                        style={{
+                          backgroundColor: "rgba(0,0,0,0.03)",
+                          borderRadius: "6px",
+                          padding: "12px",
+                          marginBottom: "10px",
+                          cursor: "pointer",
+                          fontSize: "12px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        <p>Date Created:</p>
+                        <p>{invoice.dateCreated}</p>
+                        <p>Client:</p>
+                        <p>{invoice.customerInfo?.name}</p>
 
-              return (
-                <div key={index}>
-                  <p>{item.name}</p>
-                  {/*<p>{item.qty}</p>*/}
-                  <span>
+                        <p>Contact Person:</p>
+                        <p>{customer.contactPerson}</p>
+
+                        <p>Grand Total:</p>
+                        <p>R {invoice.total}</p>
+
+                        <p>Payment Terms:</p>
+                        <p>{invoice.paymentTerms}</p>
+
+                        <p>Status</p>
+                        <p>{invoice.status}</p>
+                      </div>
+                    ))}
+
+                {showSortedInvoices && selectedInvoice && (
+                  <div
+                    onClick={() => {
+                      setShowSortedInvoices(false);
+                      setViewOptions("add");
+                    }}
+                  >
+                    <div>
+                      <p>Date created:</p>
+                      <p>{selectedInvoice.dateCreated}</p>
+                    </div>
+                    <div>
+                      <p>Client:</p>
+                      <p>{selectedInvoice.customerInfo?.name}</p>
+                    </div>
+                    <div>
+                      <p>Contact Person:</p>
+                      <p>{customer.contactPerson}</p>
+                    </div>
+                    <div>
+                      <p>Grand Total:</p>
+                      <p>R {selectedInvoice.total}</p>
+                    </div>
+                    <div>
+                      <p>Payment Terms:</p>
+                      <p>{customer.paymentTerms}</p>
+                    </div>
+                    <div>
+                      <p>Status</p>
+                      <p>{selectedInvoice.status}</p>
+                    </div>
+                    <div>
+                      <p>Invoice items:</p>
+                      <p>
+                        {invoiceItems.map((item, index) => (
+                          <div key={index}>
+                            <p>Items: {item.name}</p>
+                            <p>Qty: {item.qty}</p>
+                          </div>
+                        ))}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <button
+                  onClick={() => setViewOptions("edit")}
+                  style={{
+                    height: "40px",
+                    width: "50%",
+                    backgroundColor:
+                      viewOptions === "edit" ? "rgb(249,220,92)" : "white",
+                    border: "0",
+                    fontWeight: "bold",
+                    transition: "0.6s",
+                  }}
+                >
+                  PROFILE
+                </button>
+                <button
+                  onClick={() => setViewOptions("history")}
+                  style={{
+                    height: "40px",
+                    width: "50%",
+                    backgroundColor:
+                      viewOptions === "history" ? "rgb(249,220,92)" : "white",
+                    border: "0",
+                    fontWeight: "bold",
+                    transition: "0.6s",
+                  }}
+                >
+                  HISTORY
+                </button>
+              </div>
+              <div>
+                <p>Date: {currentDate}</p>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                }}
+              >
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <p style={{ fontWeight: "bold", color: "black" }}>
+                    R 1200.05
+                  </p>
+                  <p style={{ fontWeight: "bold" }}>OUTSTANDING</p>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <p style={{ fontWeight: "bold", color: "black" }}>
+                    R 2200.05
+                  </p>
+                  <p style={{ fontWeight: "bold" }}>PAID</p>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <p style={{ fontWeight: "bold", color: "black" }}>11</p>
+                  <p style={{ fontWeight: "bold" }}>INVOICES</p>
+                </div>
+              </div>
+              <div>
+                {history.length === 0 ? (
+                  <>
+                    <p>No invoices for this customer found</p>
                     <button
-                      onClick={() => {
-                        const decrement = [...invoiceItems];
-                        decrement[index].qty = Math.max(
-                          1,
-                          decrement[index].qty - 1,
-                        );
-                        setInvoiceItems(decrement);
+                      onClick={() => setViewOptions("add")}
+                      style={{
+                        height: "35px",
+                        width: "40px",
+                        border: "none",
+                        backgroundColor: "rgb(249,220,92)",
+                        fontWeight: "bold",
+                        fontSize: "18px",
                       }}
                     >
-                      -
+                      Create Invoice
                     </button>
-                    <p>{item.qty}</p>
+                  </>
+                ) : (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginTop: "10px",
+                    }}
+                  >
+                    <button
+                      onClick={() => setInvoiceFilter("paid")}
+                      style={{
+                        height: "35px",
+                        width: "90px",
+                        border: "none",
+                        backgroundColor:
+                          invoiceFilter === "paid"
+                            ? "rgb(249,220,92)"
+                            : "rgba(0,0,0,0.05)",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      PAID
+                    </button>
+                    <button
+                      onClick={() => setInvoiceFilter("unpaid")}
+                      style={{
+                        height: "35px",
+                        width: "90px",
+                        border: "none",
+                        backgroundColor:
+                          invoiceFilter === "unpaid"
+                            ? "rgb(249,220,92)"
+                            : "rgba(0,0,0,0.05)",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      UNPAID
+                    </button>
+
                     <button
                       onClick={() => {
-                        const increment = [...invoiceItems];
-                        increment[index].qty++;
-                        setInvoiceItems(increment);
+                        setViewOptions("add");
+                        setEditingInvoice(false);
+                        setInvoiceItems([]);
                       }}
                     >
                       +
                     </button>
-                  </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
-                  <p>R {item.price}</p>
-                  <p>R {totalPrice}</p>
+          {viewOptions === "add" && (
+            <>
+              <div
+                style={{
+                  width: "100%",
+
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginTop: "100px",
+                }}
+              >
+                <button
+                  onClick={() => setViewOptions("history")}
+                  style={{ height: "" }}
+                >
+                  X
+                </button>
+                <p style={{ fontWeight: "bold" }}>
+                  {editingInvoice ? "EDIT INVOICE" : "CREATE NEW INVOICE"}
+                </p>
+              </div>
+              {editingInvoice && selectedInvoice && (
+                <p style={{ paddingLeft: "10px" }}>
+                  Invoice ID: {selectedInvoice._id.slice(-6).toUpperCase()}
+                </p>
+              )}
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                }}
+              >
+                <div style={{ display: "flex" }}>
+                  <div style={{ display: "block" }}>
+                    <span>
+                      <p>Client: </p>
+                      <p>{customer.companyName}</p>
+                    </span>
+                    <span>
+                      <p>Client email:</p>
+                      <p>{customer.email}</p>
+                    </span>
+                    <span>
+                      <p>Client number:</p>
+                      <p>{customer.cellNumber}</p>
+                    </span>
+                  </div>
+                </div>
+                <div style={{ display: "flex" }}>
+                  <span>
+                    <p>Date:</p>
+                    <p>{currentDate}</p>
+                  </span>
+                </div>
+                <div
+                  style={{
+                    width: "85%",
+                    display: "grid",
+                    gridTemplateColumns: "2fr 1fr 1fr 1fr auto",
+                    fontWeight: "bold",
+                    fontSize: "13px",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <p>PRODUCT/SERVICE</p>
+                  <p>QTY</p>
+                  <p>PRICE / UNIT</p>
+                  <p>TOTAL PRICE</p>
                   <button
-                    onClick={() => {
-                      const filterAddedItems = invoiceItems.filter(
-                        (_, i) => i !== index,
-                      );
-                      setInvoiceItems(filterAddedItems);
+                    onClick={() => setViewOptions("prodService")}
+                    style={{
+                      border: "none",
+                      backgroundColor: "rgb(249,220,92)",
+                      fontWeight: "bold",
+                      width: "25px",
                     }}
                   >
-                    X
+                    +
                   </button>
                 </div>
-              );
-            })}
+              </div>
 
-            {invoiceItems.length > 0 && (
-              <>
-                <div>
-                  <p>
-                    GRAND TOTAL :{" "}
+              {invoiceItems.map((item, index) => {
+                const totalPrice = item.qty * item.price;
+
+                return (
+                  <div
+                    key={index}
+                    style={{
+                      width: "85%",
+                      display: "grid",
+                      gridTemplateColumns: "2fr 1fr 1fr 1fr auto",
+                      alignItems: "center",
+                      marginBottom: "8px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    <p>{item.name}</p>
+                    {/*<p>{item.qty}</p>*/}
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "6px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <button
+                        style={{
+                          width: "22px",
+                          height: "22px",
+                          border: "none",
+                          backgroundColor: "rgb(249,220,92)",
+                        }}
+                        onClick={() => {
+                          const decrement = [...invoiceItems];
+                          decrement[index].qty = Math.max(
+                            1,
+                            decrement[index].qty - 1,
+                          );
+                          setInvoiceItems(decrement);
+                        }}
+                      >
+                        -
+                      </button>
+                      <p>{item.qty}</p>
+                      <button
+                        style={{
+                          width: "22px",
+                          height: "22px",
+                          border: "none",
+                          backgroundColor: "rgb(249,220,92)",
+                        }}
+                        onClick={() => {
+                          const increment = [...invoiceItems];
+                          increment[index].qty++;
+                          setInvoiceItems(increment);
+                        }}
+                      >
+                        +
+                      </button>
+                    </div>
+
+                    <p>R {item.price}</p>
+                    <p>R {totalPrice}</p>
+                    <button
+                      style={{
+                        border: "none",
+                        backgroundColor: "rgb(70,83,98)",
+                        color: "white",
+                        width: "22px",
+                      }}
+                      onClick={() => {
+                        const filterAddedItems = invoiceItems.filter(
+                          (_, i) => i !== index,
+                        );
+                        setInvoiceItems(filterAddedItems);
+                      }}
+                    >
+                      X
+                    </button>
+                  </div>
+                );
+              })}
+
+              {invoiceItems.length > 0 && (
+                <>
+                  <p style={{ marginTop: "15px" }}>
+                    GRAND TOTAL :
                     {invoiceItems
                       .reduce((t, item) => {
                         return t + item.price * item.qty;
@@ -658,148 +1271,198 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                       <p>{customer.paymentTerms || "none"}</p>
                     </div>
                   </div>
-                </div>
-                {editingInvoice && (
-                  <div>
-                    <h4>STATUS</h4>
 
+                  {editingInvoice && (
                     <div>
-                      <label>
-                        PAID
-                        <input
-                          type="radio"
-                          name="invoiceStatus"
-                          value="paid"
-                          checked={
-                            selectedInvoice?.status === "paid" ? true : false
-                          }
-                          onChange={(e) =>
-                            setSelectedInvoice({
-                              ...selectedInvoice,
-                              status: e.target.value,
-                            })
-                          }
-                        />
-                      </label>
-                      <label>
-                        UNPAID
-                        <input
-                          type="radio"
-                          name="invoiceStatus"
-                          value="unpaid"
-                          checked={
-                            selectedInvoice?.status === "unpaid" ? true : false
-                          }
-                          onChange={(e) =>
-                            setSelectedInvoice({
-                              ...selectedInvoice,
-                              status: e.target.value,
-                            })
-                          }
-                        />
-                      </label>
-                      <label>
-                        PAYMENT REQUEST
-                        <input
-                          type="radio"
-                          name="invoiceStatus"
-                          value="request"
-                          checked={
-                            selectedInvoice?.status === "request" ? true : false
-                          }
-                          onChange={(e) =>
-                            setSelectedInvoice({
-                              ...selectedInvoice,
-                              status: e.target.value,
-                            })
-                          }
-                        />
-                      </label>
-                      <label>
-                        DENIED QUOTE
-                        <input
-                          type="radio"
-                          name="invoiceStatus"
-                          value="denied"
-                          checked={
-                            selectedInvoice?.status === "denied" ? true : false
-                          }
-                          onChange={(e) =>
-                            setSelectedInvoice({
-                              ...selectedInvoice,
-                              status: e.target.value,
-                            })
-                          }
-                        />
-                      </label>
-                      <label>
-                        PENDING
-                        <input
-                          type="radio"
-                          name="invoiceStatus"
-                          value="pending"
-                          checked={
-                            selectedInvoice?.status === "pending" ? true : false
-                          }
-                          onChange={(e) =>
-                            setSelectedInvoice({
-                              ...selectedInvoice,
-                              status: e.target.value,
-                            })
-                          }
-                        />
-                      </label>
+                      <h4>STATUS</h4>
+
+                      <div>
+                        <label>
+                          PAID
+                          <input
+                            type="radio"
+                            name="invoiceStatus"
+                            value="paid"
+                            checked={
+                              selectedInvoice?.status === "paid" ? true : false
+                            }
+                            onChange={(e) =>
+                              setSelectedInvoice({
+                                ...selectedInvoice,
+                                status: e.target.value,
+                              })
+                            }
+                          />
+                        </label>
+                        <label>
+                          UNPAID
+                          <input
+                            type="radio"
+                            name="invoiceStatus"
+                            value="unpaid"
+                            checked={
+                              selectedInvoice?.status === "unpaid"
+                                ? true
+                                : false
+                            }
+                            onChange={(e) =>
+                              setSelectedInvoice({
+                                ...selectedInvoice,
+                                status: e.target.value,
+                              })
+                            }
+                          />
+                        </label>
+                        <label>
+                          PAYMENT REQUEST
+                          <input
+                            type="radio"
+                            name="invoiceStatus"
+                            value="request"
+                            checked={
+                              selectedInvoice?.status === "request"
+                                ? true
+                                : false
+                            }
+                            onChange={(e) =>
+                              setSelectedInvoice({
+                                ...selectedInvoice,
+                                status: e.target.value,
+                              })
+                            }
+                          />
+                        </label>
+                        <label>
+                          DENIED QUOTE
+                          <input
+                            type="radio"
+                            name="invoiceStatus"
+                            value="denied"
+                            checked={
+                              selectedInvoice?.status === "denied"
+                                ? true
+                                : false
+                            }
+                            onChange={(e) =>
+                              setSelectedInvoice({
+                                ...selectedInvoice,
+                                status: e.target.value,
+                              })
+                            }
+                          />
+                        </label>
+                        <label>
+                          PENDING
+                          <input
+                            type="radio"
+                            name="invoiceStatus"
+                            value="pending"
+                            checked={
+                              selectedInvoice?.status === "pending"
+                                ? true
+                                : false
+                            }
+                            onChange={(e) =>
+                              setSelectedInvoice({
+                                ...selectedInvoice,
+                                status: e.target.value,
+                              })
+                            }
+                          />
+                        </label>
+                      </div>
                     </div>
-                  </div>
-                )}
-                {editingInvoice ? (
-                  <div>
-                    <button onClick={handleInvoiceUpdate}>
-                      UPDATE INVOICE
-                    </button>
-                    <button onClick={() => generatePDF(selectedInvoice._id)}>
-                      DOWNLOAD PDF
-                    </button>
-                  </div>
-                ) : (
-                  <button onClick={handleInvoiceSave}>SAVE INVOICE</button>
-                )}
-              </>
-            )}
-          </>
-        )}
+                  )}
+                  {editingInvoice ? (
+                    <div>
+                      <button onClick={handleInvoiceUpdate}>
+                        UPDATE INVOICE
+                      </button>
+                      <button onClick={() => generatePDF(selectedInvoice._id)}>
+                        DOWNLOAD PDF
+                      </button>
+                    </div>
+                  ) : (
+                    <button onClick={handleInvoiceSave}>SAVE INVOICE</button>
+                  )}
+                </>
+              )}
+            </>
+          )}
 
-        {viewOptions === "prodService" && (
-          <div>
-            <div>
-              <button onClick={() => setViewOptions("add")}>X</button>
-              <h4>Add Product / Service</h4>
-            </div>
-            <select
-              onChange={(e) => {
-                handleProdSelection(e.target.value);
-              }}
-            >
-              <option value="">-Select product / service-</option>
-              {Array.isArray(availableProdService) &&
-                availableProdService.map((prod) => (
-                  <option key={prod._id} value={prod._id}>
-                    {prod.productOrServiceName}
-                  </option>
-                ))}
-            </select>
-            <button onClick={addProdToInvoice}>Add to invoice</button>
-
-            {/*{newItem.desc && <p>{newItem.desc}</p>}*/}
-          </div>
-        )}
-
-        {renderPDFTemplate && selectedInvoice && (
-          <div id="invoice">
-            {/*HEADER*/}
+          {viewOptions === "prodService" && (
             <div>
               <div>
-                <p>{selectedInvoice?.billingCompanyInfo.name}</p>
+                <button onClick={() => setViewOptions("add")}>X</button>
+                <h4>Add Product / Service</h4>
+              </div>
+              <select
+                onChange={(e) => {
+                  handleProdSelection(e.target.value);
+                }}
+              >
+                <option value="">-Select product / service-</option>
+                {Array.isArray(availableProdService) &&
+                  availableProdService.map((prod) => (
+                    <option key={prod._id} value={prod._id}>
+                      {prod.productOrServiceName}
+                    </option>
+                  ))}
+              </select>
+              <button onClick={addProdToInvoice}>Add to invoice</button>
+
+              {/*{newItem.desc && <p>{newItem.desc}</p>}*/}
+            </div>
+          )}
+
+          {/*{renderPDFTemplate && selectedInvoice && (*/}
+          <div
+            id="invoice"
+            style={{
+              display: "none",
+              flexDirection: "column",
+              width: 450,
+              position: "absolute",
+              minHeight: 625,
+
+              background: "white",
+
+              top: 0,
+            }}
+          >
+            {/*HEADER*/}
+            <div
+              style={{
+                minHeight: 40,
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-start",
+                marginTop: 20,
+                marginLeft: 20,
+              }}
+            >
+              <div style={{ display: "flex" }}>
+                <img
+                  style={{
+                    height: 100,
+                    width: 100,
+                    marginRight: 20,
+                    marginBottom: 5,
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  position: "absolute",
+                  top: 60,
+                  right: 25,
+                  textAlign: "right",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <p>{selectedInvoice?.billingCompanyInfo.companyName}</p>
                 <p>
                   Invoice Ref: INV-
                   {selectedInvoice?._id.slice(-6).toUpperCase()}
@@ -808,65 +1471,213 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
               </div>
             </div>
             {/*SUB HEADER*/}
-            <div>
-              <div>
-                <h4>BILL TO:</h4>
-                <p>{selectedInvoice?.customerInfo?.companyName}</p>
-                <p>{selectedInvoice?.customerInfo?.email}</p>
-                <p>{selectedInvoice?.customerInfo?.cellNumber}</p>
-                <p>{selectedInvoice?.customerInfo?.contactPerson}</p>
-              </div>
+            <div
+              style={{
+                fontSize: 14,
+                width: "100%",
+                color: "#777",
+                marginTop: 20,
+                marginLeft: 20,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+              }}
+            >
+              <h4>BILL TO:</h4>
+              <p>{selectedInvoice?.customerInfo?.companyName}</p>
+              <p>{selectedInvoice?.customerInfo?.email}</p>
+              <p>{selectedInvoice?.customerInfo?.cellNumber}</p>
+              <p>{selectedInvoice?.customerInfo?.contactPerson}</p>
+
               <div>
                 <p>{selectedInvoice?.customerInfo?.address}</p>
               </div>
             </div>
-            {/*MAIN CONTENT*/}
-            <div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>ITEM</th>
-                    <th>QTY</th>
-                    <th>PRICE/UNIT</th>
-                    <th>TOTAL</th>
+          </div>
+          {/*MAIN CONTENT*/}
+          <div>
+            <table
+              style={{
+                fontSize: 10,
+                fontWeight: "bold",
+                opacity: 0.5,
+                color: "#777",
+              }}
+            >
+              <thead
+                style={{
+                  borderBottom: "1px solid #777",
+                }}
+              >
+                <tr
+                  style={{
+                    fontSize: 8,
+                    paddingBottom: 5,
+                    fontWeight: "bold",
+                    opacity: 0.5,
+                    color: "#777",
+                    textAlign: "left",
+                  }}
+                >
+                  <td
+                    style={{
+                      fontSize: 8,
+                      opacity: 0.7,
+                      paddingTop: 6,
+                      paddingBottom: 6,
+                      borderBottom: "0.5px solid #00000030",
+                    }}
+                  >
+                    ITEM
+                  </td>
+                  <td
+                    style={{
+                      fontSize: 8,
+                      opacity: 0.7,
+                      paddingTop: 6,
+                      paddingBottom: 6,
+                      borderBottom: "0.5px solid #00000030",
+                    }}
+                  >
+                    QTY
+                  </td>
+                  <td
+                    style={{
+                      fontSize: 8,
+                      opacity: 0.7,
+                      paddingTop: 6,
+                      paddingBottom: 6,
+                      borderBottom: "0.5px solid #00000030",
+                    }}
+                  >
+                    PRICE/UNIT
+                  </td>
+                  <td
+                    style={{
+                      fontSize: 8,
+                      opacity: 0.7,
+                      paddingTop: 6,
+                      paddingBottom: 6,
+                      borderBottom: "0.5px solid #00000030",
+                    }}
+                  >
+                    TOTAL
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                {selectedInvoice?.invoicedItems.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.description}</td>
+                    <td>{item.qty}</td>
+                    <td>R {item.price.toFixed(2)}</td>
+                    <td>R {(item.qty * item.price).toFixed(2)}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {selectedInvoice?.invoicedItems.map((item, index) => (
-                    <tr key={index}>
-                      <td>{item.description}</td>
-                      <td>{item.qty}</td>
-                      <td>R {item.price.toFixed(2)}</td>
-                      <td>R {(item.qty * item.price).toFixed(2)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 20,
+              fontSize: 24,
+            }}
+          >
+            <h5
+              style={{
+                color: "#777",
+                fontSize: 14,
+              }}
+            >
+              GRAND TOTAL DUE: R {Number(selectedInvoice?.total).toFixed(2)}
+            </h5>
+          </div>
+          {/*BILLER DETAILS (BANK AND CONTACT)*/}
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              marginLeft: 20,
+              marginRight: 25,
+              marginTop: 30,
+            }}
+          >
+            {/*BANK DETAILS*/}
+            <div>
+              <h4
+                style={{
+                  fontSize: 10,
+                  fontWeight: "bold",
+                  color: "#777",
+                }}
+              >
+                BANK DETAILS:
+              </h4>
+              <p>BANK: {selectedInvoice?.bankdetails?.bank}</p>
+              <p
+                style={{
+                  fontSize: 10,
+                  fontWeight: "bold",
+                  color: "#777",
+                }}
+              >
+                ACCOUNT NAME: {selectedInvoice?.bankdetails?.accountName}
+              </p>
+              <p
+                style={{
+                  fontSize: 10,
+                  fontWeight: "bold",
+                  color: "#777",
+                }}
+              >
+                ACCOUNT NUMBER: {selectedInvoice?.bankdetails?.accountNumber}
+              </p>
             </div>
             <div>
-              <h5>
-                GRAND TOTAL DUE: R {Number(selectedInvoice?.total).toFixed(2)}
-              </h5>
-            </div>
-            {/*BILLER DETAILS (BANK AND CONTACT)*/}
-            <div>
-              {/*BANK DETAILS*/}
-              <div>
-                <h4>BANK DETAILS:</h4>
-                <p>BANK: {selectedInvoice?.bankdetails?.bank}</p>
-                <p>ACCOUNT NAME: {selectedInvoice?.bankdetails?.accountName}</p>
-                <p>
-                  ACCOUNT NUMBER: {selectedInvoice?.bankdetails?.accountNumber}
-                </p>
-              </div>
-              <div>
-                <h4>CONTACT US:</h4>
-                <p>EMAIL: {selectedInvoice?.customerInfo?.email}</p>
-                <p>CELL: {selectedInvoice?.customerInfo?.cellNumber}</p>
-              </div>
+              <h4
+                style={{
+                  fontSize: 10,
+                  fontWeight: "bold",
+                  color: "#777",
+                }}
+              >
+                CONTACT US:
+              </h4>
+              <p
+                style={{
+                  fontSize: 10,
+                  fontWeight: "bold",
+                  color: "#777",
+                }}
+              >
+                EMAIL: {selectedInvoice?.customerInfo?.email}
+              </p>
+              <p
+                style={{
+                  fontSize: 10,
+                  fontWeight: "bold",
+                  color: "#777",
+                }}
+              >
+                CELL: {selectedInvoice?.customerInfo?.cellNumber}
+              </p>
             </div>
           </div>
-        )}
+          <div
+            style={{
+              width: "100%",
+
+              minHeight: 20,
+              marginTop: "auto",
+            }}
+          />
+        </div>
+
+        {/*}  )}*/}
       </div>
     </>
   );

@@ -59,7 +59,7 @@ export default function Customers() {
   }, [location, nav]);
 
   return (
-    <>
+    <div style={{ height: "60vh" }}>
       {isLoading && <LoadingPage logo={loadingLogo} />}
 
       {showAlert && <Alert showAlert={showAlert} setShowAlert={setShowAlert} />}
@@ -71,7 +71,7 @@ export default function Customers() {
           display: "flex",
           alignItems: "center",
           minHeight: "40px",
-          gap: "10px",
+          gap: "0px",
         }}
       >
         <div
@@ -86,11 +86,14 @@ export default function Customers() {
           <Searchbar />
         </div>
 
-        <Link to="/add-customer" style={{ textDecoration: "none" }}>
+        <Link
+          to="/add-customer"
+          style={{ textDecoration: "none", marginLeft: "0", paddingLeft: "0" }}
+        >
           <button
             style={{
               marginTop: "50px",
-              marginRight: "10px",
+              marginRight: "30px",
               minHeight: "40px",
               height: "40px",
               width: "40px",
@@ -156,7 +159,7 @@ export default function Customers() {
                         color: "black",
                       }}
                     >
-                      Company Name
+                      COMPANY NAME:
                     </div>
                     <p
                       style={{
@@ -179,7 +182,7 @@ export default function Customers() {
                         color: "black",
                       }}
                     >
-                      Company Email
+                      COMPANY EMAIL:
                     </div>
 
                     <p
@@ -204,7 +207,7 @@ export default function Customers() {
                         paddingLeft: "5px",
                       }}
                     >
-                      Company Phone
+                      COMPNAY PHONE:
                     </div>
                     <p
                       style={{
@@ -227,7 +230,7 @@ export default function Customers() {
                         color: "black",
                       }}
                     >
-                      Contact Person
+                      CONTACT PERSON:
                     </div>
                     <p
                       style={{
@@ -253,7 +256,7 @@ export default function Customers() {
                         color: "black",
                       }}
                     >
-                      Address
+                      ADDRESS:
                     </div>
                     <p
                       style={{
@@ -276,7 +279,7 @@ export default function Customers() {
                         color: "black",
                       }}
                     >
-                      Payment Terms
+                      PAYMENT TERMS:
                     </div>
                     <p
                       style={{
@@ -299,7 +302,7 @@ export default function Customers() {
                         color: "black",
                       }}
                     >
-                      Status
+                      STATUS:
                     </div>
                     <p
                       style={{
@@ -325,9 +328,8 @@ export default function Customers() {
           />
         )}
       </div>
-      <div>
-        <DashFooter />
-      </div>
-    </>
+
+      <DashFooter />
+    </div>
   );
 }
