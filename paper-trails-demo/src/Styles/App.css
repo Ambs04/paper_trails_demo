@@ -12,3 +12,35 @@
 
 @media screen and( min-width: 7688px) {
 }
+
+@font-face {
+  font-family: "Futura";
+  src:
+    url("./assets/fonts/Futura/Futura-Regular.woff2") format("woff2"),
+    url("./assets/fonts/Futura/Futura-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Futura";
+  src:
+    url("./assets/fonts/Futura/Futura-Bold.woff2") format("woff2"),
+    url("./assets/fonts/Futura/Futura-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Futura";
+  src:
+    url("./assets/fonts/Futura/Futura-Italic.woff2") format("woff2"),
+    url("./assets/fonts/Futura/Futura-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+}
+
+/* Optional: set as default for body */
+body {
+  font-family: "Futura", Arial, sans-serif;
+}
