@@ -69,6 +69,7 @@ export default function SignUp() {
         localStorage.setItem("email", signInInfo.email);
         localStorage.setItem("userId", data.userId);
         localStorage.setItem("companyId", data.companyId);
+        localStorage.setItem("loggedInUser", JSON.stringify(data));
 
         alert(`Sign Up successful! You can now login.`);
 
