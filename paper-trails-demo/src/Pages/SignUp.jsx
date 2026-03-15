@@ -15,6 +15,7 @@ export default function SignUp() {
   });
 
   const [formValid, setFormValid] = useState(false);
+  const [acceptedTandC, setAcceptedTandC] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -290,7 +291,7 @@ export default function SignUp() {
               >
                 <p>Is this a freelance account or a business account?*</p>
                 <div
-                  name="account"
+                  onClick={() => setIsBusiness(false)}
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -306,7 +307,6 @@ export default function SignUp() {
                 >
                   <p>FREELANCE</p>
                   <div
-                    onClick={() => setIsBusiness(false)}
                     style={{
                       height: "16px",
                       width: "16px",
@@ -316,9 +316,18 @@ export default function SignUp() {
                         isBusiness === false ? "rgb(70,83,98)" : "transparent",
                       transition: "0.2s",
                     }}
-                  />
+                  >
+                    <input
+                      type="radio"
+                      style={{ display: "none" }}
+                      name="accountType"
+                      checked={isBusiness === false}
+                      onChange={() => setIsBusiness(false)}
+                    />
+                  </div>
                 </div>
                 <div
+                  onClick={() => setIsBusiness(true)}
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -335,7 +344,6 @@ export default function SignUp() {
                   <p>BUSINESS</p>
 
                   <div
-                    onClick={() => setIsBusiness(true)}
                     style={{
                       height: "16px",
                       width: "16px",
@@ -345,40 +353,51 @@ export default function SignUp() {
                         isBusiness === true ? "rgb(70,83,98)" : "transparent",
                       transition: "0.6s",
                     }}
-                  />
+                  >
+                    <input
+                      type="radio"
+                      style={{ display: "none" }}
+                      name="accountType"
+                      checked={isBusiness === true}
+                      onChange={() => setIsBusiness(true)}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
             {/*company name: if business then required*/}
-            <div
-              className="sign-input"
-              style={{
-                width: "80%",
-                display: "flex",
-                flexDirection: "column",
-                marginTop: "10px",
-              }}
-            >
-              <p>If for a business, insert Company name</p>
-              <input
-                type="text"
-                required={isBusiness}
-                id="companyName"
-                name="companyName"
-                placeholder="type here"
+            {isBusiness && (
+              <div
+                className="sign-input"
                 style={{
-                  height: "30px",
-                  width: "100%",
-                  borderRadius: "4px",
-                  padding: "8px 10px 8px 20px",
-                  fontSize: "14px",
-                  border: "none",
-                  backgroundColor: "rgba(0,0,0,0.035)",
-                  color: "black",
-                  fontWeight: "bold",
+                  width: "80%",
+                  display: "flex",
+                  flexDirection: "column",
+                  marginTop: "10px",
                 }}
-              />
-            </div>
+              >
+                <p>If for a business, insert Company name</p>
+                <input
+                  type="text"
+                  required={isBusiness}
+                  id="companyName"
+                  name="companyName"
+                  placeholder="type here"
+                  style={{
+                    height: "30px",
+                    width: "100%",
+                    borderRadius: "4px",
+                    padding: "8px 10px 8px 20px",
+                    fontSize: "14px",
+                    border: "none",
+                    backgroundColor: "rgba(0,0,0,0.035)",
+                    color: "black",
+                    fontWeight: "bold",
+                  }}
+                />
+              </div>
+            )}
+
             {/*password div*/}
             <div
               className="sign-input"
@@ -481,6 +500,7 @@ export default function SignUp() {
                 Terms & conditions
               </p>
               <div
+                onClick={() => setAcceptedTandC(!acceptedTandC)}
                 style={{
                   width: "15px",
                   height: "15px",
@@ -500,7 +520,9 @@ export default function SignUp() {
                 <input
                   type="checkbox"
                   required
+                  checked={acceptedTandC}
                   style={{
+                    display: "none",
                     width: "25px",
                     height: " 25px",
                   }}

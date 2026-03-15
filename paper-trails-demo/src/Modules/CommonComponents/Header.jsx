@@ -1,7 +1,7 @@
 import logo from "../../assets/logo.png";
 import profileImg from "../../assets/user.png";
 import { Link, useLocation } from "react-router-dom";
-import "../../Styles/header.css";
+//import "../../Styles/header.css";
 import dashImg from "../../assets/blank_image_loading.png";
 import returnIcon from "../../assets/return_icon.png";
 
@@ -23,11 +23,15 @@ export default function Header() {
   return (
     <>
       <div
+        id="header-container"
         style={{
           width: "100%",
-          height: "50px",
+
+          height: window.matchMedia("(min-width: 900px)").matches
+            ? "60px"
+            : "40px",
+
           display: "flex",
-          flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
           backgroundColor: "#465362",
@@ -66,7 +70,9 @@ export default function Header() {
             <div
               style={{
                 display: "flex",
-                height: "80px",
+                height: window.matchMedia("(min-width: 900px)").matches
+                  ? "60px"
+                  : "70px",
 
                 position: "absolute",
                 top: "0px",
@@ -80,8 +86,11 @@ export default function Header() {
               <p
                 style={{
                   color: "white",
-                  marginLeft: "80px",
+                  marginLeft: window.matchMedia("(min-width: 900px)").matches
+                    ? "60px"
+                    : "80px",
                   fontWeight: "bold",
+                  paddingBottom: "20px",
                 }}
               >
                 PAPER TRAILS
@@ -130,8 +139,10 @@ export default function Header() {
               width: "50px",
               height: "100px",
               alignItems: "center",
-              paddingRight: "0px",
+              justifyContent: "center",
+              paddingRight: "10px",
               paddingTop: "10px",
+              paddingBottom: "10px",
             }}
           >
             <Link to={iconLink}>
@@ -144,8 +155,12 @@ export default function Header() {
                   id="profile"
                   src={profileImg}
                   style={{
-                    width: "40px",
-                    height: "40px",
+                    width: window.matchMedia("(min-width: 900px)").matches
+                      ? "50px"
+                      : "40px",
+                    height: window.matchMedia("(min-width: 900px)").matches
+                      ? "50px"
+                      : "40px",
                   }}
                 />
               </div>

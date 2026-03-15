@@ -1,10 +1,13 @@
 #sign-up {
   background-color: #465362;
+  height: 90px;
+  width: "100%";
 }
 
 #sign-up > p {
   color: white;
   font-weight: bold;
+  font-size: "20px";
 }
 
 @media screen and (max-width: 767px) {
