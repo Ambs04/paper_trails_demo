@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { baseUrl } from "../api";
-import "../Styles/signup.css";
+//import "../Styles/signup.css";
 import "./../Modules/CommonComponents/LoadingPage";
 import LoadingPage from "./../Modules/CommonComponents/LoadingPage";
 import loadingLogo from "./../assets/loading_image.png";
@@ -95,38 +95,50 @@ export default function SignUp() {
     <>
       {isLoading && <LoadingPage logo={loadingLogo} />}
       <form onSubmit={handleSignUp} onInput={checkEmptyFields}>
-        <div id="content-wrapper">
+        <div
+          id="content-wrapper"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+
+            justifyContent: "flex-start",
+            minHeight: "100vh",
+            overflowY: "auto ",
+            width: "100%",
+          }}
+        >
           {/*main div for header*/}
           <div
             style={{
-              height: "70px",
               display: "flex",
-              flexDirection: "row",
             }}
           >
             {/*close btn div*/}
             <div
               id="close-signup"
               style={{
-                display: "flex",
+                width: "50px",
+                minHeight: "50px",
                 backgroundColor: "#f9dc5c",
+                display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
               <Link to="/" style={{ textDecoration: "none" }}>
-                <div style={{ fontSize: "30px", color: "#465362" }}>X</div>
+                <div style={{ fontSize: "30px", color: "black" }}>X</div>
               </Link>
             </div>
             {/*Heading for header div*/}
             <div
               id="signup-heading"
               style={{
-                display: "flex",
+                width: "100%",
                 backgroundColor: "#465362",
-                color: "white",
+                display: "flex",
 
-                alignItems: "center",
+                fontWeight: "bold",
+                color: "white",
               }}
             >
               <h2 style={{ paddingLeft: "20px" }}>REGISTRATION</h2>
@@ -135,41 +147,110 @@ export default function SignUp() {
           {/*main div for main section*/}
           <div
             style={{
-              padding: "40px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: "100%",
+              paddingTop: "20px",
             }}
           >
             {/*first name div*/}
-            <div className="sign-input">
+            <div
+              className="sign-input"
+              style={{
+                width: "80%",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "10px",
+              }}
+            >
               <p>First name*</p>
               <input
                 type="text"
                 required
                 id="firstName"
                 placeholder="type here"
+                style={{
+                  height: "30px",
+                  width: "100%",
+                  borderRadius: "4px",
+                  padding: "8px 10px 8px 20px",
+                  fontSize: "14px",
+                  border: "none",
+                  backgroundColor: "rgba(0,0,0,0.035)",
+                  color: "black",
+                  fontWeight: "bold",
+                }}
               />
             </div>
             {/*last name div*/}
-            <div className="sign-input">
+            <div
+              className="sign-input"
+              style={{
+                width: "80%",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "10px",
+              }}
+            >
               <p>Last name*</p>
               <input
                 type="text"
                 required
                 id="lastName"
                 placeholder="type here"
+                style={{
+                  height: "30px",
+                  width: "100%",
+                  borderRadius: "4px",
+                  padding: "8px 10px 8px 20px",
+                  fontSize: "14px",
+                  border: "none",
+                  backgroundColor: "rgba(0,0,0,0.035)",
+                  color: "black",
+                  fontWeight: "bold",
+                }}
               />
             </div>
             {/*email div*/}
-            <div className="sign-input">
+            <div
+              className="sign-input"
+              style={{
+                width: "80%",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "10px",
+              }}
+            >
               <p>Email address*</p>
               <input
                 type="email"
                 required
                 id="emailInput"
                 placeholder="type here"
+                style={{
+                  height: "30px",
+                  width: "100%",
+                  borderRadius: "4px",
+                  padding: "8px 10px 8px 20px",
+                  fontSize: "14px",
+                  border: "none",
+                  backgroundColor: "rgba(0,0,0,0.035)",
+                  color: "black",
+                  fontWeight: "bold",
+                }}
               />
             </div>
             {/*contact div*/}
-            <div className="sign-input">
+            <div
+              className="sign-input"
+              style={{
+                width: "80%",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "10px",
+              }}
+            >
               <p>Contact details*</p>
               <input
                 type="tel"
@@ -178,19 +259,35 @@ export default function SignUp() {
                 id="cellInput"
                 title="Please enter 10-digit contact number"
                 placeholder="type here"
+                style={{
+                  height: "30px",
+                  width: "100%",
+                  borderRadius: "4px",
+                  padding: "8px 10px 8px 20px",
+                  fontSize: "14px",
+                  border: "none",
+                  backgroundColor: "rgba(0,0,0,0.035)",
+                  color: "black",
+                  fontWeight: "bold",
+                }}
               />
             </div>
             {/*question div: freelance or business*/}
             <div
               style={{
+                width: "80%",
                 display: "flex",
                 flexDirection: "column",
+
                 alignItems: "center",
-                gap: "20px",
-                width: "80%",
+                marginTop: "20px",
               }}
             >
-              <div>
+              <div
+                style={{
+                  width: "100%",
+                }}
+              >
                 <p>Is this a freelance account or a business account?*</p>
                 <div
                   name="account"
@@ -253,7 +350,15 @@ export default function SignUp() {
               </div>
             </div>
             {/*company name: if business then required*/}
-            <div className="sign-input">
+            <div
+              className="sign-input"
+              style={{
+                width: "80%",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "10px",
+              }}
+            >
               <p>If for a business, insert Company name</p>
               <input
                 type="text"
@@ -261,10 +366,29 @@ export default function SignUp() {
                 id="companyName"
                 name="companyName"
                 placeholder="type here"
+                style={{
+                  height: "30px",
+                  width: "100%",
+                  borderRadius: "4px",
+                  padding: "8px 10px 8px 20px",
+                  fontSize: "14px",
+                  border: "none",
+                  backgroundColor: "rgba(0,0,0,0.035)",
+                  color: "black",
+                  fontWeight: "bold",
+                }}
               />
             </div>
             {/*password div*/}
-            <div className="sign-input">
+            <div
+              className="sign-input"
+              style={{
+                width: "80%",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "10px",
+              }}
+            >
               <p>Password* (min 8 characters)</p>
               <input
                 type="password"
@@ -272,10 +396,29 @@ export default function SignUp() {
                 value={passwords.password}
                 onChange={verification}
                 placeholder="type here"
+                style={{
+                  height: "30px",
+                  width: "100%",
+                  borderRadius: "4px",
+                  padding: "8px 10px 8px 20px",
+                  fontSize: "14px",
+                  border: "none",
+                  backgroundColor: "rgba(0,0,0,0.035)",
+                  color: "black",
+                  fontWeight: "bold",
+                }}
               />
             </div>
             {/*confirm password div*/}
-            <div className="sign-input">
+            <div
+              className="sign-input"
+              style={{
+                width: "80%",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "10px",
+              }}
+            >
               <p>Confirm password*</p>
               <input
                 type="password"
@@ -284,26 +427,74 @@ export default function SignUp() {
                 value={passwords.confirmPassword}
                 onChange={verification}
                 placeholder="type here"
+                style={{
+                  height: "30px",
+                  width: "100%",
+                  borderRadius: "4px",
+                  padding: "8px 10px 8px 20px",
+                  fontSize: "14px",
+                  border: "none",
+                  backgroundColor: "rgba(0,0,0,0.035)",
+                  color: "black",
+                  fontWeight: "bold",
+                }}
               />
             </div>
             <div
               style={{
+                width: "80%",
+                marginTop: "30px",
+                marginBottom: "20px",
                 display: "flex",
-                flexDirection: "row",
+                flexDirection: "column",
                 alignItems: "center",
-                justifyContent: "space-between",
-                gap: "8px",
-                marginTop: "10px",
-                width: "50%",
-                margin: "0 auto 0 auto",
+                textAlign: "center",
               }}
             >
-              <label
+              Do you agree to terms and conditions provided please read the
+              document before signing....
+              <div
                 style={{
+                  height: "40px",
+                  width: "100%",
                   display: "flex",
-
-                  gap: "8px",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "#efefef",
+                  fontWeight: "bold",
                   cursor: "pointer",
+                  marginBottom: "20px",
+                }}
+              >
+                VIEW T&C's
+              </div>
+            </div>
+            <div
+              style={{
+                width: "80%",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <p style={{ marginLeft: "14px", fontWeight: "bold" }}>
+                Terms & conditions
+              </p>
+              <div
+                style={{
+                  width: "15px",
+                  height: "15px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  cursor: "pointer",
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                  opacity: "0.8",
+                  border: "2px solid #465362",
+                  borderRadius: "4px",
+                  transition: "0.6s",
+                  backgroundColor: acceptedTandC ? "#465362" : "transparent",
                 }}
               >
                 <input
@@ -313,34 +504,68 @@ export default function SignUp() {
                     width: "25px",
                     height: " 25px",
                   }}
+
+                  /* style={{
+                  height: "15px",
+                  width: "15px",
+                  borderRadius: "4px",
+                  border: "2px solid #465362",
+                  marginRight: "10px",
+                  backgroundColor: formValid ? "#465362" : "transparent",
+                  transition: "0.6s",
+                }}
+                */
                 />
-                <p style={{ display: "flex" }}>
-                  Accept the{" "}
-                  <a
-                    href="www.google.com"
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
-                    T&C's
-                  </a>
-                </p>
-              </label>
+              </div>
             </div>
           </div>
           {/*div for buttons: sign up and cancel*/}
-          <div>
+          <div
+            style={{
+              width: "80%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <div id="signup-submit-container">
               <button
                 id="signup-submit"
                 type="submit"
                 disabled={!formValid}
-                class={formValid ? "active-btn" : "disabled-btn"}
+                style={{
+                  height: "40px",
+                  width: "100%",
+                  backgroundColor: "#465362",
+                  border: "none",
+                  color: "white",
+                  fontWeight: "bold",
+                  transition: "0.6s",
+                  opacity: formValid ? "1" : "0.3",
+                }}
               >
                 SIGN UP
               </button>
             </div>
 
             <Link to="/" style={{ textDecoration: "none" }}>
-              <div id="cancel-signup">CANCEL</div>
+              <div
+                id="cancel-signup"
+                style={{
+                  height: "40px",
+                  width: "90%",
+                  backgroundColor: "#f9dc5c",
+                  border: "none",
+                  color: "black",
+                  fontWeight: "bold",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                CANCEL
+              </div>
             </Link>
           </div>
         </div>
