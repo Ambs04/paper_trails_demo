@@ -151,6 +151,8 @@ export default function SignUp() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+
+              overflowY: "auto",
               width: "100%",
               paddingTop: "20px",
             }}

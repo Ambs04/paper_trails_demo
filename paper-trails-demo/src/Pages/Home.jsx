@@ -126,6 +126,8 @@ export default function Home() {
               <div
                 id="sign-up"
                 style={{
+                  position: "relative",
+                  bottom: "0px",
                   height: "60px",
                   display: "flex",
                   alignItems: "center",

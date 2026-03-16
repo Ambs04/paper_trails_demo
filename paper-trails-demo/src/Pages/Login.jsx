@@ -90,7 +90,7 @@ export default function Login() {
               style={{
                 fontSize: "30px",
                 color: "black",
-                fontWeight: "bold",
+
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
@@ -135,7 +135,9 @@ export default function Login() {
         >
           <div
             style={{
-              width: "80%",
+              width: window.matchMedia("(min-width:900px)").matches
+                ? "80%"
+                : "60%",
               textAlign: "left",
               fontSize: "14px",
               marginTop: "20px",
@@ -160,7 +162,7 @@ export default function Login() {
               width: "100%",
               display: "flex",
               flexDirection: "column",
-              paddingLeft: "150px",
+              paddingLeft: window.innerWidth >= 900 ? "150px" : "70px",
             }}
           >
             <p style={{ color: "black" }}>Email</p>
@@ -192,7 +194,7 @@ export default function Login() {
               fontSize: "14px",
               color: "#465362",
 
-              paddingLeft: "150px",
+              paddingLeft: window.innerWidth >= 900 ? "150px" : "70px",
             }}
           >
             <p style={{ color: "black" }}>Password</p>
@@ -268,10 +270,10 @@ export default function Login() {
             height: "570px",
             transition: " 0.8s",
             opacity: "0.2",
-            position: "absolute",
+            position: "fixed",
             top: "50px",
             zIndex: "0",
-            right: "0px",
+            right: window.innerWidth >= 900 ? "0px" : "-250px",
           }}
         />
       </form>
