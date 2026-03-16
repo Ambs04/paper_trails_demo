@@ -299,32 +299,26 @@ export default function SignUp() {
                     alignItems: "center",
                     cursor: "pointer",
                     padding: "8px",
-
-                    borderRadius: "6px",
-
-                    transition: "0.2s",
                   }}
                 >
                   <p>FREELANCE</p>
-                  <div
+
+                  <input
+                    type="radio"
                     style={{
+                      appearance: "none",
                       height: "16px",
                       width: "16px",
                       border: "2px solid rgb(70,83,98)",
                       borderRadius: "4px",
                       backgroundColor:
                         isBusiness === false ? "rgb(70,83,98)" : "transparent",
-                      transition: "0.2s",
+                      transition: "0.6s",
                     }}
-                  >
-                    <input
-                      type="radio"
-                      style={{ display: "none" }}
-                      name="accountType"
-                      checked={isBusiness === false}
-                      onChange={() => setIsBusiness(false)}
-                    />
-                  </div>
+                    name="accountType"
+                    checked={isBusiness === false}
+                    onChange={() => setIsBusiness(false)}
+                  />
                 </div>
                 <div
                   onClick={() => setIsBusiness(true)}
@@ -335,16 +329,14 @@ export default function SignUp() {
                     alignItems: "center",
                     cursor: "pointer",
                     padding: "8px",
-
-                    borderRadius: "6px",
-
-                    transition: "0.6s",
                   }}
                 >
                   <p>BUSINESS</p>
 
-                  <div
+                  <input
+                    type="radio"
                     style={{
+                      appearance: "none",
                       height: "16px",
                       width: "16px",
                       border: "2px solid rgb(70,83,98)",
@@ -353,50 +345,44 @@ export default function SignUp() {
                         isBusiness === true ? "rgb(70,83,98)" : "transparent",
                       transition: "0.6s",
                     }}
-                  >
-                    <input
-                      type="radio"
-                      style={{ display: "none" }}
-                      name="accountType"
-                      checked={isBusiness === true}
-                      onChange={() => setIsBusiness(true)}
-                    />
-                  </div>
+                    name="accountType"
+                    checked={isBusiness === true}
+                    onChange={() => setIsBusiness(true)}
+                  />
                 </div>
               </div>
             </div>
             {/*company name: if business then required*/}
-            {isBusiness && (
-              <div
-                className="sign-input"
+
+            <div
+              className="sign-input"
+              style={{
+                width: "80%",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "10px",
+              }}
+            >
+              <p>If for a business, insert Company name</p>
+              <input
+                type="text"
+                required={isBusiness}
+                id="companyName"
+                name="companyName"
+                placeholder="type here"
                 style={{
-                  width: "80%",
-                  display: "flex",
-                  flexDirection: "column",
-                  marginTop: "10px",
+                  height: "30px",
+                  width: "100%",
+                  borderRadius: "4px",
+                  padding: "8px 10px 8px 20px",
+                  fontSize: "14px",
+                  border: "none",
+                  backgroundColor: "rgba(0,0,0,0.035)",
+                  color: "black",
+                  fontWeight: "bold",
                 }}
-              >
-                <p>If for a business, insert Company name</p>
-                <input
-                  type="text"
-                  required={isBusiness}
-                  id="companyName"
-                  name="companyName"
-                  placeholder="type here"
-                  style={{
-                    height: "30px",
-                    width: "100%",
-                    borderRadius: "4px",
-                    padding: "8px 10px 8px 20px",
-                    fontSize: "14px",
-                    border: "none",
-                    backgroundColor: "rgba(0,0,0,0.035)",
-                    color: "black",
-                    fontWeight: "bold",
-                  }}
-                />
-              </div>
-            )}
+              />
+            </div>
 
             {/*password div*/}
             <div
@@ -470,8 +456,16 @@ export default function SignUp() {
                 textAlign: "center",
               }}
             >
-              Do you agree to terms and conditions provided please read the
-              document before signing....
+              <div
+                style={{
+                  width: "80%",
+                  marginTop: "30px",
+                  marginBottom: "20px",
+                }}
+              >
+                Do you agree to terms and conditions provided please read the
+                document before signing....
+              </div>
               <div
                 style={{
                   height: "40px",
@@ -494,6 +488,7 @@ export default function SignUp() {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
+                marginBottom: "15px",
               }}
             >
               <p style={{ marginLeft: "14px", fontWeight: "bold" }}>
@@ -504,17 +499,6 @@ export default function SignUp() {
                 style={{
                   width: "15px",
                   height: "15px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  cursor: "pointer",
-                  fontSize: "12px",
-                  fontWeight: "bold",
-                  opacity: "0.8",
-                  border: "2px solid #465362",
-                  borderRadius: "4px",
-                  transition: "0.6s",
-                  backgroundColor: acceptedTandC ? "#465362" : "transparent",
                 }}
               >
                 <input
@@ -522,21 +506,21 @@ export default function SignUp() {
                   required
                   checked={acceptedTandC}
                   style={{
-                    display: "none",
-                    width: "25px",
-                    height: " 25px",
-                  }}
+                    appearance: "none",
+                    width: "16px",
+                    height: " 16px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    fontSize: "12px",
+                    fontWeight: "bold",
 
-                  /* style={{
-                  height: "15px",
-                  width: "15px",
-                  borderRadius: "4px",
-                  border: "2px solid #465362",
-                  marginRight: "10px",
-                  backgroundColor: formValid ? "#465362" : "transparent",
-                  transition: "0.6s",
-                }}
-                */
+                    border: "2px solid #465362",
+                    borderRadius: "4px",
+                    transition: "0.6s",
+                    backgroundColor: acceptedTandC ? "#465362" : "transparent",
+                  }}
                 />
               </div>
             </div>
@@ -544,39 +528,38 @@ export default function SignUp() {
           {/*div for buttons: sign up and cancel*/}
           <div
             style={{
-              width: "80%",
+              width: "90%",
               display: "flex",
               flexDirection: "column",
-              justifyContent: "center",
               alignItems: "center",
+              margin: "0 auto 50px auto",
+              gap: "10px",
             }}
           >
-            <div id="signup-submit-container">
-              <button
-                id="signup-submit"
-                type="submit"
-                disabled={!formValid}
-                style={{
-                  height: "40px",
-                  width: "100%",
-                  backgroundColor: "#465362",
-                  border: "none",
-                  color: "white",
-                  fontWeight: "bold",
-                  transition: "0.6s",
-                  opacity: formValid ? "1" : "0.3",
-                }}
-              >
-                SIGN UP
-              </button>
-            </div>
+            <button
+              id="signup-submit"
+              type="submit"
+              disabled={!formValid}
+              style={{
+                height: "40px",
+                width: "100%",
+                backgroundColor: "#465362",
+                border: "none",
+                color: "white",
+                fontWeight: "bold",
+                transition: "0.6s",
+                opacity: formValid ? "1" : "0.3",
+              }}
+            >
+              SIGN UP
+            </button>
 
-            <Link to="/" style={{ textDecoration: "none" }}>
+            <Link to="/" style={{ textDecoration: "none", width: "100%" }}>
               <div
                 id="cancel-signup"
                 style={{
                   height: "40px",
-                  width: "90%",
+                  width: "100%",
                   backgroundColor: "#f9dc5c",
                   border: "none",
                   color: "black",
