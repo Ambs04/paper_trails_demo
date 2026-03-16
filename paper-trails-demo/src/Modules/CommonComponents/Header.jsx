@@ -91,6 +91,7 @@ export default function Header() {
                     : "80px",
                   fontWeight: "bold",
                   paddingBottom: "20px",
+                  paddingTop: "20px",
                 }}
               >
                 PAPER TRAILS

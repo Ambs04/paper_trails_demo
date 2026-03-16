@@ -144,6 +144,7 @@ export default function Home() {
                       ? "white"
                       : "black",
                     fontWeight: "bold",
+                    transition: "0.6s",
                   }}
                 >
                   SIGN UP NOW!
