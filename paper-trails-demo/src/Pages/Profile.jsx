@@ -316,7 +316,7 @@ export default function Profile() {
                   width: "90%",
                   borderStyle: "none",
                   borderRadius: "4px",
-                  padding: "8px 10px 10px 50px",
+                  padding: "8px 40px 10px 20px",
                   color: "black",
                   backgroundColor: "rgba(0,0,0,0.035)",
                   fontWeight: "bold",
@@ -338,7 +338,8 @@ export default function Profile() {
                   width: "90%",
                   borderStyle: "none",
                   borderRadius: "4px",
-                  padding: "8px 10px 10px 50px",
+                  padding: "8px 40px 10px 20px",
+
                   color: "black",
                   backgroundColor: "rgba(0,0,0,0.035)",
                   fontWeight: "bold",
@@ -359,7 +360,8 @@ export default function Profile() {
                   width: "90%",
                   borderStyle: "none",
                   borderRadius: "4px",
-                  padding: "8px 10px 10px 50px",
+                  padding: "8px 40px 10px 20px",
+
                   color: "black",
                   backgroundColor: "rgba(0,0,0,0.035)",
                   fontWeight: "bold",
@@ -380,7 +382,8 @@ export default function Profile() {
                   width: "90%",
                   borderStyle: "none",
                   borderRadius: "4px",
-                  padding: "8px 10px 10px 50px",
+                  padding: "8px 40px 10px 20px",
+
                   color: "black",
                   backgroundColor: "rgba(0,0,0,0.035)",
                   fontWeight: "bold",
@@ -420,11 +423,12 @@ export default function Profile() {
                 name="companyLogoId"
                 onChange={handleProfileChange}
                 style={{
-                  height: "30px",
+                  height: "35px",
                   width: "90%",
                   borderStyle: "none",
                   borderRadius: "4px",
-                  padding: "8px 10px 10px 50px",
+                  padding: "8px 40px 10px 20px",
+
                   color: "black",
                   backgroundColor: "rgba(0,0,0,0.035)",
                   fontWeight: "bold",
@@ -460,14 +464,13 @@ export default function Profile() {
 
                   flexDirection: "row",
                   alignItems: "center",
-
+                  justifyContent: "space-between",
                   gap: "15px",
                   width: "100%",
                 }}
               >
                 <label
                   style={{
-                    marginLeft: "20px",
                     height: "40px",
                     width: "40px",
                     backgroundColor: profileInfo.colors1,
@@ -501,15 +504,16 @@ export default function Profile() {
                     value={profileInfo.colors1}
                     onChange={handleProfileChange}
                     style={{
-                      height: "30px",
-                      width: "90%",
+                      height: "45px",
+                      width: "100%",
                       borderStyle: "none",
                       borderRadius: "4px",
-                      padding: "8px 10px 10px 50px",
+                      padding: "8px 10px 8px 20px",
                       color: "black",
                       backgroundColor: "rgba(0,0,0,0.035)",
                       fontWeight: "bold",
                       fontSize: "14px",
+                      boxSizing: "border-box",
                     }}
                   />
                 </label>
@@ -519,14 +523,14 @@ export default function Profile() {
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
-                  justifyContent: "center",
+                  justifyContent: "space-between",
+
                   gap: "15px",
                   width: "100%",
                 }}
               >
                 <label
                   style={{
-                    marginLeft: "20px",
                     height: "40px",
                     width: "40px",
                     backgroundColor: profileInfo.colors2,
@@ -561,15 +565,16 @@ export default function Profile() {
                     value={profileInfo.colors2}
                     onChange={handleProfileChange}
                     style={{
-                      height: "30px",
-                      width: "90%",
+                      height: "45px",
+                      width: "100%",
                       borderStyle: "none",
                       borderRadius: "4px",
-                      padding: "8px 10px 10px 50px",
+                      padding: "8px 10px 8px 20px",
                       color: "black",
                       backgroundColor: "rgba(0,0,0,0.035)",
                       fontWeight: "bold",
                       fontSize: "14px",
+                      boxSizing: "border-box",
                     }}
                   />
                 </label>
@@ -596,7 +601,8 @@ export default function Profile() {
                   width: "90%",
                   borderStyle: "none",
                   borderRadius: "4px",
-                  padding: "8px 10px 10px 50px",
+                  padding: "8px 40px 10px 20px",
+
                   color: "black",
                   backgroundColor: "rgba(0,0,0,0.035)",
                   fontWeight: "bold",
@@ -641,9 +647,9 @@ export default function Profile() {
                   SAVINGS
                   <div
                     style={{
-                      width: "30px",
-                      height: "30px",
-                      borderRadius: "8px",
+                      width: "20px",
+                      height: "20px",
+                      borderRadius: "4px",
                       border: "2px solid #465362",
                       backgroundColor:
                         profileInfo.accountType === "Savings"
@@ -671,9 +677,9 @@ export default function Profile() {
                   CHEQUE
                   <div
                     style={{
-                      width: "30px",
-                      height: "30px",
-                      borderRadius: "8px",
+                      width: "20px",
+                      height: "20px",
+                      borderRadius: "4px",
                       border: "2px solid #465362",
                       backgroundColor:
                         profileInfo.accountType === "Cheque"
@@ -698,7 +704,8 @@ export default function Profile() {
                   width: "90%",
                   borderStyle: "none",
                   borderRadius: "4px",
-                  padding: "8px 10px 10px 50px",
+                  padding: "8px 40px 10px 20px",
+
                   color: "black",
                   backgroundColor: "rgba(0,0,0,0.035)",
                   fontWeight: "bold",
@@ -719,7 +726,8 @@ export default function Profile() {
                   width: "90%",
                   borderStyle: "none",
                   borderRadius: "4px",
-                  padding: "8px 10px 10px 50px",
+                  padding: "8px 40px 10px 20px",
+
                   color: "black",
                   backgroundColor: "rgba(0,0,0,0.035)",
                   fontWeight: "bold",
@@ -755,7 +763,8 @@ export default function Profile() {
                     width: "90%",
                     borderStyle: "none",
                     borderRadius: "4px",
-                    padding: "8px 10px 10px 50px",
+                    padding: "8px 40px 10px 20px",
+
                     color: "black",
                     backgroundColor: "rgba(0,0,0,0.035)",
                     fontWeight: "bold",
@@ -776,7 +785,8 @@ export default function Profile() {
                     width: "90%",
                     borderStyle: "none",
                     borderRadius: "4px",
-                    padding: "8px 10px 10px 50px",
+                    padding: "8px 40px 10px 20px",
+
                     color: "black",
                     backgroundColor: "rgba(0,0,0,0.035)",
                     fontWeight: "bold",
@@ -797,7 +807,8 @@ export default function Profile() {
                     width: "90%",
                     borderStyle: "none",
                     borderRadius: "4px",
-                    padding: "8px 10px 10px 50px",
+                    padding: "8px 40px 10px 20px",
+
                     color: "black",
                     backgroundColor: "rgba(0,0,0,0.035)",
                     fontWeight: "bold",
@@ -818,7 +829,8 @@ export default function Profile() {
                     width: "90%",
                     borderStyle: "none",
                     borderRadius: "4px",
-                    padding: "8px 10px 10px 50px",
+                    padding: "8px 40px 10px 20px",
+
                     color: "black",
                     backgroundColor: "rgba(0,0,0,0.035)",
                     fontWeight: "bold",

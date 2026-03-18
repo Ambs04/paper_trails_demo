@@ -37,6 +37,7 @@ export default function Header() {
           backgroundColor: "#465362",
           position: "fixed",
           top: "0",
+          zIndex: "1000",
         }}
       >
         {profilePage ? (

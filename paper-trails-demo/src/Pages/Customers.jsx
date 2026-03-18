@@ -81,6 +81,8 @@ export default function Customers() {
             width: "100vw",
             alignItems: "center",
             marginTop: "10px",
+            paddingLeft: "15px",
+            paddingRight: "20px",
           }}
         >
           <Searchbar />
@@ -92,8 +94,8 @@ export default function Customers() {
         >
           <button
             style={{
-              marginTop: "50px",
-              marginRight: "30px",
+              marginTop: "45px",
+              marginRight: "10px",
               minHeight: "40px",
               height: "40px",
               width: "40px",
@@ -238,6 +240,7 @@ export default function Customers() {
                         fontSize: "14px",
                         paddingTop: "5px",
                         paddingLeft: "0px",
+                        paddingBottom: "15px",
                         marginBottom: "7px",
                       }}
                     >

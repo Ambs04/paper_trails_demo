@@ -11,6 +11,7 @@ export default function LoadingPage({ logo }) {
         justifyContent: "center",
         alignItems: "center",
         zIndex: "9999",
+        animation: "fade 0.5s ease-in forwards",
       }}
     >
       <img
@@ -18,7 +19,7 @@ export default function LoadingPage({ logo }) {
         style={{
           width: "120px",
           height: "120px",
-          animation: "spin 1.2s linear infinite",
+          animation: "spin 2s linear infinite reverse",
         }}
       />
     </div>

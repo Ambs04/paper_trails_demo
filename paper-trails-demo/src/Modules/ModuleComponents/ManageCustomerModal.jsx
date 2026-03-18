@@ -270,14 +270,15 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
     <>
       <div
         style={{
-          position: "relative",
+          position: "fixed",
           width: "100vw",
           height: "100vh",
+          WebkitOverflowScrolling: "touch",
           backgroundColor: "rgba(0,0,0,0.44)",
           top: "0",
 
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           alignItems: "center",
           transition: "0.2s",
           zIndex: "1000",
@@ -287,13 +288,13 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
           style={{
             display: "flex",
             flex: "1 1 0%",
-            justifyContent: "flex-start",
+            justifyContent: "center",
             alignItems: "center",
-            position: "relative",
+            position: "fixed",
+            top: "0",
             flexDirection: "column",
-            minHeight: "1714px",
-            height: "1714px",
-            overflowY: "hidden scroll",
+            height: "100%",
+            overflowY: "auto",
             backgroundColor: "white",
           }}
         >
@@ -383,8 +384,29 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
           )}
 
           {viewOptions === "edit" && (
-            <div style={{ width: "100%" }}>
-              <div>
+            <div
+              style={{
+                width: "100vw",
+                height: "100vh",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                paddingTop: "600px",
+                paddingBottom: "40px",
+              }}
+            >
+              <div
+                style={{
+                  width: "100%",
+                  borderRadius: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                  position: "fixed",
+                  top: "55px",
+                  zIndex: "9",
+                  transition: "0.6s",
+                }}
+              >
                 <button
                   onClick={() => setViewOptions("edit")}
                   style={{
@@ -417,7 +439,7 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
               <div
                 style={{
                   width: "85%",
-                  marginTop: "100px",
+
                   marginBottom: "20px",
                   fontSize: "16px",
                 }}
@@ -826,17 +848,21 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
             </div>
           )}
           {viewOptions === "history" && (
-            <div style={{ width: "100%", padding: "15px" }}>
+            <div style={{ width: "100vw", height: "100vh" }}>
               <div
                 style={{
                   width: "100%",
+                  height: "100%",
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center",
-                  marginTop: "100px",
+                  alignItems: "flex-start",
+                  justifyContent: "center",
+                  paddingTop: "110px",
+                  paddingBottom: "50px",
+                  boxSizing: "border-box",
                 }}
               >
-                <h4
+                {/*    <h4
                   style={{
                     width: "85%",
                     marginBottom: "15px",
@@ -848,6 +874,50 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                     : "UNPAID INVOICES"}
                 </h4>
 
+*/}
+
+                <div
+                  style={{
+                    width: "100%",
+                    borderRadius: "10px",
+                    display: "flex",
+                    alignItems: "center",
+
+                    position: "fixed",
+                    top: "55px",
+                    zIndex: "9",
+                    transition: "0.6s",
+                  }}
+                >
+                  <button
+                    onClick={() => setViewOptions("edit")}
+                    style={{
+                      height: "40px",
+                      width: "50%",
+                      backgroundColor:
+                        viewOptions === "edit" ? "rgb(249,220,92)" : "white",
+                      border: "0",
+                      fontWeight: "bold",
+                      transition: "0.6s",
+                    }}
+                  >
+                    PROFILE
+                  </button>
+                  <button
+                    onClick={() => setViewOptions("history")}
+                    style={{
+                      height: "40px",
+                      width: "50%",
+                      backgroundColor:
+                        viewOptions === "history" ? "rgb(249,220,92)" : "white",
+                      border: "0",
+                      fontWeight: "bold",
+                      transition: "0.6s",
+                    }}
+                  >
+                    HISTORY
+                  </button>
+                </div>
                 {Array.isArray(history) &&
                   history
                     .filter((invoice) => invoice.status === invoiceFilter)
@@ -941,36 +1011,6 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                 )}
               </div>
 
-              <div>
-                <button
-                  onClick={() => setViewOptions("edit")}
-                  style={{
-                    height: "40px",
-                    width: "50%",
-                    backgroundColor:
-                      viewOptions === "edit" ? "rgb(249,220,92)" : "white",
-                    border: "0",
-                    fontWeight: "bold",
-                    transition: "0.6s",
-                  }}
-                >
-                  PROFILE
-                </button>
-                <button
-                  onClick={() => setViewOptions("history")}
-                  style={{
-                    height: "40px",
-                    width: "50%",
-                    backgroundColor:
-                      viewOptions === "history" ? "rgb(249,220,92)" : "white",
-                    border: "0",
-                    fontWeight: "bold",
-                    transition: "0.6s",
-                  }}
-                >
-                  HISTORY
-                </button>
-              </div>
               <div>
                 <p>Date: {currentDate}</p>
               </div>

@@ -7,7 +7,7 @@ import loadingLogo from "./../assets/loading_image.png";
 
 export default function Dashboard() {
   const currentPlan = localStorage.getItem("subscriptionType") || "FREE";
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const time = setTimeout(() => {
       setIsLoading(false);
@@ -20,42 +20,38 @@ export default function Dashboard() {
       {isLoading && <LoadingPage logo={loadingLogo} />}
       <div
         style={{
-          width: "100vw",
-          height: "100vh",
+          maxWidth: "100vw",
+          margin: "0 auto",
+          minHeight: "100vh",
+          background: "#f5f6fa",
           display: "flex",
           flexDirection: "column",
-          paddingBottom: "100px",
-          justifySelf: "flex-start",
-          overflow: "hidden scroll",
+          overflowY: "auto",
         }}
       >
-        <div>
-          <Header />
-        </div>
+        <Header />
+
         <div
           style={{
+            padding: "20px",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "flex-start",
-            alignItems: "flex-start",
-            marginLeft: "70px",
           }}
         >
-          <div>
-            <Greeting />
-          </div>
+          <Greeting />
+
           <div
             style={{
               fontSize: "14px",
-              fontWeight: "normal",
+
               paddingTop: "10px",
-              paddingBottom: "10px",
+              marginBottom: "10px",
             }}
           >
             This Dashboard will be here to give you a quick overview of what's
             happening on your system.
           </div>
-          <div style={{ width: "90%" }}>
+          <div style={{ width: "100%" }}>
             <h4 style={{ marginTop: "10px", marginBottom: "0px" }}>
               ACCOUNT TYPE
             </h4>
@@ -75,8 +71,8 @@ export default function Dashboard() {
             <h4>INVOICES</h4>
             <div
               style={{
-                borderRadius: "8px",
-                width: "90%",
+                borderRadius: "10px",
+                width: "95%",
                 minHeight: "130px",
 
                 marginBottom: "20px",
@@ -115,7 +111,7 @@ export default function Dashboard() {
                     color: "black",
                   }}
                 >
-                  INVOICES SENT
+                  INVOICES
                 </div>
               </div>
               <div
@@ -183,7 +179,7 @@ export default function Dashboard() {
             <div
               style={{
                 borderRadius: "8px",
-                width: "90%",
+                width: "95%",
                 minHeight: "130px",
 
                 marginBottom: "20px",
@@ -290,7 +286,7 @@ export default function Dashboard() {
             <div
               style={{
                 borderRadius: "8px",
-                width: "90%",
+                width: "95%",
                 minHeight: "130px",
 
                 marginBottom: "20px",
@@ -397,7 +393,7 @@ export default function Dashboard() {
             <div
               style={{
                 borderRadius: "8px",
-                width: "90%",
+                width: "95%",
                 minHeight: "130px",
 
                 marginBottom: "20px",

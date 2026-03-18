@@ -113,7 +113,8 @@ export default function NewCustomer() {
               color: "white",
               fontWeight: "bold",
               fontSize: "18px",
-              paddingTop: "10px",
+              paddingTop: "0px",
+              paddingLeft: "5px",
             }}
           >
             ADD NEW CUSTOMER
@@ -130,7 +131,7 @@ export default function NewCustomer() {
         <p
           style={{
             width: "85%",
-            marginTop: "70px",
+            marginTop: "50px",
             marginBottom: "5px",
             fontSize: "20px",
             textAlign: "left",
@@ -180,6 +181,7 @@ export default function NewCustomer() {
             name="companyName"
             value={newCustomerInfo.companyName}
             onChange={handleChange}
+            placeholder="WINDOW BOYS, BOBBIE BILLMAN"
             style={{
               height: "35px",
               width: "80%",
@@ -221,6 +223,7 @@ export default function NewCustomer() {
             name="contactPerson"
             value={newCustomerInfo.contactPerson}
             onChange={handleChange}
+            placeholder="TIMMY"
             style={{
               height: "35px",
               width: "80%",
@@ -343,11 +346,12 @@ export default function NewCustomer() {
           >
             ADDRESS:
           </p>
-          <input
+          <textarea
             type="text"
             name="address"
             value={newCustomerInfo.address}
             onChange={handleChange}
+            placeholder="1 BOB STREET, TABLE VIEW, CAPE TOWN, 7001"
             style={{
               height: "35px",
               width: "80%",
@@ -387,7 +391,7 @@ export default function NewCustomer() {
           </p>
           <input
             name="code"
-            placeholder="12346789"
+            placeholder="76898767"
             value={newCustomerInfo.code}
             onChange={handleChange}
             style={{
@@ -451,6 +455,8 @@ export default function NewCustomer() {
                     justifyContent: "space-between",
                     alignItems: "center",
                     cursor: "pointer",
+                    fontWeight: "600",
+                    fontSize: "14px",
                   }}
                 >
                   {payTerm.toUpperCase()}
@@ -488,8 +494,9 @@ export default function NewCustomer() {
               fontSize: "14px",
               color: "rgb(70,83,98)",
               textAlign: "left",
+              paddingTop: "20px",
               paddingLeft: "0px",
-              paddingBottom: "20px",
+              paddingBottom: "10px",
             }}
           >
             ACCOUNT STATUS

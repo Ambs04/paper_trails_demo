@@ -128,7 +128,9 @@ export default function AddUser() {
               color: "white",
               fontWeight: "bold",
               fontSize: "18px",
-              paddingTop: "10px",
+
+              paddingLeft: "5px",
+              paddingTop: "0px",
             }}
           >
             ADD NEW USER
@@ -195,6 +197,7 @@ export default function AddUser() {
             name="firstName"
             value={userInfo.firstName}
             onChange={handleChange}
+            placeholder="Timmy"
             required
             style={{
               height: "35px",
@@ -237,6 +240,7 @@ export default function AddUser() {
             name="lastName"
             value={userInfo.lastName}
             onChange={handleChange}
+            placeholder="James"
             required
             style={{
               height: "35px",

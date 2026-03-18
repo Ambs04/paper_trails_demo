@@ -9,7 +9,7 @@ export default function AddNewProd() {
   const [prodData, setProdData] = useState({
     prodName: "",
     prodDesc: "",
-    prodPrice: " ",
+    prodPrice: "",
     status: "active",
   });
 
@@ -121,7 +121,8 @@ export default function AddNewProd() {
         >
           <p
             style={{
-              paddingTop: "15px",
+              paddingTop: "0px",
+              paddingLeft: "5px",
               fontSize: "18px",
               color: "white",
               fontWeight: "bold",
@@ -167,7 +168,7 @@ export default function AddNewProd() {
           <input
             name="prodName"
             value={prodData.prodName}
-            placeholder="e.g basic cleaning"
+            placeholder="BASIC CLEANING"
             type="text"
             onChange={handleChange}
             required
@@ -210,7 +211,7 @@ export default function AddNewProd() {
           <input
             name="prodDesc"
             value={prodData.prodDesc}
-            placeholder="e.g basic cleaning"
+            placeholder="BASIC CLEANING"
             type="text"
             onChange={handleChange}
             style={{
@@ -252,7 +253,7 @@ export default function AddNewProd() {
           <input
             name="prodPrice"
             value={prodData.prodPrice}
-            placeholder="150"
+            placeholder="150.00"
             type="text"
             onChange={handleChange}
             required
@@ -314,9 +315,9 @@ export default function AddNewProd() {
               ACTIVE
               <div
                 style={{
-                  width: "30px",
-                  height: "30px",
-                  borderRadius: "8px",
+                  width: "15px",
+                  height: "15px",
+                  borderRadius: "4px",
                   border: "2px solid #465362",
                   backgroundColor:
                     prodData.status === "active" ? "#465362" : "transparent",
@@ -339,9 +340,9 @@ export default function AddNewProd() {
               INACTIVE
               <div
                 style={{
-                  width: "30px",
-                  height: "30px",
-                  borderRadius: "8px",
+                  width: "15px",
+                  height: "15px",
+                  borderRadius: "4px",
                   border: "2px solid #465362",
                   backgroundColor:
                     prodData.status === "inactive" ? "#465362" : "transparent",

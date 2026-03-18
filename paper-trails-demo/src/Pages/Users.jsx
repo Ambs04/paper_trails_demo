@@ -114,51 +114,52 @@ export default function Users() {
         style={{
           display: "flex",
           alignItems: "center",
-          flexDirection: "row",
-          width: "100%",
           minHeight: "40px",
-          gap: "10px",
-          marginBottom: "20px",
+          gap: "0px",
         }}
       >
         <div
           style={{
             display: "flex",
             justifyContent: "center",
-            flex: "1",
+            width: "100vw",
             alignItems: "center",
             marginTop: "10px",
-            paddingLeft: "30px",
+            paddingLeft: "15px",
+            paddingRight: "10px",
           }}
         >
           <Searchbar />
-          <div style={{ display: "flex", flex: "1" }}>
-            <Link to="/add-user">
-              <button
-                type="button"
-                style={{
-                  marginTop: "35px",
-                  marginRight: "10px",
-                  marginLeft: "10px",
-                  minHeight: "40px",
-                  height: "40px",
-                  width: "40px",
-                  borderRadius: "8px",
-                  backgroundColor: "rgb(249, 220, 92)",
-                  borderWidth: "0px",
-                  color: "rgb(0,0,0)",
-                  fontWeight: "bold",
-                  fontSize: "30px",
-                  textAlign: "center",
-                  opacity: "1",
-                }}
-              >
-                +
-              </button>
-            </Link>
-          </div>
         </div>
+
+        <Link
+          to="/add-user"
+          style={{ textDecoration: "none", marginLeft: "0", paddingLeft: "0" }}
+        >
+          <button
+            type="button"
+            style={{
+              marginTop: "45px",
+              marginRight: "10px",
+              marginLeft: "10px",
+              minHeight: "40px",
+              height: "40px",
+              width: "40px",
+              borderRadius: "8px",
+              backgroundColor: "rgb(249, 220, 92)",
+              borderWidth: "0px",
+              color: "rgb(0,0,0)",
+              fontWeight: "bold",
+              fontSize: "30px",
+              textAlign: "center",
+              opacity: "1",
+            }}
+          >
+            +
+          </button>
+        </Link>
       </div>
+
       {!isLoading && newUser.length === 0 ? (
         <p>No users found yet</p>
       ) : (
@@ -305,10 +306,11 @@ export default function Users() {
             width: "100vw",
             height: "100vh",
             backgroundColor: "rgba(0,0,0,0.44)",
-
+            position: "absolute",
             overflow: "hidden",
             display: "flex",
-
+            top: "0",
+            left: "0",
             justifyContent: "center",
 
             transition: "0.2s",
@@ -319,8 +321,8 @@ export default function Users() {
             style={{
               display: "flex",
               flex: "1 1 0%",
-              justifyContent: "flex-start",
-              alignItems: "flex-start",
+              justifyContent: "center",
+              alignItems: "center",
               position: "relative",
               flexDirection: "column",
               height: "100vh",

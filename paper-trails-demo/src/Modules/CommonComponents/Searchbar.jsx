@@ -13,7 +13,7 @@ export default function Searchbar() {
         placeholder={`Search ${location.replace("/", "")}`.toUpperCase()}
         style={{
           height: "25px",
-          width: "90%",
+          width: "100%",
           marginTop: "60px",
           borderRadius: "4px",
           padding: "8px 10px 8px 20px",

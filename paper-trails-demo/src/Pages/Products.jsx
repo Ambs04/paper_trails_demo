@@ -178,35 +178,36 @@ export default function Products() {
             width: "100vw",
             alignItems: "center",
             marginTop: "10px",
+            paddingLeft: "15px",
+            paddingRight: "10px",
           }}
         >
           <Searchbar />
-          <div>
-            <Link to="/add-product">
-              <button
-                type="button"
-                style={{
-                  marginTop: "35px",
-                  marginRight: "10px",
-                  marginLeft: "10px",
-                  minHeight: "40px",
-                  height: "40px",
-                  width: "40px",
-                  borderRadius: "8px",
-                  backgroundColor: "rgb(249, 220, 92)",
-                  borderWidth: "0px",
-                  color: "rgb(0,0,0)",
-                  fontWeight: "bold",
-                  fontSize: "30px",
-                  textAlign: "center",
-                  opacity: "1",
-                }}
-              >
-                +
-              </button>
-            </Link>
-          </div>
         </div>
+
+        <Link to="/add-product">
+          <button
+            type="button"
+            style={{
+              marginTop: "45px",
+              marginRight: "10px",
+
+              minHeight: "40px",
+              height: "40px",
+              width: "40px",
+              borderRadius: "8px",
+              backgroundColor: "rgb(249, 220, 92)",
+              borderWidth: "0px",
+              color: "rgb(0,0,0)",
+              fontWeight: "bold",
+              fontSize: "30px",
+              textAlign: "center",
+              opacity: "1",
+            }}
+          >
+            +
+          </button>
+        </Link>
       </div>
 
       {!isLoading && prods.length === 0 ? (
@@ -390,7 +391,6 @@ export default function Products() {
                 paddingTop: "5px",
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "center",
               }}
             >
               <div
@@ -440,215 +440,275 @@ export default function Products() {
               <div
                 style={{
                   width: "80%",
-                  marginTop: "50px",
+                  maxWidth: "700px",
+                  marginTop: "70px",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  gap: "20px",
                 }}
               >
-                <p
-                  style={{
-                    fontWeight: "600",
-                    fontSize: "14px",
-                    color: "rgb(70,83,98)",
-                    textAlign: "left",
-                  }}
-                >
-                  SERVICE / PRODUCT NAME
-                </p>
-                <input
-                  required
-                  name="prodName"
-                  value={prodInfo.prodName}
-                  onChange={handleChange}
-                />
-              </div>
-              <div
-                style={{
-                  width: "80%",
-                }}
-              >
-                <p
-                  style={{
-                    fontWeight: "600",
-                    fontSize: "14px",
-                    color: "rgb(70,83,98)",
-                    textAlign: "left",
-                  }}
-                >
-                  DESCRIPTION
-                </p>
-                <input
-                  name="prodDesc"
-                  value={prodInfo.prodDesc}
-                  onChange={handleChange}
-                />
-              </div>
-              <div
-                style={{
-                  width: "80%",
-                }}
-              >
-                <p
-                  style={{
-                    fontWeight: "600",
-                    fontSize: "14px",
-                    color: "rgb(70,83,98)",
-                    textAlign: "left",
-                  }}
-                >
-                  PRICE: R
-                </p>
-                <input
-                  required
-                  name="prodPrice"
-                  value={prodInfo.prodPrice}
-                  onChange={handleChange}
-                />
-              </div>
-              <div
-                style={{
-                  width: "80%",
-                }}
-              >
-                <p
-                  style={{
-                    fontWeight: "600",
-                    fontSize: "14px",
-                    color: "rgb(70,83,98)",
-                    textAlign: "left",
-                  }}
-                >
-                  STATUS
-                </p>
                 <div
                   style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    margin: "0 auto 0 auto",
-                    width: "80%",
-                    gap: "15px",
+                    width: "100%",
+                    marginTop: "30px",
+                    marginLeft: "auto",
+                    marginRight: "auto",
                   }}
                 >
-                  <div
-                    onClick={() =>
-                      setProdInfo((prev) => ({
-                        ...prev,
-                        status: "active",
-                      }))
-                    }
+                  <p
                     style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
+                      fontWeight: "600",
                       fontSize: "14px",
-                      border: "none",
+                      color: "rgb(70,83,98)",
+                      textAlign: "left",
                     }}
                   >
-                    ACTIVE
-                    <div
-                      style={{
-                        height: "15px",
-                        width: "15px",
-                        borderRadius: "4px",
-                        border: "2px solid rgb(70,83,98)",
-                        backgroundColor:
-                          prodInfo.status === "active"
-                            ? "#465362"
-                            : "transparent",
-                        transition: "0.6s",
-                      }}
-                    ></div>
-                  </div>
-                  <div
-                    onClick={() =>
-                      setProdInfo((prev) => ({
-                        ...prev,
-                        status: "inactive",
-                      }))
-                    }
+                    SERVICE / PRODUCT NAME
+                  </p>
+                  <input
+                    required
+                    name="prodName"
+                    value={prodInfo.prodName}
+                    onChange={handleChange}
                     style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
+                      height: "35px",
+                      width: "100%",
+                      marginTop: "5px",
+                      borderRadius: "4px",
+                      padding: "8px 10px 8px 10px",
                       fontSize: "14px",
                       border: "none",
+                      backgroundColor: "rgba(0,0,0,0.035)",
+                      fontWeight: "bold",
+                      display: "flex",
+                    }}
+                  />
+                </div>
+                <div
+                  style={{
+                    width: "100%",
+                    marginTop: "50px",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight: "600",
+                      fontSize: "14px",
+                      color: "rgb(70,83,98)",
+                      textAlign: "left",
                     }}
                   >
-                    INACTIVE
-                    <div
-                      style={{
-                        height: "15px",
-                        width: "15px",
-                        borderRadius: "4px",
-                        border: "2px solid rgb(70,83,98)",
-                        backgroundColor:
-                          prodInfo.status === "inactive"
-                            ? "#465362"
-                            : "transparent",
-                        transition: "0.6s",
-                      }}
-                    ></div>
-                  </div>
+                    DESCRIPTION
+                  </p>
+                  <input
+                    name="prodDesc"
+                    value={prodInfo.prodDesc}
+                    onChange={handleChange}
+                    style={{
+                      marginRight: "auto",
+                      marginLeft: "auto",
+                      height: "35px",
+                      width: "100%",
+                      marginTop: "5px",
+                      borderRadius: "4px",
+                      padding: "8px 10px 8px 10px",
+                      fontSize: "14px",
+                      border: "none",
+                      backgroundColor: "rgba(0,0,0,0.035)",
+                      fontWeight: "bold",
+                    }}
+                  />
+                </div>
+                <div
+                  style={{
+                    width: "100%",
+                    marginTop: "50px",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight: "600",
+                      fontSize: "14px",
+                      color: "rgb(70,83,98)",
+                      textAlign: "left",
+                    }}
+                  >
+                    PRICE: R
+                  </p>
+                  <input
+                    required
+                    name="prodPrice"
+                    value={prodInfo.prodPrice}
+                    onChange={handleChange}
+                    style={{
+                      height: "35px",
+                      width: "100%",
+                      marginTop: "5px",
+                      borderRadius: "4px",
+                      padding: "8px 10px 8px 10px",
+                      fontSize: "14px",
+                      border: "none",
+                      backgroundColor: "rgba(0,0,0,0.035)",
+                      fontWeight: "bold",
+                    }}
+                  />
                 </div>
 
                 <div
                   style={{
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    marginBottom: "50px",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    marginTop: "50px",
+                    width: "90%",
                   }}
                 >
-                  <div
+                  <p
                     style={{
-                      width: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
+                      fontWeight: "600",
+                      fontSize: "14px",
+                      color: "rgb(70,83,98)",
+                      textAlign: "left",
                     }}
                   >
-                    <button
-                      type="submit"
-                      style={{
-                        height: "40px",
-                        width: "85%",
-                        marginTop: "30px",
-                        backgroundColor: "rgb(249,220,92)",
-                        border: "none",
-                        borderRadius: "4px",
-                        fontWeight: "bold",
-                        cursor: "pointer",
-                        transition: "0.3s",
-                      }}
-                    >
-                      UPDATE
-                    </button>
-                  </div>
+                    STATUS
+                  </p>
                   <div
                     style={{
-                      width: "100%",
                       display: "flex",
                       flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <button
-                      onClick={() => nav("/products")}
-                      style={{
-                        height: "40px",
-                        width: "85%",
-                        marginTop: "20px",
+                      width: "100%",
+                      margin: "0 auto 0 auto",
 
+                      gap: "15px",
+                    }}
+                  >
+                    <div
+                      onClick={() =>
+                        setProdInfo((prev) => ({
+                          ...prev,
+                          status: "active",
+                        }))
+                      }
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        fontSize: "14px",
                         border: "none",
-                        borderRadius: "4px",
-                        fontWeight: "bold",
-                        cursor: "pointer",
-                        transition: "0.3s",
                       }}
                     >
-                      CANCEL
-                    </button>
+                      ACTIVE
+                      <div
+                        style={{
+                          height: "15px",
+                          width: "15px",
+                          borderRadius: "4px",
+                          border: "2px solid rgb(70,83,98)",
+                          backgroundColor:
+                            prodInfo.status === "active"
+                              ? "#465362"
+                              : "transparent",
+                          transition: "0.6s",
+                        }}
+                      ></div>
+                    </div>
+                    <div
+                      onClick={() =>
+                        setProdInfo((prev) => ({
+                          ...prev,
+                          status: "inactive",
+                        }))
+                      }
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        fontSize: "14px",
+                        border: "none",
+                      }}
+                    >
+                      INACTIVE
+                      <div
+                        style={{
+                          height: "15px",
+                          width: "15px",
+                          borderRadius: "4px",
+                          border: "2px solid rgb(70,83,98)",
+                          backgroundColor:
+                            prodInfo.status === "inactive"
+                              ? "#465362"
+                              : "transparent",
+                          transition: "0.6s",
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      marginBottom: "50px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <button
+                        type="submit"
+                        style={{
+                          height: "40px",
+                          width: "100%",
+                          marginTop: "30px",
+                          backgroundColor: "rgb(249,220,92)",
+                          border: "none",
+                          borderRadius: "4px",
+                          fontWeight: "bold",
+                          cursor: "pointer",
+                          transition: "0.3s",
+                        }}
+                      >
+                        UPDATE
+                      </button>
+                    </div>
+                    <div
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <button
+                        onClick={() => nav("/products")}
+                        style={{
+                          height: "40px",
+                          width: "100%",
+                          marginTop: "20px",
+
+                          border: "none",
+                          borderRadius: "4px",
+                          fontWeight: "bold",
+                          cursor: "pointer",
+                          transition: "0.3s",
+                        }}
+                      >
+                        CANCEL
+                      </button>
+                    </div>
                   </div>
                 </div>
                 {/* <button
