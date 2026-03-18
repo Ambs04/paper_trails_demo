@@ -19,6 +19,8 @@ export default function Customers() {
   const nav = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
+  const [searchCustomer, setSearchCustomer] = useState("");
+
   useEffect(() => {
     const fetchCustomers = async () => {
       setIsLoading(true);
@@ -44,6 +46,12 @@ export default function Customers() {
     };
     fetchCustomers();
   }, []);
+
+  const filteredCustomers = customer.filter((c) =>
+    [c.companyName, c.email].some((field) =>
+      field?.toLowerCase().includes(searchCustomer.toLowerCase()),
+    ),
+  );
 
   const handleCustomerDetailsUpdate = (updatedCustomerInfo) => {
     const updatedDetails = customer.map((client) =>
@@ -85,7 +93,7 @@ export default function Customers() {
             paddingRight: "20px",
           }}
         >
-          <Searchbar />
+          <Searchbar value={searchCustomer} onChange={setSearchCustomer} />
         </div>
 
         <Link
@@ -126,13 +134,13 @@ export default function Customers() {
           gap: "20px",
         }}
       >
-        {!isLoading && customer?.length === 0 ? (
+        {!isLoading && filteredCustomers?.length === 0 ? (
           <p>No customers found.</p>
         ) : (
-          customer?.map((item) => (
+          filteredCustomers?.map((c) => (
             <div
-              key={item._id}
-              onClick={() => setSelectedCustomer(item)}
+              key={c._id}
+              onClick={() => setSelectedCustomer(c)}
               style={{
                 width: "100%",
 
@@ -171,7 +179,7 @@ export default function Customers() {
                         paddingLeft: "0px",
                       }}
                     >
-                      {item.companyName}
+                      {c.companyName}
                     </p>
                   </div>
                   <div style={{ marginTop: "5px", marginLeft: "10px" }}>
@@ -195,7 +203,7 @@ export default function Customers() {
                         paddingLeft: "0px",
                       }}
                     >
-                      {item.email}
+                      {c.email}
                     </p>
                   </div>
                   <div style={{ marginTop: "5px", marginLeft: "5px" }}>
@@ -219,7 +227,7 @@ export default function Customers() {
                         paddingLeft: "5px",
                       }}
                     >
-                      {item.cellNumber}
+                      {c.cellNumber}
                     </p>
                   </div>
                   <div style={{ marginTop: "5px", marginLeft: "10px" }}>
@@ -244,7 +252,7 @@ export default function Customers() {
                         marginBottom: "7px",
                       }}
                     >
-                      {item.contactPerson}
+                      {c.contactPerson}
                     </p>
                   </div>
                 </div>
@@ -269,7 +277,7 @@ export default function Customers() {
                         paddingLeft: "0px",
                       }}
                     >
-                      {item.address}
+                      {c.address}
                     </p>
                   </div>
                   <div style={{ marginTop: "5px", marginLeft: "10px" }}>
@@ -292,7 +300,7 @@ export default function Customers() {
                         paddingLeft: "0px",
                       }}
                     >
-                      {item.paymentTerms}
+                      {c.paymentTerms}
                     </p>
                   </div>
                   <div style={{ marginTop: "5px", marginLeft: "10px" }}>
@@ -315,7 +323,7 @@ export default function Customers() {
                         paddingLeft: "0px",
                       }}
                     >
-                      {item.status}
+                      {c.status}
                     </p>
                   </div>
                 </div>

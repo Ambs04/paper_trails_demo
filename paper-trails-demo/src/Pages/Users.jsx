@@ -20,6 +20,8 @@ export default function Users() {
   const nav = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
+  const [searchUser, setSearchUser] = useState("");
+
   useEffect(() => {
     const fetchUsers = async () => {
       setIsLoading(true);
@@ -46,6 +48,12 @@ export default function Users() {
     };
     fetchUsers();
   }, []);
+
+  const filteredUsers = newUser.filter((u) =>
+    [`${u.firstName} ${u.lastName}`].some((field) =>
+      field?.toLowerCase().includes(searchUser.toLowerCase()),
+    ),
+  );
 
   const handleUserEdit = (newUser) => {
     setSelectedUser(newUser);
@@ -129,7 +137,7 @@ export default function Users() {
             paddingRight: "10px",
           }}
         >
-          <Searchbar />
+          <Searchbar value={searchUser} onChange={setSearchUser} />
         </div>
 
         <Link
@@ -160,7 +168,7 @@ export default function Users() {
         </Link>
       </div>
 
-      {!isLoading && newUser.length === 0 ? (
+      {!isLoading && filteredUsers.length === 0 ? (
         <p>No users found yet</p>
       ) : (
         <div
@@ -174,10 +182,10 @@ export default function Users() {
             gap: "10px",
           }}
         >
-          {newUser.map((user) => (
+          {filteredUsers.map((u) => (
             <div
-              key={user.id || user._id}
-              onClick={() => handleUserEdit(user)}
+              key={u.id || u._id}
+              onClick={() => handleUserEdit(u)}
               style={{
                 display: "grid",
                 gridTemplateColumns: "3fr 1fr",
@@ -209,7 +217,7 @@ export default function Users() {
                       paddingLeft: "0px",
                     }}
                   >
-                    {user.firstName} {user.lastName}
+                    {u.firstName} {u.lastName}
                   </p>
                 </div>
 
@@ -234,7 +242,7 @@ export default function Users() {
                       paddingLeft: "0px",
                     }}
                   >
-                    {user.email}
+                    {u.email}
                   </p>
                 </div>
                 {/* phone number*/}
@@ -258,7 +266,7 @@ export default function Users() {
                       paddingLeft: "0px",
                     }}
                   >
-                    {user.cellNumber}
+                    {u.cellNumber}
                   </p>
                 </div>
               </div>
@@ -289,7 +297,7 @@ export default function Users() {
                       paddingTop: "0px",
                     }}
                   >
-                    {user.accountStatus || "active"}
+                    {u.accountStatus || "active"}
                   </p>
                 </div>
               </div>

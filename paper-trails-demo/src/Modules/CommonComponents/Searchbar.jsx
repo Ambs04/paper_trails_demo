@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 
-export default function Searchbar() {
+export default function Searchbar({ value, onChange }) {
   const locate = useLocation();
 
   const location = locate.pathname;
@@ -9,6 +9,8 @@ export default function Searchbar() {
     <>
       <label style={{ fontWeight: "700" }}></label>
       <input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         type="text"
         placeholder={`Search ${location.replace("/", "")}`.toUpperCase()}
         style={{

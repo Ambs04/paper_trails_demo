@@ -27,6 +27,8 @@ export default function Products() {
   );
   const nav = useNavigate();
 
+  const [searchProd, setSearchProd] = useState("");
+
   useEffect(() => {
     const fetchProds = async () => {
       const savedId = localStorage.getItem("companyId");
@@ -50,6 +52,10 @@ export default function Products() {
     };
     fetchProds();
   }, []);
+
+  const filteredProducts = prods.filter((item) =>
+    item.productOrServiceName.toLowerCase().includes(searchProd.toLowerCase()),
+  );
 
   const handleChange = (e) => {
     setProdInfo({ ...prodInfo, [e.target.name]: e.target.value });
@@ -182,7 +188,7 @@ export default function Products() {
             paddingRight: "10px",
           }}
         >
-          <Searchbar />
+          <Searchbar value={searchProd} onChange={setSearchProd} />
         </div>
 
         <Link to="/add-product">
@@ -210,7 +216,7 @@ export default function Products() {
         </Link>
       </div>
 
-      {!isLoading && prods.length === 0 ? (
+      {!isLoading && filteredProducts.length === 0 ? (
         <p>No products found.</p>
       ) : (
         <div
@@ -224,11 +230,11 @@ export default function Products() {
             gap: "10px",
           }}
         >
-          {prods.map((product) => (
+          {filteredProducts.map((item) => (
             <div
-              key={product.id || product._id}
+              key={item.id || item._id}
               onClick={() => {
-                handleEditModalOpen(product);
+                handleEditModalOpen(item);
               }}
               style={{
                 display: "grid",
@@ -268,7 +274,7 @@ export default function Products() {
                       paddingLeft: "0px",
                     }}
                   >
-                    {product.productOrServiceName}
+                    {item.productOrServiceName}
                   </p>
                 </div>
 
@@ -291,7 +297,7 @@ export default function Products() {
                       paddingLeft: "0px",
                     }}
                   >
-                    {product.description}
+                    {item.description}
                   </p>
                 </div>
                 <div>
@@ -313,7 +319,7 @@ export default function Products() {
                       paddingLeft: "2px",
                     }}
                   >
-                    R{product.price}
+                    R{item.price}
                   </p>
                 </div>
               </div>
@@ -344,7 +350,7 @@ export default function Products() {
                       paddingLeft: "0px",
                     }}
                   >
-                    {product.status}
+                    {item.status}
                   </p>
                 </div>
               </div>
