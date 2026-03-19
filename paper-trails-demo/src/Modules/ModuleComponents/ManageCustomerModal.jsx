@@ -1807,14 +1807,15 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
           <div
             id="invoice"
             style={{
-              display: "none",
+              display: "flex",
               flexDirection: "column",
-              width: 450,
+
               position: "absolute",
               minHeight: 625,
-
+              left: "-9999px",
               background: "white",
-
+              width: "794px",
+              padding: "30px",
               top: 0,
             }}
           >
@@ -1848,6 +1849,9 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                   textAlign: "right",
                   display: "flex",
                   flexDirection: "column",
+                  width: "100%",
+                  borderCollapse: "collapse",
+                  marginTop: "20px",
                 }}
               >
                 <p>{selectedInvoice?.billingCompanyInfo.companyName}</p>
@@ -1976,8 +1980,11 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
           >
             <h5
               style={{
-                color: "#777",
-                fontSize: 14,
+                fontSize: "16px",
+                fontWeight: "bold",
+                color: "#000",
+                borderTop: "2px solid #000",
+                paddingTop: "10px",
               }}
             >
               GRAND TOTAL DUE: R {Number(selectedInvoice?.total).toFixed(2)}
