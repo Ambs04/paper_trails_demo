@@ -33,6 +33,7 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
       companyName: editCustomer.companyName,
       customerId: editCustomer._id,
       companyId: localStorage.getItem("companyId"),
+
       email: editCustomer.email,
       cellNumber: editCustomer.cellNumber,
       address: editCustomer.address,
@@ -97,6 +98,9 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
     const invoiceData = {
       companyId: localStorage.getItem("companyId"),
       customerId: customer._id,
+      companyLogoId: localStorage.getItem("companyLogo"),
+      colors1: localStorage.getItem("colors1"),
+      colors2: localStorage.getItem("colors2"),
 
       customerInfo: {
         name: customer.companyName,
@@ -255,15 +259,17 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
 
     setRenderPDFTemplate(true);
 
-    const element = await new jsPDF("portrait", "px", "a4");
-    element.html(document.getElementById("invoice")).then(() => {
-      element.getFontList();
+    setTimeout(async () => {
+      const element = await new jsPDF("portrait", "px", "a4");
+      element.html(document.getElementById("invoice")).then(() => {
+        element.getFontList();
 
-      const fileName = invoiceId.slice(-6).toUpperCase();
-      element.save(`INV-${fileName}.pdf`);
-    });
-    // setDownloading(false);
-    setRenderPDFTemplate(false);
+        const fileName = invoiceId.slice(-6).toUpperCase();
+        element.save(`INV-${fileName}.pdf`);
+      });
+      // setDownloading(false);
+      setRenderPDFTemplate(false);
+    }, 150);
   };
 
   return (
@@ -878,8 +884,7 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                     ? "PAID INVOICES"
                     : "UNPAID INVOICES"}
                 </h4>
-
-*/}
+                  */}
 
                 <div
                   style={{
@@ -924,7 +929,14 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                   </button>
                 </div>
 
-                <div style={{ paddingTop: "150px", width: "100%" }}>
+                <div
+                  style={{
+                    paddingTop: "150px",
+                    width: "100%",
+                    position: "relative",
+                    top: "-100px",
+                  }}
+                >
                   <div>
                     <p style={{ marginBottom: "0px" }}>Date: {currentDate}</p>
                   </div>
@@ -1054,6 +1066,9 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                       gap: "2px",
                       width: "100%",
                       marginTop: "20px",
+                      position: "relative",
+                      top: "-100px",
+                      transition: "0.6s",
                     }}
                   >
                     <button
@@ -1121,6 +1136,8 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              position: "relative",
+              top: "-100px",
             }}
           >
             {Array.isArray(history) &&
@@ -1398,7 +1415,7 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                 </label>
                 <div
                   style={{
-                    width: "95%",
+                    width: "100%",
                     display: "flex",
                     alignItems: "center",
                     height: "50px",
@@ -1419,7 +1436,13 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                 </div>
               </div>
               {editingInvoice && selectedInvoice && (
-                <p style={{ paddingLeft: "10px" }}>
+                <p
+                  style={{
+                    width: "100%",
+                    position: "fixed",
+                    right: "0px",
+                  }}
+                >
                   Invoice ID: {selectedInvoice._id.slice(-6).toUpperCase()}
                 </p>
               )}
@@ -1803,280 +1826,233 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
             </div>
           )}
 
-          {/*{renderPDFTemplate && selectedInvoice && (*/}
-          <div
-            id="invoice"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-
-              position: "absolute",
-              minHeight: 625,
-              left: "-9999px",
-              background: "white",
-              width: "794px",
-              padding: "30px",
-              top: 0,
-            }}
-          >
-            {/*HEADER*/}
+          {renderPDFTemplate && selectedInvoice && (
             <div
+              id="invoice"
               style={{
-                minHeight: 40,
-                width: "100%",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "flex-start",
-                marginTop: 20,
-                marginLeft: 20,
-              }}
-            >
-              <div style={{ display: "flex" }}>
-                <img
-                  style={{
-                    height: 100,
-                    width: 100,
-                    marginRight: 20,
-                    marginBottom: 5,
-                  }}
-                />
-              </div>
-              <div
-                style={{
-                  position: "absolute",
-                  top: 60,
-                  right: 25,
-                  textAlign: "right",
-                  display: "flex",
-                  flexDirection: "column",
-                  width: "100%",
-                  borderCollapse: "collapse",
-                  marginTop: "20px",
-                }}
-              >
-                <p>{selectedInvoice?.billingCompanyInfo.companyName}</p>
-                <p>
-                  Invoice Ref: INV-
-                  {selectedInvoice?._id.slice(-6).toUpperCase()}
-                </p>
-                <p>Date: {selectedInvoice?.dateCreated}</p>
-              </div>
-            </div>
-            {/*SUB HEADER*/}
-            <div
-              style={{
-                fontSize: 14,
-                width: "100%",
-                color: "#777",
-                marginTop: 20,
-                marginLeft: 20,
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "flex-start",
+                width: 450,
+                position: "fixed",
+                top: 0,
+                left: "0",
+                minHeight: 625,
+                fontFamily: "Arial",
+                backgroundColor: "white",
               }}
             >
-              <h4>BILL TO:</h4>
-              <p>{selectedInvoice?.customerInfo?.companyName}</p>
-              <p>{selectedInvoice?.customerInfo?.email}</p>
-              <p>{selectedInvoice?.customerInfo?.cellNumber}</p>
-              <p>{selectedInvoice?.customerInfo?.contactPerson}</p>
-
-              <div>
-                <p>{selectedInvoice?.customerInfo?.address}</p>
-              </div>
-            </div>
-          </div>
-          {/*MAIN CONTENT*/}
-          <div>
-            <table
-              style={{
-                fontSize: 10,
-                fontWeight: "bold",
-                opacity: 0.5,
-                color: "#777",
-              }}
-            >
-              <thead
+              {/* 1. TOP COLOR BAR (Color 1) */}
+              <div
                 style={{
-                  borderBottom: "1px solid #777",
+                  minHeight: 40,
+                  width: "100%",
+                  backgroundColor:
+                    selectedInvoice?.colors1 || localStorage.getItem("colors1"),
+                }}
+              />
+
+              {/* 2. HEADER SECTION (Logo & Billing Info) */}
+              <div
+                style={{
+                  padding: "10px 20px",
+                  position: "relative",
+                  minHeight: 120,
                 }}
               >
-                <tr
+                {/* Dynamic Logo */}
+                <img
+                  src={
+                    selectedInvoice?.companyLogoId ||
+                    localStorage.getItem("companyLogoId")
+                  }
+                  style={{ height: 60, width: 80, objectFit: "contain" }}
+                  alt="Logo"
+                />
+
+                {/* Top Right: Invoice No & Billing Details */}
+                <div
                   style={{
-                    fontSize: 8,
-                    paddingBottom: 5,
-                    fontWeight: "bold",
-                    opacity: 0.5,
-                    color: "#777",
-                    textAlign: "left",
+                    position: "absolute",
+                    top: 10,
+                    right: 20,
+                    textAlign: "right",
+                    fontSize: 9,
                   }}
                 >
-                  <td
+                  <p
                     style={{
-                      fontSize: 8,
-                      opacity: 0.7,
-                      paddingTop: 6,
-                      paddingBottom: 6,
-                      borderBottom: "0.5px solid #00000030",
+                      fontWeight: "bold",
+                      fontSize: 11,
+                      marginBottom: 10,
                     }}
                   >
-                    ITEM
-                  </td>
-                  <td
-                    style={{
-                      fontSize: 8,
-                      opacity: 0.7,
-                      paddingTop: 6,
-                      paddingBottom: 6,
-                      borderBottom: "0.5px solid #00000030",
-                    }}
-                  >
-                    QTY
-                  </td>
-                  <td
-                    style={{
-                      fontSize: 8,
-                      opacity: 0.7,
-                      paddingTop: 6,
-                      paddingBottom: 6,
-                      borderBottom: "0.5px solid #00000030",
-                    }}
-                  >
-                    PRICE/UNIT
-                  </td>
-                  <td
-                    style={{
-                      fontSize: 8,
-                      opacity: 0.7,
-                      paddingTop: 6,
-                      paddingBottom: 6,
-                      borderBottom: "0.5px solid #00000030",
-                    }}
-                  >
-                    TOTAL
-                  </td>
-                </tr>
-              </thead>
-              <tbody>
-                {selectedInvoice?.invoicedItems.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.description}</td>
-                    <td>{item.qty}</td>
-                    <td>R {item.price.toFixed(2)}</td>
-                    <td>R {(item.qty * item.price).toFixed(2)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 20,
-              fontSize: 24,
-            }}
-          >
-            <h5
-              style={{
-                fontSize: "16px",
-                fontWeight: "bold",
-                color: "#000",
-                borderTop: "2px solid #000",
-                paddingTop: "10px",
-              }}
-            >
-              GRAND TOTAL DUE: R {Number(selectedInvoice?.total).toFixed(2)}
-            </h5>
-          </div>
-          {/*BILLER DETAILS (BANK AND CONTACT)*/}
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              marginLeft: 20,
-              marginRight: 25,
-              marginTop: 30,
-            }}
-          >
-            {/*BANK DETAILS*/}
-            <div>
-              <h4
-                style={{
-                  fontSize: 10,
-                  fontWeight: "bold",
-                  color: "#777",
-                }}
-              >
-                BANK DETAILS:
-              </h4>
-              <p>BANK: {selectedInvoice?.bankdetails?.bank}</p>
-              <p
-                style={{
-                  fontSize: 10,
-                  fontWeight: "bold",
-                  color: "#777",
-                }}
-              >
-                ACCOUNT NAME: {selectedInvoice?.bankdetails?.accountName}
-              </p>
-              <p
-                style={{
-                  fontSize: 10,
-                  fontWeight: "bold",
-                  color: "#777",
-                }}
-              >
-                ACCOUNT NUMBER: {selectedInvoice?.bankdetails?.accountNumber}
-              </p>
-            </div>
-            <div>
-              <h4
-                style={{
-                  fontSize: 10,
-                  fontWeight: "bold",
-                  color: "#777",
-                }}
-              >
-                CONTACT US:
-              </h4>
-              <p
-                style={{
-                  fontSize: 10,
-                  fontWeight: "bold",
-                  color: "#777",
-                }}
-              >
-                EMAIL: {selectedInvoice?.customerInfo?.email}
-              </p>
-              <p
-                style={{
-                  fontSize: 10,
-                  fontWeight: "bold",
-                  color: "#777",
-                }}
-              >
-                CELL: {selectedInvoice?.customerInfo?.cellNumber}
-              </p>
-            </div>
-          </div>
-          <div
-            style={{
-              width: "100%",
+                    INVOICE NO : {selectedInvoice?._id.slice(-6).toUpperCase()}
+                  </p>
+                  <p style={{ fontWeight: "bold", margin: 0 }}>
+                    BILLING COMPANY INFORMATION
+                  </p>
+                  <p style={{ margin: 0 }}>
+                    {localStorage.getItem("companyName") || "N/A"}
+                  </p>
+                  <p style={{ margin: 0 }}>
+                    {localStorage.getItem("companyCell") || "0632570577"}
+                  </p>
+                  <p style={{ margin: 0 }}>
+                    {localStorage.getItem("email") || "admin@email.com"}
+                  </p>
+                </div>
+              </div>
 
-              minHeight: 20,
-              marginTop: "auto",
-            }}
-          />
+              {/* 3. CUSTOMER INFORMATION SECTION */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  padding: "0 20px",
+                  marginTop: 10,
+                }}
+              >
+                <div style={{ fontSize: 9 }}>
+                  <h4
+                    style={{ color: "#465362", fontSize: 12, marginBottom: 5 }}
+                  >
+                    CUSTOMER INFORMATION
+                  </h4>
+                  <p style={{ margin: 2 }}>
+                    DATE : {selectedInvoice?.dateCreated}
+                  </p>
+                  <p style={{ margin: 2 }}>
+                    NAME : {selectedInvoice?.customerInfo?.name}
+                  </p>
+                  <p style={{ margin: 2 }}>
+                    EMAIL : {selectedInvoice?.customerInfo?.email}
+                  </p>
+                  <p style={{ margin: 2 }}>
+                    CONTACT NO : {selectedInvoice?.customerInfo?.cellNumber}
+                  </p>
+                  <p style={{ margin: 2 }}>
+                    CONTACT PERSON :{customer?.contactPerson}
+                  </p>
+                </div>
+                <div style={{ textAlign: "right", fontSize: 9 }}>
+                  <h4
+                    style={{ color: "#465362", fontSize: 10, marginBottom: 5 }}
+                  >
+                    CUSTOMER ADDRESS
+                  </h4>
+                  <p style={{ maxWidth: 120 }}>
+                    {customer?.address || "No Address Provided"}
+                  </p>
+                </div>
+              </div>
+
+              {/* 4. MAIN TABLE SECTION */}
+              <div style={{ padding: "20px", flex: 1 }}>
+                <table
+                  style={{
+                    width: "100%",
+                    borderCollapse: "collapse",
+                    fontSize: 8,
+                  }}
+                >
+                  <thead>
+                    <tr style={{ borderBottom: "1px solid #333" }}>
+                      <th style={{ textAlign: "left", paddingBottom: 5 }}>
+                        PRODUCT / SERVICE
+                      </th>
+                      <th style={{ textAlign: "center", paddingBottom: 5 }}>
+                        QTY
+                      </th>
+                      <th style={{ textAlign: "right", paddingBottom: 5 }}>
+                        PRICE
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedInvoice?.invoicedItems.map((item, index) => (
+                      <tr
+                        key={index}
+                        style={{ borderBottom: "1px solid #eee" }}
+                      >
+                        <td style={{ padding: "8px 0" }}>{item.description}</td>
+                        <td style={{ textAlign: "center" }}>{item.qty}</td>
+                        <td style={{ textAlign: "right" }}>
+                          R {item.price.toFixed(2)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* 5. FOOTER SECTION (Banking & Total) */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-end",
+                  padding: "20px",
+                }}
+              >
+                <div style={{ fontSize: 8 }}>
+                  <h4
+                    style={{
+                      borderBottom: "1px solid #333",
+                      display: "inline-block",
+                      marginBottom: 5,
+                    }}
+                  >
+                    Banking details
+                  </h4>
+                  <p style={{ margin: 1 }}>
+                    BANK : {selectedInvoice?.bankdetails?.bank}
+                  </p>
+                  <p style={{ margin: 1 }}>
+                    ACCOUNT TYPE :{" "}
+                    {selectedInvoice?.bankdetails?.accountType || "SAVINGS"}
+                  </p>
+                  <p style={{ margin: 1 }}>
+                    ACCOUNT NUMBER :{" "}
+                    {selectedInvoice?.bankdetails?.accountNumber}
+                  </p>
+                  <p style={{ margin: 1 }}>
+                    ACCOUNT NAME : {selectedInvoice?.bankdetails?.accountName}
+                  </p>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <h2 style={{ margin: 0, fontSize: 24 }}>
+                    R {Number(selectedInvoice?.total).toFixed(2)}
+                  </h2>
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: 10,
+                      color: "#777",
+                      letterSpacing: 1,
+                    }}
+                  >
+                    TOTAL DUE
+                  </p>
+                </div>
+              </div>
+
+              {/* 6. BOTTOM COLOR BAR (Color 2) */}
+              <div
+                style={{
+                  minHeight: 20,
+                  width: "100%",
+                  backgroundColor:
+                    selectedInvoice?.colors2 || localStorage.getItem("colors2"),
+                }}
+              />
+            </div>
+          )}
         </div>
-
-        {/*}  )}*/}
       </div>
     </>
   );
 }
+
 {
   /* <div>
                         <label>
