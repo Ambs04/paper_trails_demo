@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { baseUrl } from "../../api";
 import { jsPDF } from "jspdf";
+//import LoadingPage from "../../CommonComponents/LoadingPage";
+//import loadingLogo from "../CommonComponents/LoadingPage.jsx";
 
 export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
   const [viewOptions, setViewOptions] = useState("menu");
@@ -20,6 +22,8 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
     qty: "",
     price: "",
   });
+
+  //const [isLoading, setIsLoading] = useState(true);
 
   const [renderPDFTemplate, setRenderPDFTemplate] = useState(false);
 
@@ -1359,11 +1363,13 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
               style={{
                 width: "100vw",
                 height: "100vh",
-                marginTop: "70px",
+                marginTop: "40px",
                 padding: "0 15px",
                 display: "flex",
                 flexDirection: "column",
-
+                backgroundColor: "white",
+                position: "absolute",
+                top: "0px",
                 gap: "25px",
               }}
             >
@@ -1436,22 +1442,33 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                 </div>
               </div>
               {editingInvoice && selectedInvoice ? (
-                <p
+                <div
                   style={{
-                    width: "100%",
-                    position: "fixed",
-                    right: "0px",
+                    width: "90vw",
+                    margin: "10px auto 0 auto",
+                    display: "flex",
+                    justifyContent: "flex-end",
                   }}
                 >
-                  Invoice ID: {selectedInvoice._id.slice(-6).toUpperCase()}
-                </p>
+                  <p
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: "bold",
+
+                      padding: "4px 10px",
+                      borderRadius: "4px",
+                    }}
+                  >
+                    Invoice ID: {selectedInvoice._id.slice(-6).toUpperCase()}
+                  </p>
+                </div>
               ) : (
                 <div style={{ width: "40px" }} />
               )}
 
               <div
                 style={{
-                  marginTop: !editingInvoice ? "0px" : "70px",
+                  marginTop: "0px",
                   padding: "0 15px",
                   display: "flex",
                   flexDirection: "column",
@@ -1587,6 +1604,7 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                           const increment = [...invoiceItems];
                           increment[index].qty++;
                           setInvoiceItems(increment);
+                          //setIsLoading(true);
                         }}
                       >
                         +
@@ -1737,6 +1755,7 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                         marginTop: "20px",
                         marginLeft: "auto",
                         marginRight: "auto",
+                        width: "100%",
                       }}
                     >
                       <button
@@ -1753,6 +1772,7 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                           transition: "0.6s",
                           opacity: "1",
                           cursor: "pointer",
+                          marginLeft: "30px",
                         }}
                       >
                         UPDATE INVOICE
@@ -1771,6 +1791,7 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                           transition: "0.6s",
                           opacity: "1",
                           cursor: "pointer",
+                          marginLeft: "30px",
                         }}
                       >
                         DOWNLOAD PDF
@@ -1804,105 +1825,120 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
           )}
 
           {viewOptions === "prodService" && (
-            <div
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                backgroundColor: "white",
-                zIndex: 2000,
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              {/* HEADER BAR */}
+            <>
               <div
                 style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "white",
+                  zIndex: 2000,
                   display: "flex",
-                  alignItems: "stretch",
-                  backgroundColor: "#465362", // Dark blue-grey from your UI
-                  height: "60px",
+                  flexDirection: "column",
                 }}
               >
-                <button
-                  onClick={() => setViewOptions("add")}
-                  style={{
-                    backgroundColor: "#F4D35E", // Yellow from image
-                    border: "none",
-                    width: "60px",
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                  }}
-                >
-                  X
-                </button>
+                {/* HEADER BAR */}
                 <div
                   style={{
                     display: "flex",
-                    alignItems: "center",
-                    paddingLeft: "20px",
-                    color: "white",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                    textTransform: "uppercase",
-                    letterSpacing: "1px",
+                    alignItems: "stretch",
+                    backgroundColor: "#465362",
+                    height: "60px",
                   }}
                 >
-                  Select Product / Service
+                  <button
+                    onClick={() => setViewOptions("add")}
+                    style={{
+                      backgroundColor: "#F4D35E",
+                      border: "none",
+                      width: "60px",
+                      fontSize: "20px",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                    }}
+                  >
+                    X
+                  </button>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      paddingLeft: "20px",
+                      color: "white",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                      textTransform: "uppercase",
+                      letterSpacing: "1px",
+                    }}
+                  >
+                    Select Product / Service
+                  </div>
+                </div>
+
+                {/* CONTENT AREA */}
+                <div style={{ padding: "40px 20px" }}>
+                  <p
+                    style={{
+                      fontSize: "18px",
+                      marginBottom: "30px",
+                      color: "#333",
+                    }}
+                  >
+                    Select a product from list below
+                  </p>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "15px",
+                    }}
+                  >
+                    {Array.isArray(availableProdService) &&
+                      availableProdService.map((prod) => (
+                        <button
+                          key={prod._id}
+                          value={prod}
+                          onClick={() => {
+                            const selected = (availableProdService || []).find(
+                              (p) => p._id === prod._id,
+                            );
+
+                            if (!selected) return;
+
+                            const formatItem = {
+                              name: selected.productOrServiceName,
+                              qty: 1,
+                              price: Number(selected.price),
+                            };
+
+                            setInvoiceItems((prev) => [...prev, formatItem]);
+                            setNewItem({ desc: "", qty: "", price: "" });
+                            setViewOptions("add");
+                          }}
+                          style={{
+                            backgroundColor: "#F4D35E",
+                            border: "none",
+                            borderRadius: "10px", // Rounded corners as per image
+                            padding: "15px",
+                            fontSize: "16px",
+                            fontWeight: "bold",
+                            cursor: "pointer",
+                            width: "100%",
+                            maxWidth: "600px",
+                            alignSelf: "center",
+                            boxShadow: "0px 2px 4px rgba(0,0,0,0.1)",
+                          }}
+                        >
+                          {prod.productOrServiceName}
+                        </button>
+                      ))}
+                  </div>
                 </div>
               </div>
-
-              {/* CONTENT AREA */}
-              <div style={{ padding: "40px 20px" }}>
-                <p
-                  style={{
-                    fontSize: "18px",
-                    marginBottom: "30px",
-                    color: "#333",
-                  }}
-                >
-                  Select a product from list below
-                </p>
-
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "15px",
-                  }}
-                >
-                  {Array.isArray(availableProdService) &&
-                    availableProdService.map((prod) => (
-                      <button
-                        key={prod._id}
-                        onClick={() => {
-                          handleProdSelection(prod._id);
-
-                          addProdToInvoice();
-                        }}
-                        style={{
-                          backgroundColor: "#F4D35E",
-                          border: "none",
-                          borderRadius: "10px", // Rounded corners as per image
-                          padding: "15px",
-                          fontSize: "16px",
-                          fontWeight: "bold",
-                          cursor: "pointer",
-                          width: "100%",
-                          maxWidth: "600px",
-                          alignSelf: "center",
-                          boxShadow: "0px 2px 4px rgba(0,0,0,0.1)",
-                        }}
-                      >
-                        {prod.productOrServiceName}
-                      </button>
-                    ))}
-                </div>
-              </div>
-            </div>
+            </>
           )}
 
           {renderPDFTemplate && selectedInvoice && (
