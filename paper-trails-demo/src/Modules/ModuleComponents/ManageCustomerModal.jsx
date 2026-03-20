@@ -1435,7 +1435,7 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                   </p>
                 </div>
               </div>
-              {editingInvoice && selectedInvoice && (
+              {editingInvoice && selectedInvoice ? (
                 <p
                   style={{
                     width: "100%",
@@ -1445,6 +1445,8 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
                 >
                   Invoice ID: {selectedInvoice._id.slice(-6).toUpperCase()}
                 </p>
+              ) : (
+                <div style={{ width: "40px" }} />
               )}
 
               <div
@@ -1802,27 +1804,104 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
           )}
 
           {viewOptions === "prodService" && (
-            <div>
-              <div>
-                <button onClick={() => setViewOptions("add")}>X</button>
-                <h4>Add Product / Service</h4>
-              </div>
-              <select
-                onChange={(e) => {
-                  handleProdSelection(e.target.value);
+            <div
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                backgroundColor: "white",
+                zIndex: 2000,
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              {/* HEADER BAR */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "stretch",
+                  backgroundColor: "#465362", // Dark blue-grey from your UI
+                  height: "60px",
                 }}
               >
-                <option value="">-Select product / service-</option>
-                {Array.isArray(availableProdService) &&
-                  availableProdService.map((prod) => (
-                    <option key={prod._id} value={prod._id}>
-                      {prod.productOrServiceName}
-                    </option>
-                  ))}
-              </select>
-              <button onClick={addProdToInvoice}>Add to invoice</button>
+                <button
+                  onClick={() => setViewOptions("add")}
+                  style={{
+                    backgroundColor: "#F4D35E", // Yellow from image
+                    border: "none",
+                    width: "60px",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                  }}
+                >
+                  X
+                </button>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    paddingLeft: "20px",
+                    color: "white",
+                    fontSize: "14px",
+                    fontWeight: "bold",
+                    textTransform: "uppercase",
+                    letterSpacing: "1px",
+                  }}
+                >
+                  Select Product / Service
+                </div>
+              </div>
 
-              {/*{newItem.desc && <p>{newItem.desc}</p>}*/}
+              {/* CONTENT AREA */}
+              <div style={{ padding: "40px 20px" }}>
+                <p
+                  style={{
+                    fontSize: "18px",
+                    marginBottom: "30px",
+                    color: "#333",
+                  }}
+                >
+                  Select a product from list below
+                </p>
+
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "15px",
+                  }}
+                >
+                  {Array.isArray(availableProdService) &&
+                    availableProdService.map((prod) => (
+                      <button
+                        key={prod._id}
+                        onClick={() => {
+                          handleProdSelection(prod._id);
+
+                          addProdToInvoice();
+                        }}
+                        style={{
+                          backgroundColor: "#F4D35E",
+                          border: "none",
+                          borderRadius: "10px", // Rounded corners as per image
+                          padding: "15px",
+                          fontSize: "16px",
+                          fontWeight: "bold",
+                          cursor: "pointer",
+                          width: "100%",
+                          maxWidth: "600px",
+                          alignSelf: "center",
+                          boxShadow: "0px 2px 4px rgba(0,0,0,0.1)",
+                        }}
+                      >
+                        {prod.productOrServiceName}
+                      </button>
+                    ))}
+                </div>
+              </div>
             </div>
           )}
 
