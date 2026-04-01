@@ -146,7 +146,13 @@ export default function Profile() {
               gap: "5px",
             }}
           >
-            <div style={{ display: "flex", flex: "1" }}>
+            <div
+              style={{
+                display: "flex",
+                flex: "1",
+                justifyContent: "center",
+              }}
+            >
               <button
                 type="button"
                 onClick={() => {
@@ -173,7 +179,9 @@ export default function Profile() {
                 FREE PLAN
               </button>
             </div>
-            <div style={{ display: "flex", flex: "1" }}>
+            <div
+              style={{ display: "flex", flex: "1", justifyContent: "center" }}
+            >
               <button
                 type="button"
                 onClick={() => {
@@ -197,7 +205,9 @@ export default function Profile() {
                 SMALL PLAN
               </button>
             </div>
-            <div style={{ display: "flex", flex: "1" }}>
+            <div
+              style={{ display: "flex", flex: "1", justifyContent: "center" }}
+            >
               <button
                 type="button"
                 onClick={() => {
@@ -228,7 +238,7 @@ export default function Profile() {
               style={{
                 fontSize: "14px",
                 color: "black",
-                paddingLeft: "0px",
+                paddingLeft: "14px",
                 marginBottom: "10px",
               }}
             >
@@ -610,6 +620,7 @@ export default function Profile() {
                 }}
               />
             </div>
+            <p style={{ marginBottom: "10px" }}>ACCOUNT TYPE</p>
             <div
               style={{
                 width: "350px",
@@ -620,7 +631,6 @@ export default function Profile() {
                 margin: "0 auto 0 auto",
               }}
             >
-              <p style={{ marginBottom: "10px" }}>ACCOUNT TYPE</p>
               <div
                 style={{
                   display: "flex",
