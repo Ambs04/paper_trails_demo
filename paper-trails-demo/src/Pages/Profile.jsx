@@ -13,7 +13,9 @@ export default function Profile() {
     email: localStorage.getItem("email") || "",
     colors1: localStorage.getItem("colors1") || "",
     colors2: localStorage.getItem("colors2") || "",
-    companyLogoId: localStorage.getItem("companyLogoId") || "",
+    companyLogoId:
+      localStorage.getItem("companyLogoId") ||
+      "https://paper-trails-sa.web.app/static/media/paper_loading%204.cdb3ea950d38e2116652.png",
     compamyAddress: localStorage.getItem("compamyAddress") || "",
     companyContactInfo: "",
     companyEmail: "",
@@ -416,7 +418,10 @@ export default function Profile() {
                   }}
                 >
                   <img
-                    src={profileInfo.companyLogoId}
+                    src={
+                      profileInfo.companyLogoId ||
+                      "https://paper-trails-sa.web.app/static/media/paper_loading%204.cdb3ea950d38e2116652.png"
+                    }
                     style={{
                       maxHeight: "250px",
                       maxWidth: "100%",

@@ -266,7 +266,6 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
 
   const generatePDF = async (invoiceId) => {
     // prescriptionPdf();
-
     setRenderPDFTemplate(true);
 
     setTimeout(async () => {
@@ -1998,10 +1997,7 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
               >
                 {/* Dynamic Logo */}
                 <img
-                  src={
-                    selectedInvoice?.companyLogoId ||
-                    localStorage.getItem("companyLogoId")
-                  }
+                  src={localStorage.getItem("companyLogoId")}
                   style={{ height: 60, width: 80, objectFit: "contain" }}
                   alt="Logo"
                 />

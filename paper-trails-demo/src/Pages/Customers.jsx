@@ -130,7 +130,7 @@ export default function Customers() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
-          overflow: "hidden scroll",
+          overflowY: " scroll",
           gap: "20px",
         }}
       >
@@ -159,7 +159,12 @@ export default function Customers() {
                 }}
               >
                 <div style={{ marginTop: "10px" }}>
-                  <div style={{ marginLeft: "10px", width: "150px" }}>
+                  <div
+                    style={{
+                      marginLeft: "10px",
+                      width: "150px",
+                    }}
+                  >
                     <div
                       style={{
                         fontSize: "10px",
