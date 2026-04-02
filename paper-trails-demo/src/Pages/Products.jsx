@@ -163,7 +163,9 @@ export default function Products() {
   }
 
   return (
-    <>
+    <div
+      style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
+    >
       {isLoading && <LoadingPage logo={loadingLogo} />}
       {showAlert && <Alert showAlert={showAlert} setShowAlert={setShowAlert} />}
       <div>
@@ -225,8 +227,10 @@ export default function Products() {
             flexDirection: "column",
             alignItems: "center",
             width: "100%",
-            height: "780px",
-            overflow: "hidden scroll",
+            //height: "780px",
+            overflowY: "auto",
+            flex: "1",
+            paddingBottom: "100px",
             gap: "10px",
           }}
         >
@@ -734,6 +738,6 @@ export default function Products() {
       <div>
         <DashFooter />
       </div>
-    </>
+    </div>
   );
 }

@@ -177,8 +177,10 @@ export default function Users() {
             flexDirection: "column",
             alignItems: "center",
             width: "100%",
-            height: "780px",
-            overflow: "hidden scroll",
+            //height: "780px",
+            overflowY: "auto",
+            paddingBottom: "80px",
+            flex: "1",
             gap: "10px",
           }}
         >

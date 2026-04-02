@@ -124,13 +124,15 @@ export default function Customers() {
       <div
         style={{
           width: "100%",
-          height: "930px",
+          //height: "930px",
+          flex: "1",
           marginTop: "20px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
-          overflowY: " scroll",
+          overflowY: " auto",
+          paddingBottom: "80px",
           gap: "20px",
         }}
       >

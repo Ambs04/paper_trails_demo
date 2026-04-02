@@ -26,6 +26,8 @@ export default function Dashboard() {
           background: "#f5f6fa",
           display: "flex",
           flexDirection: "column",
+          flex: "1",
+          paddingBottom: "80px",
           overflowY: "auto",
         }}
       >

@@ -11,8 +11,8 @@ export default function Profile() {
     lastName: localStorage.getItem("lastName") || "",
     cellNumber: localStorage.getItem("cellNumber") || "",
     email: localStorage.getItem("email") || "",
-    colors1: localStorage.getItem("colors1") || "",
-    colors2: localStorage.getItem("colors2") || "",
+    colors1: localStorage.getItem("colors1") || "#f9dc5c",
+    colors2: localStorage.getItem("colors2") || "#465362",
     companyLogoId:
       localStorage.getItem("companyLogoId") ||
       "https://paper-trails-sa.web.app/static/media/paper_loading%204.cdb3ea950d38e2116652.png",
