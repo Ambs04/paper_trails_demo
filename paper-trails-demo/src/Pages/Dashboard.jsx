@@ -4,6 +4,7 @@ import Header from "../Modules/CommonComponents/Header";
 import DashFooter from "../Modules/ModuleComponents/DashFooter";
 import LoadingPage from "./../Modules/CommonComponents/LoadingPage";
 import loadingLogo from "./../assets/loading_image.png";
+import { baseUrl } from "../api";
 
 export default function Dashboard() {
   const currentPlan = localStorage.getItem("subscriptionType") || "FREE";
@@ -14,6 +15,97 @@ export default function Dashboard() {
     }, 1000);
     return () => clearTimeout(time);
   }, []);
+
+  const [statsValue, setStatsValue] = useState({
+    invoices: [],
+    customers: [],
+    products: [],
+    users: [],
+  });
+
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const companyId = localStorage.getItem("companyId");
+        if (!companyId) {
+          console.error("No companyId found in localStorage");
+          return;
+        }
+        const [invoiceRes, customerRes, productRes, userRes] =
+          await Promise.all([
+            fetch(`${baseUrl}/invoice/getInvoicesPerCustomer`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ companyId }),
+            }),
+            fetch(`${baseUrl}/customer/getCompanyCustomers`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ companyId }),
+            }),
+            fetch(`${baseUrl}/productServices/getAllProducts`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ companyId }),
+            }),
+            fetch(`${baseUrl}/user/getComapnyAllCustomers`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ companyId }),
+            }),
+          ]);
+
+        const invoices = await invoiceRes.json();
+        const customers = await customerRes.json();
+        const products = await productRes.json();
+        const users = await userRes.json();
+
+        setStatsValue({
+          invoices: invoices.invoices || invoices.invoiceList || [],
+          customers: customers.users || [],
+          products: products.products || [],
+          users: users.users || [],
+        });
+        console.log(statsValue);
+      } catch (err) {
+        console.log("Dash info fetch error", err);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
+
+  const invoiceTotal = statsValue.invoices.length;
+  const invoicePaid = statsValue.invoices.filter(
+    (i) => i.status === "paid",
+  ).length;
+  const invoiceUnpaid = statsValue.invoices.filter(
+    (i) => i.status !== "paid",
+  ).length;
+
+  const customerTotal = statsValue.customers.length;
+  const customerActive = statsValue.customers.filter(
+    (c) => c.status === "active",
+  ).length;
+  const customerInactive = statsValue.customers.filter(
+    (c) => c.status !== "active",
+  ).length;
+
+  const productTotal = statsValue.products.length;
+  const productActive = statsValue.products.filter(
+    (p) => p.status === "active",
+  ).length;
+  const productInactive = statsValue.products.filter(
+    (p) => p.status !== "active",
+  ).length;
+
+  const userTotal = statsValue.users.length;
+  const userActive = statsValue.users.filter(
+    (u) => u.accountStatus === "active",
+  ).length;
+  const userInactive = statsValue.users.filter(
+    (u) => u.accountStatus !== "active",
+  ).length;
 
   return (
     <>
@@ -101,7 +193,7 @@ export default function Dashboard() {
                     color: "black",
                   }}
                 >
-                  110
+                  {invoiceTotal}
                 </div>
 
                 <div
@@ -131,7 +223,7 @@ export default function Dashboard() {
                     color: "black",
                   }}
                 >
-                  85
+                  {invoicePaid}
                 </div>
 
                 <div
@@ -161,7 +253,7 @@ export default function Dashboard() {
                     color: "black",
                   }}
                 >
-                  25
+                  {invoiceUnpaid}
                 </div>
 
                 <div
@@ -208,7 +300,7 @@ export default function Dashboard() {
                     color: "black",
                   }}
                 >
-                  12
+                  {customerTotal}
                 </div>
 
                 <div
@@ -238,7 +330,7 @@ export default function Dashboard() {
                     color: "black",
                   }}
                 >
-                  8
+                  {customerActive}
                 </div>
 
                 <div
@@ -268,7 +360,7 @@ export default function Dashboard() {
                     color: "black",
                   }}
                 >
-                  4
+                  {customerInactive}
                 </div>
 
                 <div
@@ -315,7 +407,7 @@ export default function Dashboard() {
                     color: "black",
                   }}
                 >
-                  12
+                  {productTotal}
                 </div>
 
                 <div
@@ -345,7 +437,7 @@ export default function Dashboard() {
                     color: "black",
                   }}
                 >
-                  8
+                  {productActive}
                 </div>
 
                 <div
@@ -375,7 +467,7 @@ export default function Dashboard() {
                     color: "black",
                   }}
                 >
-                  4
+                  {productInactive}
                 </div>
 
                 <div
@@ -422,7 +514,7 @@ export default function Dashboard() {
                     color: "black",
                   }}
                 >
-                  6
+                  {userTotal}
                 </div>
 
                 <div
@@ -452,7 +544,7 @@ export default function Dashboard() {
                     color: "black",
                   }}
                 >
-                  4/5
+                  {userActive} / {userTotal}
                 </div>
 
                 <div
@@ -482,7 +574,7 @@ export default function Dashboard() {
                     color: "black",
                   }}
                 >
-                  2
+                  {userInactive}
                 </div>
 
                 <div

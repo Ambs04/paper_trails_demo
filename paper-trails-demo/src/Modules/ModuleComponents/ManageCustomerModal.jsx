@@ -4,7 +4,12 @@ import { jsPDF } from "jspdf";
 import LoadingPage from "../CommonComponents/LoadingPage";
 import loadingLogo from "../../assets/loading_image.png";
 
-export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
+export default function ManageCustomerModal({
+  customer,
+  onUpdate,
+  onClose,
+  setStatsValue,
+}) {
   const [viewOptions, setViewOptions] = useState("edit");
   const [editCustomer, setEditCustomer] = useState({ ...customer });
   const [history, setHistory] = useState(true);
@@ -75,7 +80,7 @@ export default function ManageCustomerModal({ customer, onUpdate, onClose }) {
         }),
       });
       const data = await res.json();
-
+      console.log(data);
       setHistory(Array.isArray(data.invoiceList) ? data.invoiceList : []);
     } catch (error) {
       console.log(error);
